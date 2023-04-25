@@ -16,7 +16,17 @@ namespace Gravedad
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            //Interface to choose program to track
             Application.Run(new Form1());
+
+
+            Console.WriteLine("Hola");
+
+            //Tracker
+            Application.Run(new Form1());
+
+
         }
     }
 
