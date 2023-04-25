@@ -23,17 +23,35 @@ namespace Gravedad
         {
 
         }
-        private void calcWeight_Click(object sender, EventArgs e)
+
+        private void label2_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(massEntry.Text, out double peso))
-            {
-                double pesoEnTierra = peso * GravedadDeLaTierra;
-                weightResult.Text = $"Weight in earth is: {pesoEnTierra:F2} N";
-            }
-            else
-            {
-                MessageBox.Show("Ingrese un número válido para el peso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
