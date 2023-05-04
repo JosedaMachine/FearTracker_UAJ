@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Gravedad
 {
@@ -20,22 +22,52 @@ namespace Gravedad
        [STAThread]
         static void Main()
         {
+
+            Process processToTrack = new Process();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             //Interface to choose program to track
-            Application.Run(new Form1());
+            Application.Run(new Form1(ref processToTrack));
 
+            //Thread formsEntry = new Thread(new ThreadStart(StartUI));
+            //Thread tracker = new Thread(new ThreadStart(StartTracker));
 
-            TrackerProcces();
+            //formsEntry.Start();
+            Point oldPosicion = Cursor.Position;
+            while (!processToTrack.HasExited)
+            {
+                Point posicion = Cursor.Position;
+                if(posicion != oldPosicion)
+                {
+                    oldPosicion = posicion;
+                    Console.WriteLine("Posición del ratón: X={0}, Y={1}", posicion.X, posicion.Y);
+                }
+                // Espera a que el proceso termine
+            }
+
+            Application.Run(new Form1(ref processToTrack));
 
             //Tracker
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
 
+            //if()
 
-            
+            //tracker.Start();
+
         }
-        
+
+        static void StartUI(){
+            //Interface to choose program to track
+            //Application.Run(new Form1());
+        }
+
+        static void StartTracker()
+        {
+            TrackerProcces();
+        }
+
         static void TrackerProcces()
         {
 

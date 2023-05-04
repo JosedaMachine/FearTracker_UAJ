@@ -16,10 +16,14 @@ namespace Gravedad
     {
 
         private const double GravedadDeLaTierra = 9.81;
-        public Form1()
-        {
+
+        private Process process;
+        public Form1(ref Process processToTrack)
+        {   
             InitializeComponent();
             Console.WriteLine("hola");
+
+            process = processToTrack; 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -70,21 +74,31 @@ namespace Gravedad
 
                 string extension = Path.GetExtension(filePath); 
 
+
+
                 if (extension == ".exe") {
 
-                    process = new Process();
+                    MessageBox.Show("Your applications is going to be tracked. This window will be closed.");
 
                     process.StartInfo.FileName = filePath;
 
                     process.Start();
+
+
+                    //matar
+                    this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Men ?");
                 }
             }
+
+
+            
+
         }
 
-        Process process;
+        
     }
 }
