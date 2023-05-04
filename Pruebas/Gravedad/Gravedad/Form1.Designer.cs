@@ -30,9 +30,9 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.checkBox_Mouse = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkMicrophone = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkKeyboard = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
@@ -66,19 +66,19 @@
             this.checkBox_Mouse.UseVisualStyleBackColor = true;
             this.checkBox_Mouse.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // checkBox2
+            // checkMicrophone
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.checkMicrophone.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(275, 100);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(82, 17);
-            this.checkBox2.TabIndex = 5;
-            this.checkBox2.Text = "Microphone";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.checkMicrophone.AutoSize = true;
+            this.checkMicrophone.Location = new System.Drawing.Point(275, 100);
+            this.checkMicrophone.Name = "checkMicrophone";
+            this.checkMicrophone.Size = new System.Drawing.Size(82, 17);
+            this.checkMicrophone.TabIndex = 5;
+            this.checkMicrophone.Text = "Microphone";
+            this.checkMicrophone.UseVisualStyleBackColor = true;
+            this.checkMicrophone.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -94,19 +94,19 @@
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
-            // checkBox4
+            // checkKeyboard
             // 
-            this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.checkKeyboard.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(397, 100);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(71, 17);
-            this.checkBox4.TabIndex = 6;
-            this.checkBox4.Text = "Keyboard";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.checkKeyboard.AutoSize = true;
+            this.checkKeyboard.Location = new System.Drawing.Point(397, 100);
+            this.checkKeyboard.Name = "checkKeyboard";
+            this.checkKeyboard.Size = new System.Drawing.Size(71, 17);
+            this.checkKeyboard.TabIndex = 6;
+            this.checkKeyboard.Text = "Keyboard";
+            this.checkKeyboard.UseVisualStyleBackColor = true;
+            this.checkKeyboard.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // button1
             // 
@@ -137,8 +137,8 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkKeyboard);
+            this.Controls.Add(this.checkMicrophone);
             this.Controls.Add(this.checkBox_Mouse);
             this.Controls.Add(this.label2);
             this.Name = "Form1";
@@ -152,9 +152,9 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox_Mouse;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkMicrophone;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkKeyboard;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
