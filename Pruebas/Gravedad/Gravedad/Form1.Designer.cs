@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox_Mouse = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -51,20 +51,20 @@
             this.label2.Text = "Choose Track Events";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // checkBox1
+            // checkBox_Mouse
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.checkBox_Mouse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.4F);
-            this.checkBox1.Location = new System.Drawing.Point(146, 100);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(64, 19);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Mouse";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox_Mouse.AutoSize = true;
+            this.checkBox_Mouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.4F);
+            this.checkBox_Mouse.Location = new System.Drawing.Point(146, 100);
+            this.checkBox_Mouse.Name = "checkBox_Mouse";
+            this.checkBox_Mouse.Size = new System.Drawing.Size(64, 19);
+            this.checkBox_Mouse.TabIndex = 4;
+            this.checkBox_Mouse.Text = "Mouse";
+            this.checkBox_Mouse.UseVisualStyleBackColor = true;
+            this.checkBox_Mouse.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -139,7 +139,7 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBox_Mouse);
             this.Controls.Add(this.label2);
             this.Name = "Form1";
             this.Text = "Fear Tracking";
@@ -151,7 +151,7 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox_Mouse;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;

@@ -18,7 +18,7 @@ namespace Gravedad
         private const double GravedadDeLaTierra = 9.81;
 
         private Process process;
-        public Form1(ref Process processToTrack)
+        public Form1(ref Process processToTrack, ref TrackerParams tParams)
         {   
             InitializeComponent();
             Console.WriteLine("hola");

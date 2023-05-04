@@ -10,26 +10,35 @@ using System.Windows.Forms;
 
 namespace Gravedad
 {
+    public struct TrackerParams
+    {
+        public bool mouseTracking, 
+            MicTracking, 
+            KeyboardTracking, 
+            cameraTracking;
+        //public TrackerParams() { params_ = new bool[4]; }
+    }
     internal static class Program
     {
         public static DateTime initDateTime, endDateTime;
         public static float currentTime;
         static Stopwatch stopwatch;
         static bool quit = false;
-       /// <summary>
-       /// Punto de entrada principal para la aplicación.
-       /// </summary>
-       [STAThread]
+        /// <summary>
+        /// Punto de entrada principal para la aplicación.
+        /// </summary>
+        [STAThread]
         static void Main()
         {
 
             Process processToTrack = new Process();
+            TrackerParams trackerParams = new TrackerParams();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Interface to choose program to track
-            Application.Run(new Form1(ref processToTrack));
+            Application.Run(new Form1(ref processToTrack, ref trackerParams));
 
             //Thread formsEntry = new Thread(new ThreadStart(StartUI));
             //Thread tracker = new Thread(new ThreadStart(StartTracker));
@@ -39,7 +48,7 @@ namespace Gravedad
             while (!processToTrack.HasExited)
             {
                 Point posicion = Cursor.Position;
-                if(posicion != oldPosicion)
+                if (posicion != oldPosicion)
                 {
                     oldPosicion = posicion;
                     Console.WriteLine("Posición del ratón: X={0}, Y={1}", posicion.X, posicion.Y);
@@ -47,7 +56,7 @@ namespace Gravedad
                 // Espera a que el proceso termine
             }
 
-            Application.Run(new Form1(ref processToTrack));
+            Application.Run(new Form1(ref processToTrack, ref trackerParams));
 
             //Tracker
             //Application.Run(new Form1());
@@ -58,7 +67,8 @@ namespace Gravedad
 
         }
 
-        static void StartUI(){
+        static void StartUI()
+        {
             //Interface to choose program to track
             //Application.Run(new Form1());
         }
@@ -88,7 +98,7 @@ namespace Gravedad
                                                                                         // from interrupting Threads
             Thread.CurrentThread.Priority = ThreadPriority.Highest;     // Prevents "Normal" Threads 
                                                                         // from interrupting this thread
-            //Creación de variables e instancias
+                                                                        //Creación de variables e instancias
             stopwatch = new Stopwatch();
         }
 
@@ -110,7 +120,7 @@ namespace Gravedad
             stopwatch.Reset();
             stopwatch.Start();
 
-           MessageBox.Show("Time since start app: " + currentTime + " ms\n");
+            MessageBox.Show("Time since start app: " + currentTime + " ms\n");
             MessageBox.Show("DeltaTime: " + deltaTime + " ms\n");
         }
 
