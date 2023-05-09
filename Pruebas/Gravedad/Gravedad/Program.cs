@@ -30,7 +30,7 @@ namespace Gravedad
         [STAThread]
         static void Main()
         {
-
+            
             Process processToTrack = new Process();
             TrackerParams trackerParams = new TrackerParams();
 
