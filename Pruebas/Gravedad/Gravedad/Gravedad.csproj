@@ -57,6 +57,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputTracker.cs" />
     <Compile Include="MouseTracker.cs" />
     <Compile Include="MouseReading.cs" />
     <Compile Include="Program.cs" />

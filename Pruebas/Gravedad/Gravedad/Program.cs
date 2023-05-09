@@ -43,6 +43,9 @@ namespace Gravedad
             //Thread formsEntry = new Thread(new ThreadStart(StartUI));
             //Thread tracker = new Thread(new ThreadStart(StartTracker));
 
+            //Trackers
+            InputTracker inputTracker = new InputTracker();
+
             //formsEntry.Start();
             Point oldPosicion = Cursor.Position;
             while (!processToTrack.HasExited)
@@ -53,6 +56,8 @@ namespace Gravedad
                     oldPosicion = posicion;
                     Console.WriteLine("Posición del ratón: X={0}, Y={1}", posicion.X, posicion.Y);
                 }
+
+                inputTracker.readInput();
                 // Espera a que el proceso termine
             }
 
