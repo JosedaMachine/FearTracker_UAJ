@@ -17,13 +17,11 @@ namespace Gravedad
 
         private const double GravedadDeLaTierra = 9.81;
 
-        private Process process;
-        public Form1(ref Process processToTrack, ref TrackerParams tParams)
+        SharedObject shared_;
+        public Form1(ref SharedObject shared)
         {   
             InitializeComponent();
-            Console.WriteLine("hola");
-
-            process = processToTrack; 
+            shared_ = shared;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -76,17 +74,17 @@ namespace Gravedad
 
 
 
-                if (extension == ".exe") {
+                if (extension == ".exe" || extension == ".mp4")
+                {
 
                     MessageBox.Show("Your applications is going to be tracked. This window will be closed.");
 
-                    process.StartInfo.FileName = filePath;
+                    shared_.Parameters.process.StartInfo.FileName = filePath;
 
-                    process.Start();
-
+                    shared_.Parameters.canStart = true;
 
                     //matar
-                    this.Close();
+                    //this.Close();
                 }
                 else
                 {
@@ -94,11 +92,12 @@ namespace Gravedad
                 }
             }
 
-
-            
-
         }
 
-        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            shared_.Parameters.canStop = true;
+            this.Close();
+        }
     }
 }
