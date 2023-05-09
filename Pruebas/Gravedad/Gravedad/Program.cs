@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,14 +10,6 @@ using System.Windows.Forms;
 
 namespace Gravedad
 {
-    public struct TrackerParams
-    {
-        public bool mouseTracking, 
-            MicTracking, 
-            KeyboardTracking, 
-            cameraTracking;
-        //public TrackerParams() { params_ = new bool[4]; }
-    }
     public class Dato
     {
         public double Tiempo { get; set; }
@@ -35,76 +27,83 @@ namespace Gravedad
         [STAThread]
         static void Main()
         {
-            
-            Process processToTrack = new Process();
+            //Parametros de tracking
             TrackerParams trackerParams = new TrackerParams();
+            trackerParams.process = new Process();
 
+            SharedObject shared = new SharedObject();
+            shared.Parameters =  trackerParams;
+
+            //Hilo para realizar el tracking
+            Thread newThread = new Thread(StartTracker);
+            newThread.Start(shared);
+
+            //Iniciar app para indicar parametros de tracking
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            //Interface to choose program to track
-            Application.Run(new Form1(ref processToTrack, ref trackerParams));
-
-            //Thread formsEntry = new Thread(new ThreadStart(StartUI));
-            //Thread tracker = new Thread(new ThreadStart(StartTracker));
-
-            //Trackers
-            InputTracker inputTracker = new InputTracker();
-            MouseTracker mouseTracker = new MouseTracker();
-
-            //formsEntry.Start();
-
-            DateTime currentTime;
-
+            Application.Run(new Form1(ref shared));
             
+            
+            //Esperar a que acabe el hilo
+            newThread.Join();
+            //InputTracker inputTracker = new InputTracker();
+            //MouseTracker mouseTracker = new MouseTracker();
 
-            while (!processToTrack.HasExited)
-            {
-                currentTime = DateTime.Now;
 
-                if (trackerParams.mouseTracking)
-                {
-                    mouseTracker.readInput(currentTime);
-                }
-                if(trackerParams.KeyboardTracking)
-                    inputTracker.readInput();
-                // Espera a que el proceso termine
-            }
+            //while (!processToTrack.HasExit    ed)
+            //{
+            //    currentTime = DateTime.Now;
 
-            Application.Run(new MetricForm());
+            //    if (trackerParams.mouseTracking)
+            //    {
+            //        mouseTracker.readInput(currentTime);
+            //    }
+            //    if(trackerParams.KeyboardTracking)
+            //        inputTracker.readInput();
+            //    // Espera a que el proceso termine
+            //}
 
-            //Tracker
-            //Application.Run(new Form1());
-
-            //if()
-
-            //tracker.Start();
-
+            //Application.Run(new MetricForm());
         }
 
-        static void StartUI()
+        static void StartTracker(object arg)
         {
-            //Interface to choose program to track
-            //Application.Run(new Form1());
+            SharedObject shared = (SharedObject)arg;
+            TrackerParams parameters = shared.Parameters;
+           
+            //Esperar a que la aplicación permita iniciarse.
+            while (!parameters.canStart) {};
+
+            //Iniciar programa
+            parameters.process.Start();
+
+            //Empezar a trackear
+            //Init();
+            //Start();
+
+            while (!parameters.canStop) { };
+            //Update();
+
+            Console.WriteLine("Deja");
+
+            // Realiza el trabajo con los argumentos
+
+            //TrackerProcces();
+
+            //Point oldPosicion = Cursor.Position;
+            //while (!processToTrack.HasExited)
+            //{
+            //    Point posicion = Cursor.Position;
+            //    if (posicion != oldPosicion)
+            //    {
+            //        oldPosicion = posicion;
+            //        Console.WriteLine("Posición del ratón: X={0}, Y={1}", posicion.X, posicion.Y);
+            //    }
+            //    // Espera a que el proceso termine
+            //}
         }
 
-        static void StartTracker()
-        {
-            TrackerProcces();
-        }
-
-        static void TrackerProcces()
-        {
-
-            Init();
-            Start();
-            while (!quit)
-            {
-                Update();
-            }
-            EndProgram();
-        }
-
+        #region Tracker
         static void Init()
         {
             //Carga de procesos e hilos
@@ -135,13 +134,10 @@ namespace Gravedad
             stopwatch.Reset();
             stopwatch.Start();
 
-            MessageBox.Show("Time since start app: " + currentTime + " ms\n");
-            MessageBox.Show("DeltaTime: " + deltaTime + " ms\n");
+            //MessageBox.Show("Time since start app: " + currentTime + " ms\n");
+            //MessageBox.Show("DeltaTime: " + deltaTime + " ms\n");
         }
+        #endregion
 
-        static void EndProgram()
-        {
-
-        }
     }
 }
