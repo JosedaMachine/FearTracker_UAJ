@@ -21,9 +21,19 @@ namespace Gravedad
         public static float currentTime;
         static Stopwatch stopwatch;
         static bool quit = false;
+
+        static MouseTracker mouseTracker;
+        static InputTracker inputTracker;
+        
+
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
+        /// 
+
+
+
+
         [STAThread]
         static void Main()
         {
@@ -46,23 +56,6 @@ namespace Gravedad
             
             //Esperar a que acabe el hilo
             newThread.Join();
-            //InputTracker inputTracker = new InputTracker();
-            //MouseTracker mouseTracker = new MouseTracker();
-
-
-            //while (!processToTrack.HasExit    ed)
-            //{
-            //    currentTime = DateTime.Now;
-
-            //    if (trackerParams.mouseTracking)
-            //    {
-            //        mouseTracker.readInput(currentTime);
-            //    }
-            //    if(trackerParams.KeyboardTracking)
-            //        inputTracker.readInput();
-            //    // Espera a que el proceso termine
-            //}
-
             //Application.Run(new MetricForm());
         }
 
@@ -78,11 +71,24 @@ namespace Gravedad
             parameters.process.Start();
 
             //Empezar a trackear
-            //Init();
-            //Start();
+            Init();
+            Start();
 
-            while (!parameters.canStop) { };
-            //Update();
+            while (!parameters.canStop) {
+
+                float deltaTime = stopwatch.ElapsedMilliseconds;
+                stopwatch.Stop();
+                currentTime += deltaTime;
+                stopwatch.Reset();
+                stopwatch.Start();
+
+                if (parameters.mouseTracking)
+                {
+                    mouseTracker.readInput(DateTime.Now);
+                }
+                if (parameters.KeyboardTracking)
+                    inputTracker.readInput();
+            };
 
             Console.WriteLine("Deja");
 
@@ -106,13 +112,10 @@ namespace Gravedad
         #region Tracker
         static void Init()
         {
-            //Carga de procesos e hilos
-            Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2); // Uses the second Core or Processor for the Test
-            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;      // Prevents "Normal" processes 
-                                                                                        // from interrupting Threads
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;     // Prevents "Normal" Threads 
-                                                                        // from interrupting this thread
-                                                                        //Creación de variables e instancias
+            //Trackers
+            inputTracker = new InputTracker();
+            mouseTracker = new MouseTracker();
+
             stopwatch = new Stopwatch();
         }
 
@@ -126,17 +129,6 @@ namespace Gravedad
             //Inicializacion de procesos
         }
 
-        static void Update()
-        {
-            float deltaTime = stopwatch.ElapsedMilliseconds;
-            stopwatch.Stop();
-            currentTime += deltaTime;
-            stopwatch.Reset();
-            stopwatch.Start();
-
-            //MessageBox.Show("Time since start app: " + currentTime + " ms\n");
-            //MessageBox.Show("DeltaTime: " + deltaTime + " ms\n");
-        }
         #endregion
 
     }

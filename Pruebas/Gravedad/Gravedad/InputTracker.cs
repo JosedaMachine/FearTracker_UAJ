@@ -10,7 +10,9 @@ namespace Gravedad
 {
     internal class InputTracker
     {
-        private List<Tuple<ConsoleKey, float>> keysRead = new List<Tuple<ConsoleKey, float>>();
+        private List<Tuple<string, float>> keysRead = new List<Tuple<string, float>>();
+        private Dictionary<int, bool> previousKeyStates = new Dictionary<int, bool>();
+
         private bool read = false;
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -26,7 +28,8 @@ namespace Gravedad
             for (int i = 0; i < 255; i++)
             {
                 int state = GetAsyncKeyState(i);
-                if (state != 0)
+                bool isPressed = (state &0x8000) != 0;
+                if (isPressed && previousKeyStates.ContainsKey(i))
                 {
                     string pressedKey = ((System.Windows.Forms.Keys)i).ToString();
                     switch (pressedKey)
@@ -36,6 +39,8 @@ namespace Gravedad
                             break;
                     }
                 }
+
+                previousKeyStates[i] = isPressed;
             }
         }
 

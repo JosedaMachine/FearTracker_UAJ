@@ -38,25 +38,29 @@ namespace Gravedad
         {
 
         }
-
+        //mouse
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox checkBox = sender as CheckBox;
+            shared_.Parameters.mouseTracking = checkBox.Checked;
         }
-
+        //Microphone
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox checkBox = sender as CheckBox;
+            shared_.Parameters.MicTracking = checkBox.Checked;
         }
-
+        //Camera
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox checkBox = sender as CheckBox;
+            shared_.Parameters.cameraTracking = checkBox.Checked;
         }
-
+        //Keyboard
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox checkBox = sender as CheckBox;
+            shared_.Parameters.KeyboardTracking = checkBox.Checked;
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
