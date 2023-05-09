@@ -12,7 +12,7 @@ namespace Gravedad
 {
     public class Dato
     {
-        public string type { get; set; }
+        public int typeId { get; set; }
         public double time { get; set; }
         public double y { get; set; }
     }
@@ -57,7 +57,7 @@ namespace Gravedad
             
             //Esperar a que acabe el hilo
             newThread.Join();
-            //Application.Run(new MetricForm());
+            Application.Run(new MetricForm(ref shared));
         }
 
         static void StartTracker(object arg)

@@ -47,14 +47,13 @@ namespace Gravedad
         //Microphone
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.MicTracking = checkBox.Checked;
+            
         }
         //Camera
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.cameraTracking = checkBox.Checked;
+            shared_.Parameters.MicTracking = checkBox.Checked;
         }
         //Keyboard
         private void checkBox4_CheckedChanged(object sender, EventArgs e)

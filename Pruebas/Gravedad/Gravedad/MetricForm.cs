@@ -15,9 +15,12 @@ namespace Gravedad
 {
     public partial class MetricForm : Form
     {
-        public MetricForm()
+        SharedObject shared_;
+        public MetricForm(ref SharedObject shared)
         {
+            shared_ = shared;
             InitializeComponent();
+
         }
 
         private void MetricForm_Load(object sender, EventArgs e)
@@ -26,33 +29,44 @@ namespace Gravedad
             string json = File.ReadAllText("datos.json");
             List<Dato> datos = JsonConvert.DeserializeObject<List<Dato>>(json);
 
-            // Crear la serie de los gráficos
-            Series micSerie = createSeries(ref MicChart);
-            Series ratonSerie = createSeries(ref mouseChart);
-            Series tecladoSerie = createSeries(ref keyboardChart);
+            Series[] series = new Series[3];
 
-            // Agregar los puntos de datos a la serie
+            Console.WriteLine();
+
+            // Crear la serie de los gráficos
+            if (shared_.Parameters.MicTracking)
+            {
+                //Mic
+                series[0] = createSeries(ref MicChart);
+                series[0].Color = Color.Violet;
+            }
+
+            if (shared_.Parameters.mouseTracking)
+            {
+                //mouse
+                series[1] = createSeries(ref mouseChart);
+                series[1].Color = Color.Tomato;
+            }
+
+            if (shared_.Parameters.KeyboardTracking)
+                //keyboard
+                series[2] = createSeries(ref keyboardChart);
+            
+
+            // Agregar los puntos de datos a las series
             foreach (Dato dato in datos)
             {
                 DataPoint punto = new DataPoint(dato.time, dato.y);
-                switch (dato.type)
-                {
-                    case "microphone":
-                        micSerie.Points.Add(punto);
-                        break;
-                    case "mouse":
-                        ratonSerie.Points.Add(punto);
-                        break;
-                    case "keyboard":
-                        tecladoSerie.Points.Add(punto);
-                        break;
-                }          
+                series[dato.typeId].Points.Add(punto);
             }
 
             // Configurar los ejes del gráfico
-            configureAxis(ref MicChart, "Sonido (db)");
-            configureAxis(ref mouseChart, "Velocidad (m/s)");
-            configureAxis(ref keyboardChart, "Num inputs?");
+            if (shared_.Parameters.MicTracking)
+                configureAxis(ref MicChart, "Sonido (db)");
+            if (shared_.Parameters.mouseTracking)
+                configureAxis(ref mouseChart, "Velocidad (m/s)");
+            if (shared_.Parameters.KeyboardTracking)
+                configureAxis(ref keyboardChart, "Num inputs?");
 
         }
         private void configureAxis(ref Chart chart, string y)

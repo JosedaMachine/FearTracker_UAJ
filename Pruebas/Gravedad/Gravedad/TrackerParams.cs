@@ -12,7 +12,7 @@ namespace Gravedad
         public bool mouseTracking { get; set; }
         public bool MicTracking { get; set; }
         public bool KeyboardTracking { get; set; }
-        public bool cameraTracking { get; set; }
+        //public bool cameraTracking { get; set; }
 
         public Process process { get; set; }
         public bool canStart { get; set; }
