@@ -20,8 +20,9 @@ namespace Gravedad
     }
     public class Dato
     {
-        public double Tiempo { get; set; }
-        public double Velocidad { get; set; }
+        public string type { get; set; }
+        public double time { get; set; }
+        public double y { get; set; }
     }
     internal static class Program
     {
