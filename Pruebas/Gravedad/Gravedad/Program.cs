@@ -64,36 +64,40 @@ namespace Gravedad
             {
                 currentTime = DateTime.Now;
 
-                #region MouseTracking
-                Point currentMousePosition = Cursor.Position;
-
-                //We calculate how much the muse has moved in this iteration
-                int mouseDifferenceX = Math.Abs(oldMousePosition.X - currentMousePosition.X);
-                int mouseDifferenceY = Math.Abs(oldMousePosition.Y - currentMousePosition.Y);
-                mousePositionDifference = mouseDifferenceX + mouseDifferenceY;
-
-                //We only determine the average and register the input if the difference surpasses the offset
-                if (mousePositionDifference >= offsetMouseDifference)
+                if (trackerParams.mouseTracking)
                 {
-                    //We avoid getting various mouseScareEvents if one has already ocurred recently
-                    if ((currentTime - lastMouseScareTime).Seconds > mouseScareTimeOffset)
-                    {
-                        //Determining if the user was scared or not
-                        if (mousePositionDifference > averageDifference * scaredMouseMultiplier)
-                        {
-                            lastMouseScareTime = DateTime.Now;
-                            Console.WriteLine("SUSTO RATON");
-                        }
-                    }
+                    #region MouseTracking
+                    Point currentMousePosition = Cursor.Position;
 
-                    //We determine the new average
-                    numberOfMovements++;
-                    averageDifference = (double)((averageDifference * (numberOfMovements - 1) + mousePositionDifference)) / (double)numberOfMovements;
-                    oldMousePosition = currentMousePosition;
-                    //Console.WriteLine("Diferencia de movimiento: X={0}", mousePositionDifference);
-                    
+                    //We calculate how much the muse has moved in this iteration
+                    int mouseDifferenceX = Math.Abs(oldMousePosition.X - currentMousePosition.X);
+                    int mouseDifferenceY = Math.Abs(oldMousePosition.Y - currentMousePosition.Y);
+                    mousePositionDifference = mouseDifferenceX + mouseDifferenceY;
+
+                    //We only determine the average and register the input if the difference surpasses the offset
+                    if (mousePositionDifference >= offsetMouseDifference)
+                    {
+                        //We avoid getting various mouseScareEvents if one has already ocurred recently
+                        if ((currentTime - lastMouseScareTime).Seconds > mouseScareTimeOffset)
+                        {
+                            //Determining if the user was scared or not
+                            if (mousePositionDifference > averageDifference * scaredMouseMultiplier)
+                            {
+                                lastMouseScareTime = DateTime.Now;
+                                Console.WriteLine("SUSTO RATON");
+                            }
+                        }
+
+                        //We determine the new average
+                        numberOfMovements++;
+                        averageDifference = (double)((averageDifference * (numberOfMovements - 1) + mousePositionDifference)) / (double)numberOfMovements;
+                        oldMousePosition = currentMousePosition;
+                        //Console.WriteLine("Diferencia de movimiento: X={0}", mousePositionDifference);
+
+                    }
+                    #endregion
                 }
-                #endregion
+
 
                 // Espera a que el proceso termine
             }
