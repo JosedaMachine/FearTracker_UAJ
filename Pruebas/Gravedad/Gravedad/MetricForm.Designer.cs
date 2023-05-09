@@ -59,6 +59,11 @@
             }
             this.SuspendLayout();
 
+            int chartWidth = shared_.Parameters.trackingCount < 3 ? (width - (offset * 2)) : ((width / 2) - (offset * 3));
+            int chartHeight = shared_.Parameters.trackingCount < 2 ? (height - (offset * 2)) : ((height / 2) - (offset * 3));
+
+            int posCont = 0;
+
             if (shared_.Parameters.MicTracking)
             {
                 // 
@@ -68,13 +73,14 @@
                 this.MicChart.ChartAreas.Add(chartArea1);
                 legend1.Name = "Legend1";
                 this.MicChart.Legends.Add(legend1);
-                this.MicChart.Location = new System.Drawing.Point(offset, offset);
+                this.MicChart.Location = new System.Drawing.Point(positionsX[posCont], positionsY[posCont]);
+                posCont++;
                 this.MicChart.Name = "MicChart";
                 series1.ChartArea = "ChartArea1";
                 series1.Legend = "Legend1";
                 series1.Name = "Microphone";
                 this.MicChart.Series.Add(series1);
-                this.MicChart.Size = new System.Drawing.Size((width / 2) - (offset * 3), (height / 2) - (offset * 3));
+                this.MicChart.Size = new System.Drawing.Size(chartWidth, chartHeight);
                 this.MicChart.TabIndex = 1;
                 this.MicChart.Text = "chart1";
             }
@@ -87,13 +93,14 @@
                 this.mouseChart.ChartAreas.Add(chartArea2);
                 legend2.Name = "Legend1";
                 this.mouseChart.Legends.Add(legend2);
-                this.mouseChart.Location = new System.Drawing.Point((width / 2) + (offset * 2), offset);
+                this.mouseChart.Location = new System.Drawing.Point(positionsX[posCont], positionsY[posCont]);
+                posCont++;
                 this.mouseChart.Name = "chart1";
                 series2.ChartArea = "ChartArea1";
                 series2.Legend = "Legend1";
                 series2.Name = "mouse";
                 this.mouseChart.Series.Add(series2);
-                this.mouseChart.Size = new System.Drawing.Size((width / 2) - (offset * 3), (height / 2) - (offset * 3));
+                this.mouseChart.Size = new System.Drawing.Size(chartWidth, chartHeight);
                 this.mouseChart.TabIndex = 2;
                 this.mouseChart.Text = "chart1";
             }
@@ -106,13 +113,14 @@
                 this.keyboardChart.ChartAreas.Add(chartArea3);
                 legend3.Name = "Legend1";
                 this.keyboardChart.Legends.Add(legend3);
-                this.keyboardChart.Location = new System.Drawing.Point((width / 2) - ((width / 2) - (offset * 3)) / 2, (height / 2) + (offset * 2));
+                this.keyboardChart.Location = new System.Drawing.Point(positionsX[posCont], positionsY[posCont]);
+                posCont++;
                 this.keyboardChart.Name = "chart2";
                 series3.ChartArea = "ChartArea1";
                 series3.Legend = "Legend1";
                 series3.Name = "Keyboard";
                 this.keyboardChart.Series.Add(series3);
-                this.keyboardChart.Size = new System.Drawing.Size((width / 2) - (offset * 3), (height / 2) - (offset * 3));
+                this.keyboardChart.Size = new System.Drawing.Size(chartWidth, chartHeight);
                 this.keyboardChart.TabIndex = 3;
                 this.keyboardChart.Text = "chart2";
             }
@@ -142,5 +150,8 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart MicChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart mouseChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart keyboardChart;
+
+        private int[] positionsY = new int[] { offset, (height / 2) + (int)(offset * 1.5f), (height / 2) - ((height / 2) - (offset * 3))/2 };
+        private int[] positionsX = new int[] { offset, offset, (width / 2) + (int)(offset * 1.5f) };
     }
 }

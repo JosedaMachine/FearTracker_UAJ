@@ -43,6 +43,11 @@ namespace Gravedad
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.mouseTracking = checkBox.Checked;
+
+            if (checkBox.Checked)
+                shared_.Parameters.trackingCount += 1;
+            else
+                shared_.Parameters.trackingCount -= 1;
         }
         //Microphone
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -54,12 +59,22 @@ namespace Gravedad
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.MicTracking = checkBox.Checked;
+
+            if (checkBox.Checked)
+                shared_.Parameters.trackingCount += 1;
+            else
+                shared_.Parameters.trackingCount -= 1;
         }
         //Keyboard
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.KeyboardTracking = checkBox.Checked;
+
+            if (checkBox.Checked)
+                shared_.Parameters.trackingCount += 1;
+            else
+                shared_.Parameters.trackingCount -= 1;
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)

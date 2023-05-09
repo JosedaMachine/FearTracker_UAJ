@@ -39,6 +39,7 @@ namespace Gravedad
                 //Mic
                 series[0] = createSeries(ref MicChart);
                 series[0].Color = Color.Violet;
+                configureAxis(ref MicChart, "Sonido (db)");
             }
 
             if (shared_.Parameters.mouseTracking)
@@ -46,28 +47,22 @@ namespace Gravedad
                 //mouse
                 series[1] = createSeries(ref mouseChart);
                 series[1].Color = Color.Tomato;
+                configureAxis(ref mouseChart, "Velocidad (m/s)");
             }
 
             if (shared_.Parameters.KeyboardTracking)
+            {
                 //keyboard
                 series[2] = createSeries(ref keyboardChart);
+                configureAxis(ref keyboardChart, "Num inputs?");
+            }
             
-
             // Agregar los puntos de datos a las series
             foreach (Dato dato in datos)
             {
                 DataPoint punto = new DataPoint(dato.time, dato.y);
                 series[dato.typeId].Points.Add(punto);
             }
-
-            // Configurar los ejes del gráfico
-            if (shared_.Parameters.MicTracking)
-                configureAxis(ref MicChart, "Sonido (db)");
-            if (shared_.Parameters.mouseTracking)
-                configureAxis(ref mouseChart, "Velocidad (m/s)");
-            if (shared_.Parameters.KeyboardTracking)
-                configureAxis(ref keyboardChart, "Num inputs?");
-
         }
         private void configureAxis(ref Chart chart, string y)
         {
