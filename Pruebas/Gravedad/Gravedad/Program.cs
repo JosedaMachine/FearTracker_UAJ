@@ -61,8 +61,8 @@ namespace Gravedad
                 {
                     mouseTracker.readInput(currentTime);
                 }
-
-                inputTracker.readInput();
+                if(trackerParams.KeyboardTracking)
+                    inputTracker.readInput();
                 // Espera a que el proceso termine
             }
 
