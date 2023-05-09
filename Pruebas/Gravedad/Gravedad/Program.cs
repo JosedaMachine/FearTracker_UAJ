@@ -18,6 +18,11 @@ namespace Gravedad
             cameraTracking;
         //public TrackerParams() { params_ = new bool[4]; }
     }
+    public class Dato
+    {
+        public double Tiempo { get; set; }
+        public double Velocidad { get; set; }
+    }
     internal static class Program
     {
         public static DateTime initDateTime, endDateTime;
@@ -66,7 +71,7 @@ namespace Gravedad
                 // Espera a que el proceso termine
             }
 
-            Application.Run(new Form1(ref processToTrack, ref trackerParams));
+            Application.Run(new MetricForm());
 
             //Tracker
             //Application.Run(new Form1());
