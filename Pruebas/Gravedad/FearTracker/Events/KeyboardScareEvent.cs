@@ -6,6 +6,7 @@ namespace GameTracker
 {
     internal class KeyboardScareEvent : TrackerEvent
     {
+        int numInputs;
         public KeyboardScareEvent(CommonContent common) : base(common)
         {
             eventType_ = "KeyboardScare";
@@ -28,8 +29,7 @@ namespace GameTracker
             var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(format);
 
             //Add data
-            data["Level"] = level;
-            data["Parry_On_Cooldown"] = timeAfterParry;
+            data["y"] = numInputs;
 
             // Serialize collection with new data
             string newCollection = JsonConvert.SerializeObject(data, new JsonSerializerSettings { Formatting = Formatting.Indented });
@@ -39,14 +39,9 @@ namespace GameTracker
             return newCollection;
         }
 
-        public void setLevel(short level_)
+        public void setNumInputs(short ni)
         {
-            level = level_;
-        }
-
-        public void setTimeAfterParryFailed(float timeAP_)
-        {
-            timeAfterParry = timeAP_;
+            numInputs = ni;
         }
     }
 }
