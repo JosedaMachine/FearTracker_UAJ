@@ -1,4 +1,4 @@
-﻿namespace Gravedad
+﻿namespace FT
 {
     partial class MetricForm
     {
@@ -42,29 +42,29 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             
-            if (shared_.Parameters.MicTracking)
+            if (shared_.trackerParams.MicTracking)
             {
                 this.MicChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
                 ((System.ComponentModel.ISupportInitialize)(this.MicChart)).BeginInit();
             }
-            if (shared_.Parameters.mouseTracking)
+            if (shared_.trackerParams.mouseTracking)
             {
                 this.mouseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
                 ((System.ComponentModel.ISupportInitialize)(this.mouseChart)).BeginInit();
             }
-            if (shared_.Parameters.KeyboardTracking)
+            if (shared_.trackerParams.KeyboardTracking)
             {
                 this.keyboardChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
                 ((System.ComponentModel.ISupportInitialize)(this.keyboardChart)).BeginInit();
             }
             this.SuspendLayout();
 
-            int chartWidth = shared_.Parameters.trackingCount < 3 ? (width - (offset * 2)) : ((width / 2) - (offset * 3));
-            int chartHeight = shared_.Parameters.trackingCount < 2 ? (height - (offset * 2)) : ((height / 2) - (offset * 3));
+            int chartWidth = shared_.trackerParams.trackingCount < 3 ? (width - (offset * 2)) : ((width / 2) - (offset * 3));
+            int chartHeight = shared_.trackerParams.trackingCount < 2 ? (height - (offset * 2)) : ((height / 2) - (offset * 3));
 
             int posCont = 0;
 
-            if (shared_.Parameters.MicTracking)
+            if (shared_.trackerParams.MicTracking)
             {
                 // 
                 // MicChart
@@ -84,7 +84,7 @@
                 this.MicChart.TabIndex = 1;
                 this.MicChart.Text = "chart1";
             }
-            if (shared_.Parameters.mouseTracking)
+            if (shared_.trackerParams.mouseTracking)
             {
                 // 
                 // mouse
@@ -104,7 +104,7 @@
                 this.mouseChart.TabIndex = 2;
                 this.mouseChart.Text = "chart1";
             }
-            if (shared_.Parameters.KeyboardTracking)
+            if (shared_.trackerParams.KeyboardTracking)
             {
                 // 
                 // keyboard
@@ -136,11 +136,11 @@
             this.Name = "MetricForm";
             this.Text = "MetricForm";
             this.Load += new System.EventHandler(this.MetricForm_Load);
-            if (shared_.Parameters.MicTracking)
+            if (shared_.trackerParams.MicTracking)
                 ((System.ComponentModel.ISupportInitialize)(this.MicChart)).EndInit();
-            if (shared_.Parameters.mouseTracking)
+            if (shared_.trackerParams.mouseTracking)
                 ((System.ComponentModel.ISupportInitialize)(this.mouseChart)).EndInit();
-            if (shared_.Parameters.KeyboardTracking)
+            if (shared_.trackerParams.KeyboardTracking)
                 ((System.ComponentModel.ISupportInitialize)(this.keyboardChart)).EndInit();
             this.ResumeLayout(false);
 

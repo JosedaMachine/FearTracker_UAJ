@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Forms;
 using System.Timers;
 
-namespace Gravedad
+namespace FT
 {
     internal class InputTracker
     {

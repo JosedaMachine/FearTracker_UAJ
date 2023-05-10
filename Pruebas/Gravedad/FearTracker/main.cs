@@ -7,11 +7,15 @@ using System.Diagnostics;
 using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
+using AudioTracking;
 
-namespace Gravedad
+using GameTracker;
+
+namespace FT
 {
     public class jsonData
     {
+        //0:Microphone, 1:Mouse, 2:Keyboard
         public int typeId { get; set; }
         public double time { get; set; }
         public double y { get; set; }
@@ -25,7 +29,7 @@ namespace Gravedad
 
         static MouseTracker mouseTracker;
         static InputTracker inputTracker;
-        
+        static AudioTracker audioTracker;
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -38,7 +42,7 @@ namespace Gravedad
             trackerParams.process = new Process();
 
             SharedObject shared = new SharedObject();
-            shared.Parameters =  trackerParams;
+            shared.trackerParams =  trackerParams;
 
             //Hilo para realizar el tracking
             Thread trackerThread = new Thread(StartTracker);
@@ -58,16 +62,16 @@ namespace Gravedad
         static void StartTracker(object arg)
         {
             SharedObject shared = (SharedObject)arg;
-            TrackerParams parameters = shared.Parameters;
+            TrackerParams parameters = shared.trackerParams;
            
             //Esperar a que la aplicación permita iniciarse.
-            while (!parameters.canStart) {};
+            while (!parameters.canStart) { };
 
             //Iniciar programa
             parameters.process.Start();
 
             //Empezar a trackear
-            Init();
+            Init(ref parameters);
             Start();
 
             while (!parameters.canStop) {
@@ -86,43 +90,56 @@ namespace Gravedad
                     inputTracker.readInput();
             };
 
-            Console.WriteLine("Deja");
-
-            // Realiza el trabajo con los argumentos
-
-            //TrackerProcces();
-
-            //Point oldPosicion = Cursor.Position;
-            //while (!processToTrack.HasExited)
-            //{
-            //    Point posicion = Cursor.Position;
-            //    if (posicion != oldPosicion)
-            //    {
-            //        oldPosicion = posicion;
-            //        Console.WriteLine("Posición del ratón: X={0}, Y={1}", posicion.X, posicion.Y);
-            //    }
-            //    // Espera a que el proceso termine
-            //}
+            Stop();
         }
 
         #region Tracker
-        static void Init()
+        static void Init(ref TrackerParams trackerParams)
         {
-            //Trackers
+            //Input Trackers
             inputTracker = new InputTracker();
             mouseTracker = new MouseTracker();
+            audioTracker = new AudioTracker();
+
+            trackerParams.audioTracker = audioTracker;
+
+            //Main tracker events
+            ISerializer serializerCSV = new CSVSerializer();
+            IPersistence filePersistence = new FilePersistence(ref serializerCSV);
+
+            string nameApp = trackerParams.process.ProcessName;
+
+            TrackerSystem.Init(nameApp, "2", Environment.UserName, ref filePersistence);
+
+            TrackerSystem tracker = TrackerSystem.GetInstance();
+
+            ISerializer serializerJSON = new JsonSerializer();
+            IPersistence filePersistenceCopy = new FilePersistence(ref serializerJSON);
+
+            tracker.AddPersistence(ref filePersistenceCopy);
+
+            tracker.setFrecuencyPersistanceTimeSeconds(3);
 
             stopwatch = new Stopwatch();
         }
 
         static void Start()
         {
+            //Iniciar el tracker
+            TrackerSystem.GetInstance().Start();
+
             //Inicializacón de variables
             stopwatch.Start();
             initDateTime = DateTime.Now;
             currentTime = 0.0f;
+        }
+        static void Stop()
+        {
+            TrackerSystem tracker = TrackerSystem.GetInstance();
+            
+            tracker.Stop();
 
-            //Inicializacion de procesos
+            tracker.Persist();
         }
 
         #endregion

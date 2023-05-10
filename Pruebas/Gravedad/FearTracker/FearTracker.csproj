@@ -85,40 +85,43 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio.cs" />
+    <Compile Include="Events\KeyboardScareEvent.cs" />
+    <Compile Include="Events\MicrophoneScareEvent.cs" />
+    <Compile Include="Events\MouseScareEvent.cs" />
+    <Compile Include="Tracker\Audio.cs" />
     <Compile Include="Events\CrashEvent.cs" />
     <Compile Include="main.cs" />
-    <Compile Include="MainHubForm.cs">
+    <Compile Include="Forms\MainHubForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainHubForm.Designer.cs">
+    <Compile Include="Forms\MainHubForm.Designer.cs">
       <DependentUpon>MainHubForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MetricForm.cs">
+    <Compile Include="Forms\MetricForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MetricForm.Designer.cs">
+    <Compile Include="Forms\MetricForm.Designer.cs">
       <DependentUpon>MetricForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Serializer\CSVSerializer.cs" />
     <Compile Include="Serializer\FilePersistence.cs" />
     <Compile Include="Events\FinishSessionEvent.cs" />
-    <Compile Include="InputTracker.cs" />
+    <Compile Include="Tracker\InputTracker.cs" />
     <Compile Include="Events\InitSessionEvent.cs" />
     <Compile Include="Serializer\IPersistence.cs" />
     <Compile Include="Serializer\ISerializer.cs" />
     <Compile Include="Serializer\JsonSerializer.cs" />
-    <Compile Include="MouseTracker.cs" />
+    <Compile Include="Tracker\MouseTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\ServerPersistence.cs" />
-    <Compile Include="SharedObject.cs" />
-    <Compile Include="Tracker.cs" />
+    <Compile Include="Tracker\Tracker_Params\SharedObject.cs" />
+    <Compile Include="Tracker\Tracker.cs" />
     <Compile Include="Events\TrackerEvent.cs" />
-    <Compile Include="TrackerParams.cs" />
-    <EmbeddedResource Include="MainHubForm.resx">
+    <Compile Include="Tracker\Tracker_Params\TrackerParams.cs" />
+    <EmbeddedResource Include="Forms\MainHubForm.resx">
       <DependentUpon>MainHubForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MetricForm.resx">
+    <EmbeddedResource Include="Forms\MetricForm.resx">
       <DependentUpon>MetricForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
