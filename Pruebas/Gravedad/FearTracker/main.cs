@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Gravedad
 {
-    public class Dato
+    public class jsonData
     {
         public int typeId { get; set; }
         public double time { get; set; }

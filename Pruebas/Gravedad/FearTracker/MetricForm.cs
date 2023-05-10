@@ -27,7 +27,7 @@ namespace Gravedad
         {
             // Leer el archivo JSON
             string json = File.ReadAllText("datos.json");
-            List<Dato> datos = JsonConvert.DeserializeObject<List<Dato>>(json);
+            List<jsonData> datos = JsonConvert.DeserializeObject<List<jsonData>>(json);
 
             Series[] series = new Series[3];
 
@@ -58,7 +58,7 @@ namespace Gravedad
             }
             
             // Agregar los puntos de datos a las series
-            foreach (Dato dato in datos)
+            foreach (jsonData dato in datos)
             {
                 DataPoint punto = new DataPoint(dato.time, dato.y);
                 series[dato.typeId].Points.Add(punto);
