@@ -25,11 +25,13 @@ namespace Gravedad
 
         public void readInput()
         {
+            //Comprobar si se ha pulsado
             for (int i = 0; i < 255; i++)
             {
                 int state = GetAsyncKeyState(i);
-                bool isPressed = (state &0x8000) != 0;
-                if (isPressed && previousKeyStates.ContainsKey(i))
+                bool isPressed = (state & 0x8000) != 0;
+
+                if (isPressed && !previousKeyStates.ContainsKey(i))
                 {
                     string pressedKey = ((System.Windows.Forms.Keys)i).ToString();
                     switch (pressedKey)
@@ -38,9 +40,28 @@ namespace Gravedad
                             Console.WriteLine("You have pressed: " + pressedKey);
                             break;
                     }
-                }
 
-                previousKeyStates[i] = isPressed;
+                    previousKeyStates[i] = true;
+                }
+            }
+
+            //Comprobar si se ha soltado
+            for (int i = 0; i < 255; i++)
+            {
+                int state = GetAsyncKeyState(i);
+                bool isPressed = (state & 0x8000) != 0;
+
+                if (!isPressed && previousKeyStates.ContainsKey(i) && previousKeyStates[i] == true)
+                {
+                    string pressedKey = ((System.Windows.Forms.Keys)i).ToString();
+                    switch (pressedKey)
+                    {
+                        default:
+                            Console.WriteLine("You have released: " + pressedKey);
+                            break;
+                    }
+                    previousKeyStates.Remove(i);
+                }
             }
         }
 
