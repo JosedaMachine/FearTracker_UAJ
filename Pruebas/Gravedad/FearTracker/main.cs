@@ -8,7 +8,7 @@ using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Gravedad
+namespace FT
 {
     public class jsonData
     {

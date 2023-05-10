@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Gravedad
+namespace FT
 {
     internal class MouseTracker
     {

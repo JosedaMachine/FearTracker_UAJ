@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gravedad
+namespace FT
 {
     public class TrackerParams
     {
