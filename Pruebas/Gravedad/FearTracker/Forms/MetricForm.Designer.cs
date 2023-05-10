@@ -1,4 +1,4 @@
-﻿namespace Gravedad
+﻿namespace FT
 {
     partial class MetricForm
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gravedad.Properties
+namespace FT.Properties
 {
 
 

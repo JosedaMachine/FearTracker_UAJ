@@ -11,7 +11,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace Gravedad
+namespace FT
 {
     public partial class MetricForm : Form
     {

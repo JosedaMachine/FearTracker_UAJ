@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AudioTracking;
 
-namespace Gravedad
+namespace FT
 {
     public class TrackerParams
     {

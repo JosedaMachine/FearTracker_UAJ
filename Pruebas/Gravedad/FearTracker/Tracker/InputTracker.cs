@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Forms;
 
-namespace Gravedad
+namespace FT
 {
     internal class InputTracker
     {
