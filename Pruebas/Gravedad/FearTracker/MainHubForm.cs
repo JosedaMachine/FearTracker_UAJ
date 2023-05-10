@@ -24,22 +24,9 @@ namespace Gravedad
             shared_ = shared;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
         //mouse
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void checkMouseClick(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.mouseTracking = checkBox.Checked;
@@ -49,13 +36,9 @@ namespace Gravedad
             else
                 shared_.Parameters.trackingCount -= 1;
         }
-        //Microphone
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-        //Camera
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+
+        //Micro
+        private void checkMicrophoneClick(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.MicTracking = checkBox.Checked;
@@ -66,7 +49,7 @@ namespace Gravedad
                 shared_.Parameters.trackingCount -= 1;
         }
         //Keyboard
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        private void checkKeyboardClick(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.KeyboardTracking = checkBox.Checked;
@@ -82,7 +65,7 @@ namespace Gravedad
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void buttonStartClick(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -112,10 +95,15 @@ namespace Gravedad
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonStopClick(object sender, EventArgs e)
         {
             shared_.Parameters.canStop = true;
             this.Close();
+        }
+
+        private void buttonAudioClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
