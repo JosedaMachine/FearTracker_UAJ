@@ -85,6 +85,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\KeyboardScareEvent.cs" />
+    <Compile Include="Events\MicrophoneScareEvent.cs" />
+    <Compile Include="Events\MouseScareEvent.cs" />
     <Compile Include="Tracker\Audio.cs" />
     <Compile Include="Events\CrashEvent.cs" />
     <Compile Include="main.cs" />
