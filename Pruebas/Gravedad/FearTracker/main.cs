@@ -12,6 +12,7 @@ namespace FT
 {
     public class jsonData
     {
+        //0:Microphone, 1:Mouse, 2:Keyboard
         public int typeId { get; set; }
         public double time { get; set; }
         public double y { get; set; }
