@@ -3,7 +3,7 @@ using System;
 
 namespace AudioTracking
 {
-    class AudioTracker
+    public class AudioTracker
     {
         MMDeviceEnumerator en; //La variable que lleva los devices
 
@@ -63,6 +63,7 @@ namespace AudioTracking
         {
             en = new MMDeviceEnumerator();
         }
+
         //Método para saber a que volumen habla de normal el usuario, para poder tenerlo como referenica
         //ASí si habla sin más no lo cuenta como grito.
         public void voiceTest(ref MMDeviceCollection devices)

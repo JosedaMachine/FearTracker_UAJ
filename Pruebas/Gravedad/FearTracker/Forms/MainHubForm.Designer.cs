@@ -37,22 +37,23 @@
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonAudioTest = new System.Windows.Forms.Button();
+            this.labelSelectDevice = new System.Windows.Forms.Label();
+            this.outputDeviceCombo = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // label2
+            // labelChoose
             // 
             this.labelChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelChoose.AutoSize = true;
             this.labelChoose.Location = new System.Drawing.Point(318, 9);
-            this.labelChoose.Name = "label2";
+            this.labelChoose.Name = "labelChoose";
             this.labelChoose.Size = new System.Drawing.Size(110, 13);
             this.labelChoose.TabIndex = 3;
             this.labelChoose.Text = "Choose Track Events";
-
             // 
-            // checkBox_Mouse
+            // checkMouse
             // 
             this.checkMouse.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -95,7 +96,7 @@
             this.checkKeyboard.UseVisualStyleBackColor = true;
             this.checkKeyboard.CheckedChanged += new System.EventHandler(this.checkKeyboardClick);
             // 
-            // button1
+            // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -111,41 +112,59 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
-            // button2
+            // buttonStop
             // 
             this.buttonStop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStop.Location = new System.Drawing.Point(485, 257);
-            this.buttonStop.Name = "button2";
+            this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(134, 56);
             this.buttonStop.TabIndex = 9;
             this.buttonStop.Text = "Stop";
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonStopClick);
             // 
-            // button3
+            // buttonAudioTest
             // 
-            this.buttonAudioTest.Location = new System.Drawing.Point(118, 87);
+            this.buttonAudioTest.Location = new System.Drawing.Point(268, 85);
             this.buttonAudioTest.Name = "buttonAudioTest";
             this.buttonAudioTest.Size = new System.Drawing.Size(46, 41);
             this.buttonAudioTest.TabIndex = 10;
             this.buttonAudioTest.Text = "Test";
-            this.buttonAudioTest.Hide();
             this.buttonAudioTest.UseVisualStyleBackColor = true;
             this.buttonAudioTest.Click += new System.EventHandler(this.buttonAudioClick);
+            // 
+            // labelSelectDevice
+            // 
+            this.labelSelectDevice.AutoSize = true;
+            this.labelSelectDevice.Location = new System.Drawing.Point(12, 98);
+            this.labelSelectDevice.Name = "labelSelectDevice";
+            this.labelSelectDevice.Size = new System.Drawing.Size(109, 13);
+            this.labelSelectDevice.TabIndex = 11;
+            this.labelSelectDevice.Text = "Select Output Device";
+            // 
+            // outputDeviceCombo
+            // 
+            this.outputDeviceCombo.FormattingEnabled = true;
+            this.outputDeviceCombo.Location = new System.Drawing.Point(13, 124);
+            this.outputDeviceCombo.Name = "outputDeviceCombo";
+            this.outputDeviceCombo.Size = new System.Drawing.Size(182, 21);
+            this.outputDeviceCombo.TabIndex = 12;
+            this.outputDeviceCombo.SelectedIndexChanged += new System.EventHandler(this.outputDeviceCombo_SelectedIndexChanged);
             // 
             // MainHubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.outputDeviceCombo);
+            this.Controls.Add(this.labelSelectDevice);
             this.Controls.Add(this.buttonAudioTest);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStart);
@@ -171,6 +190,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonAudioTest;
+        private System.Windows.Forms.Label labelSelectDevice;
+        private System.Windows.Forms.ComboBox outputDeviceCombo;
     }
 }
 

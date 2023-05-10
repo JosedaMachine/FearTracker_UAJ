@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
+using AudioTracking;
 
 namespace Gravedad
 {
@@ -25,7 +26,7 @@ namespace Gravedad
 
         static MouseTracker mouseTracker;
         static InputTracker inputTracker;
-        
+        static AudioTracker audioTracker;
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -67,7 +68,7 @@ namespace Gravedad
             parameters.process.Start();
 
             //Empezar a trackear
-            Init();
+            Init(ref parameters);
             Start();
 
             while (!parameters.canStop) {
@@ -106,11 +107,14 @@ namespace Gravedad
         }
 
         #region Tracker
-        static void Init()
+        static void Init(ref TrackerParams tracker)
         {
             //Trackers
             inputTracker = new InputTracker();
             mouseTracker = new MouseTracker();
+            audioTracker = new AudioTracker();
+
+            tracker.audioTracker = audioTracker;
 
             stopwatch = new Stopwatch();
         }

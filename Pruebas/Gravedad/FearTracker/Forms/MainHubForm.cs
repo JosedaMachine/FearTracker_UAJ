@@ -10,19 +10,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using AudioTracking;
+
 namespace Gravedad
 {
     public partial class MainHubForm : Form
     {
-
-        private const double GravedadDeLaTierra = 9.81;
         private bool micTested = false;
+        private bool devicesLoaded = false;
 
         SharedObject shared_;
+
         public MainHubForm(ref SharedObject shared)
         {   
             InitializeComponent();
             shared_ = shared;
+        }
+
+        // Busca y añade al ComboBox los posibles dispositivos
+        private void LoadDevices()
+        {
+            if (devicesLoaded)
+                return;
+
+            AudioTracker tracker = shared_.Parameters.audioTracker;
+            var devices = tracker.getDevices();
+            outputDeviceCombo.Items.AddRange(devices.ToArray());
+            outputDeviceCombo.SelectedIndex = 0;
+            devicesLoaded = true;
         }
 
         //mouse
@@ -66,11 +81,6 @@ namespace Gravedad
                 shared_.Parameters.trackingCount -= 1;
         }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void buttonStartClick(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -108,6 +118,11 @@ namespace Gravedad
         }
 
         private void buttonAudioClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
