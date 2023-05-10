@@ -1,5 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
-using System.Reflection.Metadata.Ecma335;
+using System;
 
 namespace AudioTracking
 {
