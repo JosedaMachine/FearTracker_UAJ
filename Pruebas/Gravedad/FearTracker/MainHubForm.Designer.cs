@@ -1,6 +1,6 @@
 ﻿namespace Gravedad
 {
-    partial class Form1
+    partial class MainHub
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -59,7 +59,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_Mouse.AutoSize = true;
             this.checkBox_Mouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.4F);
-            this.checkBox_Mouse.Location = new System.Drawing.Point(146, 100);
+            this.checkBox_Mouse.Location = new System.Drawing.Point(293, 100);
             this.checkBox_Mouse.Name = "checkBox_Mouse";
             this.checkBox_Mouse.Size = new System.Drawing.Size(64, 19);
             this.checkBox_Mouse.TabIndex = 4;
@@ -73,7 +73,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkMicrophone.AutoSize = true;
-            this.checkMicrophone.Location = new System.Drawing.Point(275, 100);
+            this.checkMicrophone.Location = new System.Drawing.Point(171, 100);
             this.checkMicrophone.Name = "checkMicrophone";
             this.checkMicrophone.Size = new System.Drawing.Size(82, 17);
             this.checkMicrophone.TabIndex = 5;
@@ -144,7 +144,7 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // Form1
+            // MainHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +156,7 @@
             this.Controls.Add(this.checkMicrophone);
             this.Controls.Add(this.checkBox_Mouse);
             this.Controls.Add(this.label2);
-            this.Name = "Form1";
+            this.Name = "MainHub";
             this.Text = "Fear Tracking";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace Gravedad
 {
-    public class Dato
+    public class jsonData
     {
-        public double Tiempo { get; set; }
-        public double Velocidad { get; set; }
+        public int typeId { get; set; }
+        public double time { get; set; }
+        public double y { get; set; }
     }
-    internal static class Program
+    internal static class main
     {
         public static DateTime initDateTime, endDateTime;
         public static float currentTime;
@@ -29,11 +30,6 @@ namespace Gravedad
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
-        /// 
-
-
-
-
         [STAThread]
         static void Main()
         {
@@ -45,18 +41,18 @@ namespace Gravedad
             shared.Parameters =  trackerParams;
 
             //Hilo para realizar el tracking
-            Thread newThread = new Thread(StartTracker);
-            newThread.Start(shared);
+            Thread trackerThread = new Thread(StartTracker);
+            trackerThread.Start(shared);
 
             //Iniciar app para indicar parametros de tracking
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1(ref shared));
+            Application.Run(new MainHubForm(ref shared));
             
             
             //Esperar a que acabe el hilo
-            newThread.Join();
-            //Application.Run(new MetricForm());
+            trackerThread.Join();
+            Application.Run(new MetricForm(ref shared));
         }
 
         static void StartTracker(object arg)

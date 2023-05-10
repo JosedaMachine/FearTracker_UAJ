@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace Gravedad
 {
-    public partial class Form1 : Form
+    public partial class MainHubForm : Form
     {
 
         private const double GravedadDeLaTierra = 9.81;
 
         SharedObject shared_;
-        public Form1(ref SharedObject shared)
+        public MainHubForm(ref SharedObject shared)
         {   
             InitializeComponent();
             shared_ = shared;
@@ -43,24 +43,38 @@ namespace Gravedad
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.mouseTracking = checkBox.Checked;
+
+            if (checkBox.Checked)
+                shared_.Parameters.trackingCount += 1;
+            else
+                shared_.Parameters.trackingCount -= 1;
         }
         //Microphone
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.MicTracking = checkBox.Checked;
+            
         }
         //Camera
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.cameraTracking = checkBox.Checked;
+            shared_.Parameters.MicTracking = checkBox.Checked;
+
+            if (checkBox.Checked)
+                shared_.Parameters.trackingCount += 1;
+            else
+                shared_.Parameters.trackingCount -= 1;
         }
         //Keyboard
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
             shared_.Parameters.KeyboardTracking = checkBox.Checked;
+
+            if (checkBox.Checked)
+                shared_.Parameters.trackingCount += 1;
+            else
+                shared_.Parameters.trackingCount -= 1;
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
