@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +33,7 @@ namespace FT
             if (devicesLoaded)
                 return;
 
-            AudioTracker tracker = shared_.Parameters.audioTracker;
+            AudioTracker tracker = shared_.trackerParams.audioTracker;
             var devices = tracker.getDevices();
             outputDeviceCombo.Items.AddRange(devices.ToArray());
             outputDeviceCombo.SelectedIndex = 0;
@@ -44,28 +44,28 @@ namespace FT
         private void checkMouseClick(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.mouseTracking = checkBox.Checked;
+            shared_.trackerParams.mouseTracking = checkBox.Checked;
 
             if (checkBox.Checked)
-                shared_.Parameters.trackingCount += 1;
+                shared_.trackerParams.trackingCount += 1;
             else
-                shared_.Parameters.trackingCount -= 1;
+                shared_.trackerParams.trackingCount -= 1;
         }
 
         //Micro
         private void checkMicrophoneClick(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.MicTracking = checkBox.Checked;
+            shared_.trackerParams.MicTracking = checkBox.Checked;
 
             if (checkBox.Checked)
             {
-                shared_.Parameters.trackingCount += 1;
+                shared_.trackerParams.trackingCount += 1;
                 buttonAudioTest.Show();
             }
             else
             {
-                shared_.Parameters.trackingCount -= 1;
+                shared_.trackerParams.trackingCount -= 1;
                 buttonAudioTest.Hide();
             }
         }
@@ -73,12 +73,12 @@ namespace FT
         private void checkKeyboardClick(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            shared_.Parameters.KeyboardTracking = checkBox.Checked;
+            shared_.trackerParams.KeyboardTracking = checkBox.Checked;
 
             if (checkBox.Checked)
-                shared_.Parameters.trackingCount += 1;
+                shared_.trackerParams.trackingCount += 1;
             else
-                shared_.Parameters.trackingCount -= 1;
+                shared_.trackerParams.trackingCount -= 1;
         }
 
         private void buttonStartClick(object sender, EventArgs e)
@@ -96,9 +96,9 @@ namespace FT
 
                     MessageBox.Show("Your applications is going to be tracked. This window will be closed.");
 
-                    shared_.Parameters.process.StartInfo.FileName = filePath;
+                    shared_.trackerParams.process.StartInfo.FileName = filePath;
 
-                    shared_.Parameters.canStart = true;
+                    shared_.trackerParams.canStart = true;
 
                     //matar
                     //this.Close();
@@ -113,7 +113,10 @@ namespace FT
 
         private void buttonStopClick(object sender, EventArgs e)
         {
-            shared_.Parameters.canStop = true;
+            if (!shared_.trackerParams.canStart)
+                return;
+
+            shared_.trackerParams.canStop = true;
             this.Close();
         }
 
@@ -121,10 +124,24 @@ namespace FT
         {
 
         }
+        
 
-        private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e)
+        private void MainHubForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainHubForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!shared_.trackerParams.canStop)
+            {
+                shared_.trackerParams.canStop = true;
+            }
+        }
+
+        private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e) 
+        { 
+        
         }
     }
 }

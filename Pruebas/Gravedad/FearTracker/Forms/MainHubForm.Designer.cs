@@ -174,6 +174,8 @@
             this.Controls.Add(this.labelChoose);
             this.Name = "MainHubForm";
             this.Text = "Fear Tracking";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainHubForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainHubForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

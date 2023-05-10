@@ -8,6 +8,6 @@ namespace FT
 {
     public class SharedObject
     {
-        public TrackerParams Parameters { get; set; }
+        public TrackerParams trackerParams { get; set; }
     }
 }

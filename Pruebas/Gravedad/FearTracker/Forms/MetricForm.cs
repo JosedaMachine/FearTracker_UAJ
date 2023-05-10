@@ -34,7 +34,7 @@ namespace FT
             Console.WriteLine();
 
             // Crear la serie de los gráficos
-            if (shared_.Parameters.MicTracking)
+            if (shared_.trackerParams.MicTracking)
             {
                 //Mic
                 series[0] = createSeries(ref MicChart);
@@ -42,7 +42,7 @@ namespace FT
                 configureAxis(ref MicChart, "Sonido (db)");
             }
 
-            if (shared_.Parameters.mouseTracking)
+            if (shared_.trackerParams.mouseTracking)
             {
                 //mouse
                 series[1] = createSeries(ref mouseChart);
@@ -50,7 +50,7 @@ namespace FT
                 configureAxis(ref mouseChart, "Velocidad (m/s)");
             }
 
-            if (shared_.Parameters.KeyboardTracking)
+            if (shared_.trackerParams.KeyboardTracking)
             {
                 //keyboard
                 series[2] = createSeries(ref keyboardChart);
