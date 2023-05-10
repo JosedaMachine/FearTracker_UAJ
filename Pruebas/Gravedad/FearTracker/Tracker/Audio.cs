@@ -27,37 +27,37 @@ namespace AudioTracking
 
         //Hay que seleccionar el micro dentro de los devices
         //https://www.youtube.com/watch?v=HqZrDRwGkdI
-        static void Main(string[] args)
-        {
-            bool screaming = false;
-            AudioTracking audio = new AudioTracking();
+        //static void Main(string[] args)
+        //{
+        //    bool screaming = false;
+        //    AudioTracking audio = new AudioTracking();
 
-            audio.initvoiceDetection();
-            MMDeviceCollection devices = audio.getDevices();
+        //    audio.initvoiceDetection();
+        //    MMDeviceCollection devices = audio.getDevices();
 
-            audio.getBackgroundNoise(ref devices); //Cogemos el sonido de fondo de donde este el men
-            audio.voiceTest(ref devices);          //Le cogemos el volumen al que habla, para que saber bien cuando grita
+        //    audio.getBackgroundNoise(ref devices); //Cogemos el sonido de fondo de donde este el men
+        //    audio.voiceTest(ref devices);          //Le cogemos el volumen al que habla, para que saber bien cuando grita
 
 
-            //Console.WriteLine(devices[4].ToString());
+        //    //Console.WriteLine(devices[4].ToString());
 
-            Console.WriteLine("Funcionando");
+        //    Console.WriteLine("Funcionando");
 
-            //TODO: HAcer timer para medir entre gritos
-            while (devices.Count > 0)
-            {
-                float voice = devices[4].AudioMeterInformation.MasterPeakValue * audio.getVoiceMult();
+        //    //TODO: HAcer timer para medir entre gritos
+        //    while (devices.Count > 0)
+        //    {
+        //        float voice = devices[4].AudioMeterInformation.MasterPeakValue * audio.getVoiceMult();
 
-                if (!screaming && (voice > audio.getDefaultSpakingVolume() * audio.getScreamMult()))
-                {
-                    Console.WriteLine(voice);
-                    Console.WriteLine("Susto");
-                }
-                else if (screaming && voice < audio.getDefaultSpakingVolume()) screaming = false;
+        //        if (!screaming && (voice > audio.getDefaultSpakingVolume() * audio.getScreamMult()))
+        //        {
+        //            Console.WriteLine(voice);
+        //            Console.WriteLine("Susto");
+        //        }
+        //        else if (screaming && voice < audio.getDefaultSpakingVolume()) screaming = false;
 
-            }
+        //    }
 
-        }
+        //}
 
         public void initvoiceDetection()
         {
