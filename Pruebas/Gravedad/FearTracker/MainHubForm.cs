@@ -16,6 +16,7 @@ namespace Gravedad
     {
 
         private const double GravedadDeLaTierra = 9.81;
+        private bool micTested = false;
 
         SharedObject shared_;
         public MainHubForm(ref SharedObject shared)
@@ -23,7 +24,6 @@ namespace Gravedad
             InitializeComponent();
             shared_ = shared;
         }
-
 
         //mouse
         private void checkMouseClick(object sender, EventArgs e)
@@ -44,9 +44,15 @@ namespace Gravedad
             shared_.Parameters.MicTracking = checkBox.Checked;
 
             if (checkBox.Checked)
+            {
                 shared_.Parameters.trackingCount += 1;
+                buttonAudioTest.Show();
+            }
             else
+            {
                 shared_.Parameters.trackingCount -= 1;
+                buttonAudioTest.Hide();
+            }
         }
         //Keyboard
         private void checkKeyboardClick(object sender, EventArgs e)
