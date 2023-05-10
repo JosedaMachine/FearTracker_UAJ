@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace Gravedad
 {
-    public partial class Form1 : Form
+    public partial class MainHubForm : Form
     {
 
         private const double GravedadDeLaTierra = 9.81;
 
         SharedObject shared_;
-        public Form1(ref SharedObject shared)
+        public MainHubForm(ref SharedObject shared)
         {   
             InitializeComponent();
             shared_ = shared;
