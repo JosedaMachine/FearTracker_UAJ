@@ -39,6 +39,7 @@
             this.buttonAudioTest = new System.Windows.Forms.Button();
             this.labelSelectDevice = new System.Windows.Forms.Label();
             this.outputDeviceCombo = new System.Windows.Forms.ComboBox();
+            this.labelWarningTestAudio = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelChoose
@@ -161,11 +162,23 @@
             this.outputDeviceCombo.Hide();
             this.outputDeviceCombo.SelectedIndexChanged += new System.EventHandler(this.outputDeviceCombo_SelectedIndexChanged);
             // 
+            // label1
+            // 
+            this.labelWarningTestAudio.AutoSize = true;
+            this.labelWarningTestAudio.Location = new System.Drawing.Point(265, 141);
+            this.labelWarningTestAudio.Name = "labelWarningTestAudio";
+            this.labelWarningTestAudio.Size = new System.Drawing.Size(35, 13);
+            this.labelWarningTestAudio.TabIndex = 13;
+            this.labelWarningTestAudio.Hide();
+            this.labelWarningTestAudio.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningTestAudio.Text = "Warning: Test Audio";
+            // 
             // MainHubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelWarningTestAudio);
             this.Controls.Add(this.outputDeviceCombo);
             this.Controls.Add(this.labelSelectDevice);
             this.Controls.Add(this.buttonAudioTest);
@@ -197,6 +210,7 @@
         private System.Windows.Forms.Button buttonAudioTest;
         private System.Windows.Forms.Label labelSelectDevice;
         private System.Windows.Forms.ComboBox outputDeviceCombo;
+        private System.Windows.Forms.Label labelWarningTestAudio;
     }
 }
 

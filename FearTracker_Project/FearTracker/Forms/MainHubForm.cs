@@ -88,6 +88,12 @@ namespace FT
 
         private void buttonStartClick(object sender, EventArgs e)
         {
+            if (!micTested)
+            {
+                labelWarningTestAudio.Show();
+                return;
+            }
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog1.FileName;
@@ -127,7 +133,15 @@ namespace FT
 
         private void buttonAudioClick(object sender, EventArgs e)
         {
+            // Esconde warning en caso de estar visible
+            labelWarningTestAudio.Hide();
 
+            // Coge el tracker e inicia el voicetest
+            AudioTracker tracker = shared_.trackerParams.audioTracker;
+            tracker.setSelectedDevice(outputDeviceCombo.SelectedItem);
+            tracker.getBackgroundNoise();
+            tracker.voiceTest();
+            micTested = true;
         }
         
 

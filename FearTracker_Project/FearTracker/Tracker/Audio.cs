@@ -7,6 +7,7 @@ namespace AudioTracking
     {
         MMDeviceEnumerator en; //La variable que lleva los devices
 
+        MMDevice selectedDevice;
         //Todos estos numeritos estaría bien poder tocarlos de alguna manera
 
 
@@ -24,6 +25,8 @@ namespace AudioTracking
         int screamMultiplicator = 17;   //Tienes que gritar 17 veces más alto de lo que hablas para que cuente como grito
 
         int speakingMultiplicator = 15; //Tienes que hablar 15 veces más alto de lo que suena el sonido de fondo para que lo pille
+
+        bool screaming = false;
 
         //Hay que seleccionar el micro dentro de los devices
         //https://www.youtube.com/watch?v=HqZrDRwGkdI
@@ -71,7 +74,8 @@ namespace AudioTracking
 
         //Método para saber a que volumen habla de normal el usuario, para poder tenerlo como referenica
         //ASí si habla sin más no lo cuenta como grito.
-        public void voiceTest(ref MMDeviceCollection devices)
+
+        public void voiceTest()
         {
             float voice = 0.0f;
             int speakingCont = 0;               //Las veces que ha hablado
@@ -83,7 +87,7 @@ namespace AudioTracking
 
             while (speakingCont < voiceTests)
             {
-                voice = devices[4].AudioMeterInformation.MasterPeakValue;
+                voice = selectedDevice.AudioMeterInformation.MasterPeakValue;
 
                 //Representa que ya esta hablando
                 if ((voice * voiceMult) > backgroundNoise * speakingMultiplicator && !speaking)
@@ -107,8 +111,9 @@ namespace AudioTracking
 
         }
 
-        public void getBackgroundNoise(ref MMDeviceCollection devices)
+        public void getBackgroundNoise()
         {
+            
             int timeRecording = 0;
             float backgroundAcum = 0.0f;
 
@@ -116,7 +121,7 @@ namespace AudioTracking
 
             while (timeRecording < backgroundTimer)
             {
-                backgroundAcum += devices[4].AudioMeterInformation.MasterPeakValue;
+                backgroundAcum += selectedDevice.AudioMeterInformation.MasterPeakValue;
 
                 timeRecording++;
             }
@@ -126,9 +131,24 @@ namespace AudioTracking
             Console.WriteLine(backgroundNoise);
         }
 
+        public void measureVoice()
+        {
+            float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * voiceMult;
+
+            if (!screaming && (voice > defaultspakingVolume * screamMultiplicator))
+                screaming = true;
+            else if (screaming && voice < defaultspakingVolume) 
+                screaming = false;
+        }
+
         public MMDeviceCollection getDevices()
         {
             return en.EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+        }
+
+        public void setSelectedDevice(object device)
+        {
+            selectedDevice = (MMDevice)device;
         }
 
         public float getVoiceMult() { return voiceMult; }
