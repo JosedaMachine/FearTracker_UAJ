@@ -63,7 +63,11 @@ namespace FT
         {
             SharedObject shared = (SharedObject)arg;
             TrackerParams parameters = shared.trackerParams;
-           
+
+            //Lo he movido aquí para que exista el AudioTracker en el menu
+            parameters.audioTracker = new AudioTracker();
+            audioTracker = parameters.audioTracker;
+
             //Esperar a que la aplicación permita iniciarse.
             while (!parameters.canStart) { };
 
@@ -100,8 +104,8 @@ namespace FT
             inputTracker = new InputTracker();
             mouseTracker = new MouseTracker();
 
-            trackerParams.audioTracker = new AudioTracker();
-            audioTracker = trackerParams.audioTracker;
+            //trackerParams.audioTracker = new AudioTracker();
+            //audioTracker = trackerParams.audioTracker;
 
 
             //Main tracker events
