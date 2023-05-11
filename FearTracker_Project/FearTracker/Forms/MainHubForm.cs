@@ -62,11 +62,16 @@ namespace FT
             {
                 shared_.trackerParams.trackingCount += 1;
                 buttonAudioTest.Show();
+                labelSelectDevice.Show();
+                outputDeviceCombo.Show();
+                LoadDevices();
             }
             else
             {
                 shared_.trackerParams.trackingCount -= 1;
                 buttonAudioTest.Hide();
+                labelSelectDevice.Hide();
+                outputDeviceCombo.Hide();
             }
         }
         //Keyboard
@@ -143,5 +148,6 @@ namespace FT
         { 
         
         }
+
     }
 }

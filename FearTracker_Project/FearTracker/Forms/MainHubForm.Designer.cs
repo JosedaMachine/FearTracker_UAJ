@@ -138,6 +138,7 @@
             this.buttonAudioTest.TabIndex = 10;
             this.buttonAudioTest.Text = "Test";
             this.buttonAudioTest.UseVisualStyleBackColor = true;
+            this.buttonAudioTest.Hide();
             this.buttonAudioTest.Click += new System.EventHandler(this.buttonAudioClick);
             // 
             // labelSelectDevice
@@ -147,6 +148,7 @@
             this.labelSelectDevice.Name = "labelSelectDevice";
             this.labelSelectDevice.Size = new System.Drawing.Size(109, 13);
             this.labelSelectDevice.TabIndex = 11;
+            this.labelSelectDevice.Hide();
             this.labelSelectDevice.Text = "Select Output Device";
             // 
             // outputDeviceCombo
@@ -156,6 +158,7 @@
             this.outputDeviceCombo.Name = "outputDeviceCombo";
             this.outputDeviceCombo.Size = new System.Drawing.Size(182, 21);
             this.outputDeviceCombo.TabIndex = 12;
+            this.outputDeviceCombo.Hide();
             this.outputDeviceCombo.SelectedIndexChanged += new System.EventHandler(this.outputDeviceCombo_SelectedIndexChanged);
             // 
             // MainHubForm

@@ -59,6 +59,11 @@ namespace AudioTracking
 
         //}
 
+        public AudioTracker()
+        {
+            initvoiceDetection();
+        }
+
         public void initvoiceDetection()
         {
             en = new MMDeviceEnumerator();

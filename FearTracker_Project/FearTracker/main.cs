@@ -99,9 +99,10 @@ namespace FT
             //Input Trackers
             inputTracker = new InputTracker();
             mouseTracker = new MouseTracker();
-            audioTracker = new AudioTracker();
 
-            trackerParams.audioTracker = audioTracker;
+            trackerParams.audioTracker = new AudioTracker();
+            audioTracker = trackerParams.audioTracker;
+
 
             //Main tracker events
             ISerializer serializerCSV = new CSVSerializer();
