@@ -22,14 +22,16 @@ namespace FT
     }
     internal static class main
     {
-        public static DateTime initDateTime, endDateTime;
-        public static float currentTime;
+        public static DateTime initDateTime, endDateTime;   //Para los timers 
+        public static float currentTime;    
         static Stopwatch stopwatch;
-        static bool quit = false;
+        static bool quit = false;   //Para salir de la aplicación
 
+        //Los distintos trackers
         static MouseTracker mouseTracker;
         static InputTracker inputTracker;
         static AudioTracker audioTracker;
+
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -37,6 +39,7 @@ namespace FT
         [STAThread]
         static void Main()
         {
+
             //Parametros de tracking
             TrackerParams trackerParams = new TrackerParams();
             trackerParams.process = new Process();
@@ -92,6 +95,8 @@ namespace FT
                 }
                 if (parameters.KeyboardTracking)
                     inputTracker.readInput();
+                if (parameters.MicTracking)
+                    audioTracker.readInput();
             };
 
             Stop();

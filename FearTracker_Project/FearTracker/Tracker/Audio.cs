@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using System;
+using GameTracker;
 
 namespace AudioTracking
 {
@@ -7,7 +8,7 @@ namespace AudioTracking
     {
         MMDeviceEnumerator en; //La variable que lleva los devices
 
-        MMDevice selectedDevice;
+        MMDevice selectedDevice; //El microfono del usuario
         //Todos estos numeritos estaría bien poder tocarlos de alguna manera
 
 
@@ -156,6 +157,21 @@ namespace AudioTracking
         public float getDefaultSpakingVolume() { return defaultspakingVolume; }
 
         public int getScreamMult() { return screamMultiplicator; }
+
+        public void readInput()
+        {
+            float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * getVoiceMult();
+
+            if (!screaming && (voice > getDefaultSpakingVolume() * getScreamMult()))
+            {
+                TrackerSystem ts = TrackerSystem.GetInstance();
+                MicrophoneScareEvent susto = ts.CreateEvent<MicrophoneScareEvent>();
+                ts.trackEvent(susto);
+
+                Console.WriteLine("Susto grito");
+            }
+            else if (screaming && voice < getDefaultSpakingVolume()) screaming = false;
+        }
 
     }
 }

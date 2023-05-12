@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using GameTracker;
 
 namespace FT
 {
@@ -54,6 +55,10 @@ namespace FT
                     //Determining if the user was scared or not
                     if (mousePositionDifference > averageDifference * scaredMouseMultiplier)
                     {
+                        TrackerSystem ts = TrackerSystem.GetInstance();
+                        MouseScareEvent susto = ts.CreateEvent<MouseScareEvent>();
+                        ts.trackEvent(susto);
+
                         lastMouseScareTime = DateTime.Now;
                         Console.WriteLine("SUSTO RATON");
                     }
