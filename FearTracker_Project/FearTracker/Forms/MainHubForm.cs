@@ -92,7 +92,7 @@ namespace FT
 
         private void buttonStartClick(object sender, EventArgs e)
         {
-            if (!micTested)
+            if (shared_.trackerParams.MicTracking && !micTested)
             {
                 labelWarningTestAudio.Show();
                 return;
