@@ -35,6 +35,10 @@ namespace FT
 
             AudioTracker tracker = shared_.trackerParams.audioTracker;
             var devices = tracker.getDevices();
+
+            if (devices == null)
+                return;
+
             outputDeviceCombo.Items.AddRange(devices.ToArray());
             outputDeviceCombo.SelectedIndex = 0;
             devicesLoaded = true;
