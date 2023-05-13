@@ -72,7 +72,6 @@ namespace AudioTracking
         public void initvoiceDetection()
         {
             en = new MMDeviceEnumerator();
-            recorder = new WaveIn();
         }
 
         //Método para saber a que volumen habla de normal el usuario, para poder tenerlo como referenica
@@ -115,6 +114,7 @@ namespace AudioTracking
 
         public void getBackgroundNoise()
         {
+            recorder = new WaveIn();
             recorder.StartRecording();
 
             int timeRecording = 0;
