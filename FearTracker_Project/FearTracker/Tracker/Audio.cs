@@ -1,33 +1,34 @@
 ﻿using NAudio.CoreAudioApi;
 using System;
 using GameTracker;
+using NAudio.Wave;
 
 namespace AudioTracking
 {
     public class AudioTracker
     {
-        MMDeviceEnumerator en; //La variable que lleva los devices
+        private MMDeviceEnumerator en; //La variable que lleva los devices
 
-        MMDevice selectedDevice; //El microfono del usuario
+        private MMDevice selectedDevice; //El microfono del usuario
         //Todos estos numeritos estaría bien poder tocarlos de alguna manera
-
+        private WaveIn recorder;
 
         //Quizás a esto haya que ponerle estático, no lo se
-        float defaultspakingVolume = 4000.0f;   //Basado en las pruebas que hemos hecho, esto da más o menos si hablas a un tono normal (Por si mi colegui no quiere hacer los test)
-        float voiceMult = 100000.0f; //Para que el volumen sean números mayores que cero
+        private float defaultspakingVolume = 4000.0f;   //Basado en las pruebas que hemos hecho, esto da más o menos si hablas a un tono normal (Por si mi colegui no quiere hacer los test)
+        private float voiceMult = 100000.0f; //Para que el volumen sean números mayores que cero
 
-        int voiceTests = 3; //El número de veces que tiene que hablar el usuario
+        private int voiceTests = 3; //El número de veces que tiene que hablar el usuario
 
-        float backgroundNoise = 15.0f; //Basado en el ruido monstruoso que hace mi pc
+        private float backgroundNoise = 15.0f; //Basado en el ruido monstruoso que hace mi pc
 
         //TODO : Cambiarlo a tiempo
-        int backgroundTimer = 25000;    //Iteraciones que nos pasamos grabando, si queremos ponerlo como tiempo pues hay que ver cuantas iteraciones hace por segundo
+        private int backgroundTimer = 25000;    //Iteraciones que nos pasamos grabando, si queremos ponerlo como tiempo pues hay que ver cuantas iteraciones hace por segundo
 
-        int screamMultiplicator = 17;   //Tienes que gritar 17 veces más alto de lo que hablas para que cuente como grito
+        private int screamMultiplicator = 17;   //Tienes que gritar 17 veces más alto de lo que hablas para que cuente como grito
 
-        int speakingMultiplicator = 15; //Tienes que hablar 15 veces más alto de lo que suena el sonido de fondo para que lo pille
+        private int speakingMultiplicator = 15; //Tienes que hablar 15 veces más alto de lo que suena el sonido de fondo para que lo pille
 
-        bool screaming = false;
+        private bool screaming = false;
 
         //Hay que seleccionar el micro dentro de los devices
         //https://www.youtube.com/watch?v=HqZrDRwGkdI
@@ -71,6 +72,7 @@ namespace AudioTracking
         public void initvoiceDetection()
         {
             en = new MMDeviceEnumerator();
+            recorder = new WaveIn();
         }
 
         //Método para saber a que volumen habla de normal el usuario, para poder tenerlo como referenica
@@ -83,13 +85,13 @@ namespace AudioTracking
             bool speaking = false;              //Para que no te pille las tres de golpe
             float[] samples = new float[voiceTests];    //Seguramente este array no sea necesario, pero así tenemos cada muestra de sonido, por si acaso
             float acumVoice = 0.0f;     //La suma de todas las muestras para hacer la media
-
+            
             Console.WriteLine("Habla");
 
             while (speakingCont < voiceTests)
             {
                 voice = selectedDevice.AudioMeterInformation.MasterPeakValue;
-
+                Console.WriteLine(voice);
                 //Representa que ya esta hablando
                 if ((voice * voiceMult) > backgroundNoise * speakingMultiplicator && !speaking)
                 {
@@ -104,7 +106,6 @@ namespace AudioTracking
                     speaking = false;        //Cuando se calle
                     Console.WriteLine("Habla de nuevo");
                 }
-
             }
 
             defaultspakingVolume = (acumVoice / voiceTests) * voiceMult;
@@ -114,7 +115,8 @@ namespace AudioTracking
 
         public void getBackgroundNoise()
         {
-            
+            recorder.StartRecording();
+
             int timeRecording = 0;
             float backgroundAcum = 0.0f;
 

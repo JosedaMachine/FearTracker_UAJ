@@ -159,8 +159,9 @@ namespace FT
         }
 
         private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e) 
-        { 
-        
+        {
+            AudioTracker tracker = shared_.trackerParams.audioTracker;
+            tracker.setSelectedDevice(outputDeviceCombo.SelectedItem);
         }
 
     }

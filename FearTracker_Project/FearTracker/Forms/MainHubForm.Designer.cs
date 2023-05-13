@@ -150,7 +150,7 @@
             this.labelSelectDevice.Size = new System.Drawing.Size(109, 13);
             this.labelSelectDevice.TabIndex = 11;
             this.labelSelectDevice.Hide();
-            this.labelSelectDevice.Text = "Select Output Device";
+            this.labelSelectDevice.Text = "Select Input Device";
             // 
             // outputDeviceCombo
             // 
