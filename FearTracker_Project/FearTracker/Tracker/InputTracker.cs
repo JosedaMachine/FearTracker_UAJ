@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Forms;
 using System.Timers;
+using GameTracker;
 
 namespace FT
 {
@@ -113,7 +114,7 @@ namespace FT
                 //Enviar evento si cumple los requisitos
                 if (keyRepetitions[i].Item2 > minRepetitions)
                 {
-                    eventInputHandler(keyRepetitions[i].Item1, keyRepetitions[i].Item2);
+                    eventInputHandler(keyRepetitions[i].Item1, keyRepetitions[i].Item2); //Mandar evento de teclado
                 }
 
                 keyRepetitions.RemoveAt(i);//Se borra de la lista de repeticiones
@@ -122,6 +123,11 @@ namespace FT
 
         public void eventInputHandler(string keyName, int repetitions)
         {
+            TrackerSystem ts = TrackerSystem.GetInstance();
+            KeyboardScareEvent scare = ts.CreateEvent<KeyboardScareEvent>();
+            scare.setNumInputs((short)repetitions);
+            ts.trackEvent(scare);
+
             Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
         }
 
