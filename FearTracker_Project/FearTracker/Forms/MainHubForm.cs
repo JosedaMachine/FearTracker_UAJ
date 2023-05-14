@@ -173,7 +173,13 @@ namespace FT
         private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e) 
         {
             AudioTracker tracker = shared_.trackerParams.audioTracker;
+            tracker.ResetMicTesting();
             tracker.SetSelectedDevice(outputDeviceCombo.SelectedItem);
+
+
+            micInTesting = true;
+
+            timer1.Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -185,17 +191,16 @@ namespace FT
 
             if (!tracker.IsBackgroundNoiseRecordingFinished())
             {
-                ShowAudioLabel("Recording background noise...", Color.Blue);
+                ShowAudioLabel("Recording background noise...", Color.DarkGray);
                 tracker.GetBackgroundNoise();
                 return;
             }
 
-            ShowAudioLabel("Habla", Color.Green);
+            ShowAudioLabel("Speak", Color.Blue);
 
             float progressValue;
-
             if (tracker.VoiceTest(out progressValue)) { 
-                ShowAudioLabel("Calla", Color.Red);
+                ShowAudioLabel("Silence!", Color.OrangeRed);
             };
 
             progressBarAudio.Value = (int)(progressValue * 100);
@@ -204,8 +209,8 @@ namespace FT
             {
                 micTested = true;
                 micInTesting = false;
-                labelWarningTestAudio.Hide();
                 progressBarAudio.Hide();
+                ShowAudioLabel("Audio Calibrated", Color.Green);
             }
         }
 
@@ -214,6 +219,11 @@ namespace FT
             labelWarningTestAudio.ForeColor = color;
             labelWarningTestAudio.Text = text;
             labelWarningTestAudio.Show();
+        }
+
+        private void labelWarningTestAudio_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -26,7 +26,7 @@ namespace FT
         private void MetricForm_Load(object sender, EventArgs e)
         {
             // Leer el archivo JSON
-            string json = File.ReadAllText("data.json");
+            string json = File.ReadAllText("datos.json");
             List<jsonData> datos = JsonConvert.DeserializeObject<List<jsonData>>(json);
 
             Series[] series = new Series[3];

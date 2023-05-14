@@ -78,7 +78,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkMicrophone.AutoSize = true;
-            this.checkMicrophone.Location = new System.Drawing.Point(180, 98);
+            this.checkMicrophone.Location = new System.Drawing.Point(180, 97);
             this.checkMicrophone.Name = "checkMicrophone";
             this.checkMicrophone.Size = new System.Drawing.Size(82, 17);
             this.checkMicrophone.TabIndex = 5;
@@ -136,11 +136,11 @@
             // 
             // buttonAudioTest
             // 
-            this.buttonAudioTest.Location = new System.Drawing.Point(268, 85);
+            this.buttonAudioTest.Location = new System.Drawing.Point(15, 54);
             this.buttonAudioTest.Name = "buttonAudioTest";
-            this.buttonAudioTest.Size = new System.Drawing.Size(46, 41);
+            this.buttonAudioTest.Size = new System.Drawing.Size(59, 41);
             this.buttonAudioTest.TabIndex = 10;
-            this.buttonAudioTest.Text = "Test";
+            this.buttonAudioTest.Text = "Calibrate";
             this.buttonAudioTest.UseVisualStyleBackColor = true;
             this.buttonAudioTest.Click += new System.EventHandler(this.buttonAudioClick);
             // 
@@ -166,11 +166,13 @@
             // 
             this.labelWarningTestAudio.AutoSize = true;
             this.labelWarningTestAudio.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningTestAudio.Location = new System.Drawing.Point(265, 141);
+            this.labelWarningTestAudio.Location = new System.Drawing.Point(80, 68);
             this.labelWarningTestAudio.Name = "labelWarningTestAudio";
             this.labelWarningTestAudio.Size = new System.Drawing.Size(104, 13);
             this.labelWarningTestAudio.TabIndex = 13;
             this.labelWarningTestAudio.Text = "Warning: Test Audio";
+            this.labelWarningTestAudio.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelWarningTestAudio.Click += new System.EventHandler(this.labelWarningTestAudio_Click);
             // 
             // timer1
             // 
