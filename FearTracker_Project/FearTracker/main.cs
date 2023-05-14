@@ -90,10 +90,15 @@ namespace FT
             {
                 long currTime = TrackerSystem.GetInstance().getCurrTime();
 
+                if (parameters.mouseTracking)
+                    mouseTracker.readInput();
+
+
                 if (currTime - timeSinceLastRecord > recordingTime)
                 {
                     if (parameters.mouseTracking)
-                        mouseTracker.readInput();
+                        mouseTracker.sendEventAndRecord();
+                    
                     if (parameters.KeyboardTracking)
                         inputTracker.readInput();
                     if (parameters.MicTracking)

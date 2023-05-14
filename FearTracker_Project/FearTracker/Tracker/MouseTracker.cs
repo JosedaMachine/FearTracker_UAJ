@@ -15,6 +15,7 @@ namespace FT
         #region MouseVariables
         Point oldMousePosition;   //Position of the mouse in the previous iteration
         int mousePositionDifference;    //Difference in position between previous iteration and current one
+        
         //int offsetMouseDifference;  //Offset
         //double averageDifference;  //Average movement, this variable changes during execution and decides if a movement is sporadic or not
         //long numberOfMovements;     //Number of times the average has been determined
@@ -37,19 +38,27 @@ namespace FT
             //mouseScareTimeOffset = 1;
         }
 
-        public void readInput()
+        public void sendEventAndRecord()
         {
-            Point currentMousePosition = Cursor.Position;
-
-            //We calculate how much the muse has moved in this iteration
-            int mouseDifferenceX = Math.Abs(oldMousePosition.X - currentMousePosition.X);
-            int mouseDifferenceY = Math.Abs(oldMousePosition.Y - currentMousePosition.Y);
-            mousePositionDifference = mouseDifferenceX + mouseDifferenceY;
-
+            //We send the corresponding event
             TrackerSystem ts = TrackerSystem.GetInstance();
             MouseEvent mouse = ts.CreateEvent<MouseEvent>();
             mouse.setMouseDisplacement(mousePositionDifference);
             ts.trackEvent(mouse);
+
+            //We reset the cumulative value
+            mousePositionDifference = 0;
+        }
+
+        public void readInput()
+        {
+            Point currentMousePosition = Cursor.Position;
+
+            //We calculate how much the muse has moved in this iteration and add it
+            int mouseDifferenceX = Math.Abs(oldMousePosition.X - currentMousePosition.X);
+            int mouseDifferenceY = Math.Abs(oldMousePosition.Y - currentMousePosition.Y);
+            mousePositionDifference += mouseDifferenceX + mouseDifferenceY;
+            
 
             //We only determine the average and register the input if the difference surpasses the offset
             //if (mousePositionDifference >= offsetMouseDifference)
