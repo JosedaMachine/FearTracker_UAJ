@@ -99,9 +99,12 @@ namespace FT
 
                 if (currTime - timeSinceLastRecord > recordingTime)
                 {
-                    mouseTracker.sendEventAndRecord();
-                    audioTracker.sendEventAndRecord();
-                    inputTracker.sendEventAndRecord();
+                    if (parameters.MicTracking)
+                        audioTracker.sendEventAndRecord();
+                    if (parameters.mouseTracking)
+                        mouseTracker.sendEventAndRecord();
+                    if (parameters.KeyboardTracking)
+                        inputTracker.sendEventAndRecord();
 
                     timeSinceLastRecord = currTime;
                 }
