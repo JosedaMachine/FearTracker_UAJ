@@ -16,7 +16,7 @@ namespace FT
     public class jsonData
     {
         //0:Microphone, 1:Mouse, 2:Keyboard
-        public int EventType { get; set; }
+        public string EventType { get; set; }
         public double TimeStamp { get; set; }
         public double y { get; set; }
     }
@@ -41,7 +41,6 @@ namespace FT
         [STAThread]
         static void Main()
         {
-
             //Parametros de tracking
             TrackerParams trackerParams = new TrackerParams();
             trackerParams.process = new Process();
@@ -84,6 +83,8 @@ namespace FT
             Start();
 
             timeSinceLastRecord = TrackerSystem.GetInstance().getCurrTime();
+
+            shared.trackerParams.startTime = timeSinceLastRecord;
 
             while (!parameters.canStop)
             {
