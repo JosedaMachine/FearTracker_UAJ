@@ -17,23 +17,22 @@ namespace FT
     {
         //0:Microphone, 1:Mouse, 2:Keyboard
         public string EventType { get; set; }
-        public double TimeStamp { get; set; }
+        public long TimeStamp { get; set; }
         public double y { get; set; }
     }
     internal static class main
     {
-        public static DateTime initDateTime, endDateTime;   //Para los timers 
-        public static float currentTime;
-        static Stopwatch stopwatch;
-        static bool quit = false;   //Para salir de la aplicación
+        //public static DateTime initDateTime, endDateTime;   //Para los timers 
+        //public static float currentTime;
+        //static Stopwatch stopwatch;
+        //static bool quit = false;   //Para salir de la aplicación
 
         //Los distintos trackers
         static MouseTracker mouseTracker;
         static InputTracker inputTracker;
         static AudioTracker audioTracker;
 
-        public static long recordingTime = 1;   //Cada cuanto quiero grabar
-        public static long timeSinceLastRecord = 0; //Tiempo desde la última vez que grabé
+        public static int recordingTimeMilliseconds = 500;   //Cada cuanto quiero grabar
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -82,13 +81,13 @@ namespace FT
             Init(ref parameters);
             Start();
 
-            timeSinceLastRecord = TrackerSystem.GetInstance().getCurrTime();
+            long timeSinceLastRecord = TrackerSystem.GetInstance().getCurrTimeMilliseconds(); //Tiempo desde la última vez que grabé
 
             shared.trackerParams.startTime = timeSinceLastRecord;
 
             while (!parameters.canStop)
             {
-                long currTime = TrackerSystem.GetInstance().getCurrTime();
+                long currTime = TrackerSystem.GetInstance().getCurrTimeMilliseconds();
 
                 if (parameters.mouseTracking)
                     mouseTracker.readInput();
@@ -97,7 +96,7 @@ namespace FT
                 if (parameters.MicTracking)
                     audioTracker.ReadInput();
 
-                if (currTime - timeSinceLastRecord > recordingTime)
+                if (currTime - timeSinceLastRecord > recordingTimeMilliseconds)
                 {
                     if (parameters.MicTracking)
                         audioTracker.sendEventAndRecord();
@@ -139,20 +138,13 @@ namespace FT
 
             tracker.AddPersistence(ref filePersistenceCopy);
 
-            tracker.setFrecuencyPersistanceTimeSeconds(3);
-
-            stopwatch = new Stopwatch();
+            tracker.setFrecuencyPersistanceTimeSeconds(3); 
         }
 
         static void Start()
         {
             //Iniciar el tracker
             TrackerSystem.GetInstance().Start();
-
-            //Inicializacón de variables
-            stopwatch.Start();
-            initDateTime = DateTime.Now;
-            currentTime = 0.0f;
         }
         static void Stop()
         {

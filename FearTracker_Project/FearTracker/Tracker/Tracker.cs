@@ -178,11 +178,11 @@ namespace GameTracker
         //Consumer.
         private void SerializeEvents()
         {
-            long lastTime = getCurrTime();
+            long lastTime = getCurrTimeMilliseconds()/1000;
 
             while (queue_.Count > 0 || !stop_)
             {
-                long currTime = getCurrTime();
+                long currTime = getCurrTimeMilliseconds() / 1000;
                 if (frecuencyPersistanceTimeSec_ > 0 && currTime - lastTime > frecuencyPersistanceTimeSec_){
                     Persist();
 
@@ -246,7 +246,7 @@ namespace GameTracker
 
             //Asignamos el nuevo tiempo
             currentTime_ = DateTime.UtcNow;
-            commonContent_.time_stamp = getCurrTime();
+            commonContent_.time_stamp = getCurrTimeMilliseconds();
 
             //Añadimos el parametro a la posicion inicial
             tiposParametros[0] = commonContent_.GetType(); // Agrega el tipo del primerParámetro al inicio del arreglo
@@ -274,9 +274,9 @@ namespace GameTracker
             return objeto;
         }
 
-        public long getCurrTime(){
+        public long getCurrTimeMilliseconds(){
             currentTime_ = DateTime.UtcNow;
-            long unixTime = ((DateTimeOffset)currentTime_).ToUnixTimeSeconds();
+            long unixTime = ((DateTimeOffset)currentTime_).ToUnixTimeMilliseconds();
 
             return unixTime;
         }
