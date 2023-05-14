@@ -34,6 +34,7 @@ namespace AudioTracking
         private bool screaming = false;
 
         private float acumlatedVoice = 0.0f; //acumulador de la voz durante X segundos
+        private int timesCalled = 0;    //Numero de veces que se llama al readInput
 
         //Hay que seleccionar el micro dentro de los devices
         //https://www.youtube.com/watch?v=HqZrDRwGkdI
@@ -185,15 +186,17 @@ namespace AudioTracking
         {
             TrackerSystem ts = TrackerSystem.GetInstance();
             MicrophoneEvent microphone = ts.CreateEvent<MicrophoneEvent>();
-            microphone.setDecibels(acumlatedVoice);
+            microphone.setDecibels(acumlatedVoice / timesCalled);
             ts.trackEvent(microphone);
 
-            acumlatedVoice = 0;
+            timesCalled = 0;
         }
 
         public void ReadInput()
         {
             acumlatedVoice += selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
+            timesCalled++;
+            acumlatedVoice = 0;
         }
 
     }
