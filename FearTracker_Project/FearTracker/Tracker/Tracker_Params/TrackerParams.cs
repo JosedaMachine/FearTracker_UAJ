@@ -21,5 +21,7 @@ namespace FT
         public Process process { get; set; }
         public bool canStart { get; set; }
         public bool canStop { get; set; }
+
+        public long startTime { get; set; }
     }
 }

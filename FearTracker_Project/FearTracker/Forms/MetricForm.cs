@@ -58,8 +58,14 @@ namespace FT
             // Agregar los puntos de datos a las series
             foreach (jsonData dato in datos)
             {
-                DataPoint punto = new DataPoint(dato.TimeStamp, dato.y);
-                series[(int)dato.EventType[0]].Points.Add(punto);
+                int evType = (int)(dato.EventType[0]);
+                if (evType >= 0 && evType < 3)
+                {
+                    DataPoint punto = new DataPoint(dato.TimeStamp - shared_.trackerParams.startTime, dato.y);
+                    series[evType].Points.Add(punto);
+
+                    Console.WriteLine(evType + " " + (dato.TimeStamp - shared_.trackerParams.startTime) + " " + dato.y);
+                }
             }
         }
         private void configureAxis(ref Chart chart, string y)
