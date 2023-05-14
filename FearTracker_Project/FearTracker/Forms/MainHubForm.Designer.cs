@@ -171,7 +171,7 @@
             this.labelWarningTestAudio.Size = new System.Drawing.Size(104, 13);
             this.labelWarningTestAudio.TabIndex = 13;
             this.labelWarningTestAudio.Text = "Warning: Test Audio";
-            this.labelWarningTestAudio.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelWarningTestAudio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelWarningTestAudio.Click += new System.EventHandler(this.labelWarningTestAudio_Click);
             // 
             // timer1
