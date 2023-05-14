@@ -181,7 +181,7 @@
             // 
             // progressBarAudio
             // 
-            this.progressBarAudio.Location = new System.Drawing.Point(242, 166);
+            this.progressBarAudio.Location = new System.Drawing.Point(15, 38);
             this.progressBarAudio.MarqueeAnimationSpeed = 50;
             this.progressBarAudio.Name = "progressBarAudio";
             this.progressBarAudio.Size = new System.Drawing.Size(100, 10);
