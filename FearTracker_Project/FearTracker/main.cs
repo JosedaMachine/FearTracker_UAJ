@@ -32,7 +32,7 @@ namespace FT
         static InputTracker inputTracker;
         static AudioTracker audioTracker;
 
-        public static long recordingTime = 2;   //Cada cuanto quiero grabar
+        public static long recordingTime = 1;   //Cada cuanto quiero grabar
         public static long timeSinceLastRecord = 0; //Tiempo desde la última vez que grabé
 
         /// <summary>
@@ -101,6 +101,7 @@ namespace FT
                 {
                     mouseTracker.sendEventAndRecord();
                     audioTracker.sendEventAndRecord();
+                    inputTracker.sendEventAndRecord();
 
                     timeSinceLastRecord = currTime;
                 }
