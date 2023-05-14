@@ -9,7 +9,7 @@ namespace GameTracker
         int numInputs;
         public KeyboardEvent(CommonContent common) : base(common)
         {
-            eventType_ = "3Keyboard";
+            eventType_ = "2Keyboard";
         }
 
         public override string toCSV()

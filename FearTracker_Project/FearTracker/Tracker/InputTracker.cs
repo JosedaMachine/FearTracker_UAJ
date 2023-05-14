@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Forms;
@@ -18,9 +19,11 @@ namespace FT
 
         private List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
 
+        private int inputRepetitions, numInputs;
+
         //---Asignar valores---
         private int msKeyTimer = 1000; //Tiempo en ms que tiene una tecla para ver su nº de repeticiones
-        private int minRepetitions = 3;
+        private int minRepetitions = 1;
         //------------
 
 
@@ -97,38 +100,57 @@ namespace FT
             //Si el timer asignado a cada key pulsada se acaba, se quita de la lista
             System.Timers.Timer timer = sender as System.Timers.Timer;
             string keyName = "";
-            int i = 0;
-            while (i < keyTimers.Count && keyTimers[i].Item1 != null && timer != keyTimers[i].Item2) i++;
-            if (i < keyTimers.Count)
+            ThreadLocal <int> i = new ThreadLocal<int>(()=>0);
+            while (i.Value < keyTimers.Count)
             {
-                keyName = keyTimers[i].Item1;
+                if (keyTimers[i.Value].Item1 != null && timer != keyTimers[i.Value].Item2)//Codigo defensivo
+                    ++i.Value;
+                else
+                    break;
+            }
+            if (i.Value < keyTimers.Count)
+            {
+                keyName = keyTimers[i.Value].Item1;
 
                 //Eliminar los elementos de cada lista
-                keyTimers.RemoveAt(i);//Se borra de los timers
+                keyTimers.RemoveAt(i.Value);//Se borra de los timers
             }
 
-            i = 0;
-            while (i < keyRepetitions.Count && keyRepetitions[i].Item1 != null && keyName != keyRepetitions[i].Item1) i++;
-            if (i < keyRepetitions.Count)
+            i.Value = 0;
+            while (i.Value < keyRepetitions.Count )
+            {
+                if (keyRepetitions[i.Value].Item1 != null && keyName != keyRepetitions[i.Value].Item1)//Codigo defensivo
+                    ++i.Value;
+                else
+                    break;
+            }
+            if (i.Value < keyRepetitions.Count)
             {
                 //Enviar evento si cumple los requisitos
-                if (keyRepetitions[i].Item2 > minRepetitions)
+                if (keyRepetitions[i.Value].Item2 > minRepetitions)
                 {
-                    eventInputHandler(keyRepetitions[i].Item1, keyRepetitions[i].Item2); //Mandar evento de teclado
+                    eventInputHandler(keyRepetitions[i.Value].Item1, keyRepetitions[i.Value].Item2); //Mandar evento de teclado
                 }
 
-                keyRepetitions.RemoveAt(i);//Se borra de la lista de repeticiones
+                keyRepetitions.RemoveAt(i.Value);//Se borra de la lista de repeticiones
             }
         }
 
-        public void eventInputHandler(string keyName, int repetitions)
+        private void eventInputHandler(string keyName, int repetitions)
+        {
+            inputRepetitions += repetitions;
+            Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
+        }
+
+        public void sendEventAndRecord()
         {
             TrackerSystem ts = TrackerSystem.GetInstance();
             KeyboardEvent scare = ts.CreateEvent<KeyboardEvent>();
-            scare.setNumInputs((short)repetitions);
+            scare.setNumInputs((short)inputRepetitions);
             ts.trackEvent(scare);
 
-            Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
+            //Reset
+            inputRepetitions = numInputs = 0;
         }
 
     }

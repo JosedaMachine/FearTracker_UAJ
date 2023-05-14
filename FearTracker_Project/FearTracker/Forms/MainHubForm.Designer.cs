@@ -43,6 +43,9 @@
             this.labelWarningTestAudio = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.progressBarAudio = new System.Windows.Forms.ProgressBar();
+            this.numericUpDownTimeTracker = new System.Windows.Forms.NumericUpDown();
+            this.labelTimeTracker = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeTracker)).BeginInit();
             this.SuspendLayout();
             // 
             // labelChoose
@@ -51,11 +54,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelChoose.AutoSize = true;
-            this.labelChoose.Location = new System.Drawing.Point(318, 9);
+            this.labelChoose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            this.labelChoose.Location = new System.Drawing.Point(283, 9);
             this.labelChoose.Name = "labelChoose";
-            this.labelChoose.Size = new System.Drawing.Size(110, 13);
+            this.labelChoose.Size = new System.Drawing.Size(257, 31);
             this.labelChoose.TabIndex = 3;
             this.labelChoose.Text = "Choose Track Events";
+            this.labelChoose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // checkMouse
             // 
@@ -172,7 +178,6 @@
             this.labelWarningTestAudio.TabIndex = 13;
             this.labelWarningTestAudio.Text = "Warning: Test Audio";
             this.labelWarningTestAudio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelWarningTestAudio.Click += new System.EventHandler(this.labelWarningTestAudio_Click);
             // 
             // timer1
             // 
@@ -189,11 +194,47 @@
             this.progressBarAudio.TabIndex = 14;
             this.progressBarAudio.Value = 60;
             // 
+            // numericUpDownTimeTracker
+            // 
+            this.numericUpDownTimeTracker.DecimalPlaces = 2;
+            this.numericUpDownTimeTracker.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDownTimeTracker.Location = new System.Drawing.Point(401, 219);
+            this.numericUpDownTimeTracker.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownTimeTracker.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDownTimeTracker.Name = "numericUpDownTimeTracker";
+            this.numericUpDownTimeTracker.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDownTimeTracker.TabIndex = 15;
+            this.numericUpDownTimeTracker.Value = new decimal(1.0);
+            this.numericUpDownTimeTracker.ValueChanged += new System.EventHandler(this.numericUpDownTimeTracker_ValueChange);
+            // 
+            // labelTimeTracker
+            // 
+            this.labelTimeTracker.AutoSize = true;
+            this.labelTimeTracker.Location = new System.Drawing.Point(322, 203);
+            this.labelTimeTracker.Name = "labelTimeTracker";
+            this.labelTimeTracker.Size = new System.Drawing.Size(204, 13);
+            this.labelTimeTracker.TabIndex = 16;
+            this.labelTimeTracker.Text = "Select time between samples (in seconds)";
+            // 
             // MainHubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelTimeTracker);
+            this.Controls.Add(this.numericUpDownTimeTracker);
             this.Controls.Add(this.progressBarAudio);
             this.Controls.Add(this.labelWarningTestAudio);
             this.Controls.Add(this.outputDeviceCombo);
@@ -209,6 +250,7 @@
             this.Text = "Fear Tracking";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainHubForm_FormClosing);
             this.Load += new System.EventHandler(this.MainHubForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeTracker)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,6 +272,8 @@
         private System.Windows.Forms.Label labelWarningTestAudio;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ProgressBar progressBarAudio;
+        private System.Windows.Forms.NumericUpDown numericUpDownTimeTracker;
+        private System.Windows.Forms.Label labelTimeTracker;
     }
 }
 
