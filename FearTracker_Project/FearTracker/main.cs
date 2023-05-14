@@ -85,12 +85,16 @@ namespace FT
 
             shared.trackerParams.startTime = timeSinceLastRecord;
 
+            DateTime currentTime = DateTime.Now;
+
             while (!parameters.canStop)
             {
+                currentTime = DateTime.Now;
+
                 long currTime = TrackerSystem.GetInstance().getCurrTimeMilliseconds();
 
                 if (parameters.mouseTracking)
-                    mouseTracker.readInput();
+                    mouseTracker.readInput(currentTime);
                 if (parameters.KeyboardTracking)
                     inputTracker.readInput();
                 if (parameters.MicTracking)
