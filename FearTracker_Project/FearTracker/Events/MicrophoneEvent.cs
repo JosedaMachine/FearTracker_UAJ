@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace GameTracker
 {
-    internal class KeyboardScareEvent : TrackerEvent
+    internal class MicrophoneEvent : TrackerEvent
     {
-        int numInputs;
-        public KeyboardScareEvent(CommonContent common) : base(common)
+        float decibels;
+        public MicrophoneEvent(CommonContent common) : base(common)
         {
-            eventType_ = "KeyboardScare";
+            eventType_ = "0Microphone";
         }
-
         public override string toCSV()
         {
             //Base information
@@ -29,7 +27,7 @@ namespace GameTracker
             var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(format);
 
             //Add data
-            data["y"] = numInputs;
+            data["y"] = decibels;
 
             // Serialize collection with new data
             string newCollection = JsonConvert.SerializeObject(data, new JsonSerializerSettings { Formatting = Formatting.Indented });
@@ -39,9 +37,9 @@ namespace GameTracker
             return newCollection;
         }
 
-        public void setNumInputs(short ni)
+        public void setDecibels(float db)
         {
-            numInputs = ni;
+            decibels = db;
         }
     }
 }

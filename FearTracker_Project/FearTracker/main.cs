@@ -23,7 +23,7 @@ namespace FT
     internal static class main
     {
         public static DateTime initDateTime, endDateTime;   //Para los timers 
-        public static float currentTime;    
+        public static float currentTime;
         static Stopwatch stopwatch;
         static bool quit = false;   //Para salir de la aplicación
 
@@ -32,6 +32,8 @@ namespace FT
         static InputTracker inputTracker;
         static AudioTracker audioTracker;
 
+        public static long recordingTime = 2;   //Cada cuanto quiero grabar
+        public static long timeSinceLastRecord = 0; //Tiempo desde la última vez que grabé
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -45,7 +47,7 @@ namespace FT
             trackerParams.process = new Process();
 
             SharedObject shared = new SharedObject();
-            shared.trackerParams =  trackerParams;
+            shared.trackerParams = trackerParams;
 
             //Hilo para realizar el tracking
             Thread trackerThread = new Thread(StartTracker);
@@ -55,8 +57,8 @@ namespace FT
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainHubForm(ref shared));
-            
-            
+
+
             //Esperar a que acabe el hilo
             trackerThread.Join();
             Application.Run(new MetricForm(ref shared));
@@ -81,22 +83,23 @@ namespace FT
             Init(ref parameters);
             Start();
 
-            while (!parameters.canStop) {
+            timeSinceLastRecord = TrackerSystem.GetInstance().getCurrTime();
 
-                float deltaTime = stopwatch.ElapsedMilliseconds;
-                stopwatch.Stop();
-                currentTime += deltaTime;
-                stopwatch.Reset();
-                stopwatch.Start();
+            while (!parameters.canStop)
+            {
+                long currTime = TrackerSystem.GetInstance().getCurrTime();
 
-                if (parameters.mouseTracking)
+                if (currTime - timeSinceLastRecord > recordingTime)
                 {
-                    mouseTracker.readInput(DateTime.Now);
+                    if (parameters.mouseTracking)
+                        mouseTracker.readInput();
+                    if (parameters.KeyboardTracking)
+                        inputTracker.readInput();
+                    if (parameters.MicTracking)
+                        audioTracker.ReadInput();
+
+                    timeSinceLastRecord = currTime;
                 }
-                if (parameters.KeyboardTracking)
-                    inputTracker.readInput();
-                if (parameters.MicTracking)
-                    audioTracker.ReadInput();
             };
 
             Stop();
@@ -146,7 +149,7 @@ namespace FT
         static void Stop()
         {
             TrackerSystem tracker = TrackerSystem.GetInstance();
-            
+
             tracker.Stop();
 
             tracker.Persist();

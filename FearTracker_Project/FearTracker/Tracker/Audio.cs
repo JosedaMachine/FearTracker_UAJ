@@ -184,7 +184,7 @@ namespace AudioTracking
             float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
 
             TrackerSystem ts = TrackerSystem.GetInstance();
-            MicrophoneScareEvent susto = ts.CreateEvent<MicrophoneScareEvent>();
+            MicrophoneEvent susto = ts.CreateEvent<MicrophoneEvent>();
             susto.setDecibels(voice);
             ts.trackEvent(susto);
 

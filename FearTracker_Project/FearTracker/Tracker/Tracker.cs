@@ -274,7 +274,7 @@ namespace GameTracker
             return objeto;
         }
 
-        private long getCurrTime(){
+        public long getCurrTime(){
             currentTime_ = DateTime.UtcNow;
             long unixTime = ((DateTimeOffset)currentTime_).ToUnixTimeSeconds();
 
