@@ -33,6 +33,8 @@ namespace AudioTracking
         private const int speakingMultiplicator = 15; //Hablar X veces más alto de lo que suena el sonido de fondo para que lo pille
         private bool screaming = false;
 
+        private float acumlatedVoice = 0.0f; //acumulador de la voz durante X segundos
+
         //Hay que seleccionar el micro dentro de los devices
         //https://www.youtube.com/watch?v=HqZrDRwGkdI
         //static void Main(string[] args)
@@ -179,17 +181,17 @@ namespace AudioTracking
 
         public int GetScreamMult() { return screamMultiplicator; }
 
+        public void sendEventAndRecord()
+        {
+            TrackerSystem ts = TrackerSystem.GetInstance();
+            MicrophoneEvent microphone = ts.CreateEvent<MicrophoneEvent>();
+            microphone.setDecibels(acumlatedVoice);
+            ts.trackEvent(microphone);
+        }
+
         public void ReadInput()
         {
-            float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
-
-            TrackerSystem ts = TrackerSystem.GetInstance();
-            MicrophoneEvent susto = ts.CreateEvent<MicrophoneEvent>();
-            susto.setDecibels(voice);
-            ts.trackEvent(susto);
-
-            Console.WriteLine("Susto grito");
-
+            acumlatedVoice += selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
         }
 
     }

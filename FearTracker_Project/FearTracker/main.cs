@@ -99,6 +99,8 @@ namespace FT
 
                 if (currTime - timeSinceLastRecord > recordingTime)
                 {
+                    mouseTracker.sendEventAndRecord();
+                    audioTracker.sendEventAndRecord();
 
                     timeSinceLastRecord = currTime;
                 }
