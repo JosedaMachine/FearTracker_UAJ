@@ -112,8 +112,6 @@ namespace FT
 
                 string extension = Path.GetExtension(filePath); 
 
-
-
                 if (extension == ".exe" || extension == ".mp4")
                 {
 
