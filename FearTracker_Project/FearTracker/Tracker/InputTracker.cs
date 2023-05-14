@@ -124,7 +124,7 @@ namespace FT
         public void eventInputHandler(string keyName, int repetitions)
         {
             TrackerSystem ts = TrackerSystem.GetInstance();
-            KeyboardScareEvent scare = ts.CreateEvent<KeyboardScareEvent>();
+            KeyboardEvent scare = ts.CreateEvent<KeyboardEvent>();
             scare.setNumInputs((short)repetitions);
             ts.trackEvent(scare);
 
