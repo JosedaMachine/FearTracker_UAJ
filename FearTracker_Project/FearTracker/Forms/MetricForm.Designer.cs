@@ -41,6 +41,9 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             
             if (shared_.trackerParams.MicTracking)
             {
@@ -57,6 +60,10 @@
                 this.keyboardChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
                 ((System.ComponentModel.ISupportInitialize)(this.keyboardChart)).BeginInit();
             }
+
+            this.scareChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.scareChart)).BeginInit();
+
             this.SuspendLayout();
 
             int chartWidth = shared_.trackerParams.trackingCount < 3 ? (width - (offset * 2)) : ((width / 2) - (offset * 3));
@@ -124,6 +131,25 @@
                 this.keyboardChart.TabIndex = 3;
                 this.keyboardChart.Text = "chart2";
             }
+
+            // 
+            // Scare
+            // 
+            chartArea4.Name = "ChartArea4";
+            this.scareChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.scareChart.Legends.Add(legend4);
+            this.scareChart.Location = new System.Drawing.Point(positionsX[posCont], positionsY[posCont]);
+            posCont++;
+            this.scareChart.Name = "chart4";
+            series4.ChartArea = "ChartArea4";
+            series4.Legend = "Legend1";
+            series4.Name = "Scare";
+            this.scareChart.Series.Add(series4);
+            this.scareChart.Size = new System.Drawing.Size(chartWidth, chartHeight);
+            this.scareChart.TabIndex = 4;
+            this.scareChart.Text = "chart4";
+
             // 
             // MetricForm
             // 
@@ -133,6 +159,7 @@
             this.Controls.Add(this.keyboardChart);
             this.Controls.Add(this.mouseChart);
             this.Controls.Add(this.MicChart);
+            this.Controls.Add(this.scareChart);
             this.Name = "MetricForm";
             this.Text = "MetricForm";
             this.Load += new System.EventHandler(this.MetricForm_Load);
@@ -142,6 +169,9 @@
                 ((System.ComponentModel.ISupportInitialize)(this.mouseChart)).EndInit();
             if (shared_.trackerParams.KeyboardTracking)
                 ((System.ComponentModel.ISupportInitialize)(this.keyboardChart)).EndInit();
+
+            ((System.ComponentModel.ISupportInitialize)(this.scareChart)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -150,8 +180,10 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart MicChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart mouseChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart keyboardChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart scareChart;
 
-        private int[] positionsY = new int[] { offset, (height / 2) + (int)(offset * 1.5f), (height / 2) - ((height / 2) - (offset * 3))/2 };
-        private int[] positionsX = new int[] { offset, offset, (width / 2) + (int)(offset * 1.5f) };
+        //private int[] positionsY = new int[] { offset, (height / 2) + (int)(offset * 1.5f), (height / 2) - ((height / 2) - (offset * 3))/2 };
+        private int[] positionsY = new int[] { offset, (height / 2) + (int)(offset * 1.5f), offset, (height / 2) + (int)(offset * 1.5f) };
+        private int[] positionsX = new int[] { offset, offset, (width / 2) + (int)(offset * 1.5f), (width / 2) + (int)(offset * 1.5f) };
     }
 }

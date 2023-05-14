@@ -29,7 +29,7 @@ namespace FT
             string json = File.ReadAllText("data.json");
             List<jsonData> datos = JsonConvert.DeserializeObject<List<jsonData>>(json);
 
-            Series[] series = new Series[3];
+            Series[] series = new Series[4];
 
             // Crear la serie de los gráficos
             if (shared_.trackerParams.MicTracking)
@@ -37,7 +37,7 @@ namespace FT
                 //Mic
                 series[0] = createSeries(ref MicChart);
                 series[0].Color = Color.Violet;
-                configureAxis(ref MicChart, "Sonido (db)");
+                configureAxis(ref MicChart, "Sound (db)");
             }
 
             if (shared_.trackerParams.mouseTracking)
@@ -45,16 +45,20 @@ namespace FT
                 //mouse
                 series[1] = createSeries(ref mouseChart);
                 series[1].Color = Color.Tomato;
-                configureAxis(ref mouseChart, "Desplazamiento (point)");
+                configureAxis(ref mouseChart, "Movement (points)");
             }
 
             if (shared_.trackerParams.KeyboardTracking)
             {
                 //keyboard
                 series[2] = createSeries(ref keyboardChart);
-                configureAxis(ref keyboardChart, "Número de inputs");
+                configureAxis(ref keyboardChart, "Number of inputs");
             }
-            
+
+            //Scares
+            series[3] = createSeries(ref scareChart);
+            configureAxis(ref scareChart, "Scare");
+
             // Agregar los puntos de datos a las series
             foreach (jsonData dato in datos)
             {
@@ -63,17 +67,20 @@ namespace FT
 
                 if (evType >= 0 && evType < 3)
                 {
+                    // Escribir puntos en graficas
                     float elapsedTime = (dato.TimeStamp - shared_.trackerParams.startTime)/1000.0f;
                     DataPoint punto = new DataPoint(elapsedTime, dato.y);
                     series[evType].Points.Add(punto);
 
-                    Console.WriteLine(evType + " " + (dato.TimeStamp - shared_.trackerParams.startTime) + " " + dato.y);
+
+                    //DataPoint scarePoint = new DataPoint(elapsedTime, dato.y);
+                    //series[evType].Points.Add(scarePoint);
                 }
             }
         }
         private void configureAxis(ref Chart chart, string y)
         {
-            chart.ChartAreas[0].AxisX.Title = "Tiempo (s)";
+            chart.ChartAreas[0].AxisX.Title = "Time (s)";
             chart.ChartAreas[0].AxisY.Title = y;
             chart.ChartAreas[0].AxisX.Minimum = 0;
             chart.ChartAreas[0].AxisY.Minimum = 0;

@@ -16,7 +16,7 @@ namespace FT
 
         public AudioTracker audioTracker { get; set; }
         
-        public int trackingCount { get; set; } = 0;
+        public int trackingCount { get; set; } = 1;
 
         public Process process { get; set; }
         public bool canStart { get; set; }
