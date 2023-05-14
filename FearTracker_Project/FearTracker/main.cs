@@ -96,7 +96,7 @@ namespace FT
                 if (parameters.KeyboardTracking)
                     inputTracker.readInput();
                 if (parameters.MicTracking)
-                    audioTracker.readInput();
+                    audioTracker.ReadInput();
             };
 
             Stop();

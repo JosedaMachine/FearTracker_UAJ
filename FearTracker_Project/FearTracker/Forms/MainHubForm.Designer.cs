@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelChoose = new System.Windows.Forms.Label();
             this.checkMouse = new System.Windows.Forms.CheckBox();
             this.checkMicrophone = new System.Windows.Forms.CheckBox();
@@ -40,6 +41,7 @@
             this.labelSelectDevice = new System.Windows.Forms.Label();
             this.outputDeviceCombo = new System.Windows.Forms.ComboBox();
             this.labelWarningTestAudio = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // labelChoose
@@ -139,7 +141,6 @@
             this.buttonAudioTest.TabIndex = 10;
             this.buttonAudioTest.Text = "Test";
             this.buttonAudioTest.UseVisualStyleBackColor = true;
-            this.buttonAudioTest.Hide();
             this.buttonAudioTest.Click += new System.EventHandler(this.buttonAudioClick);
             // 
             // labelSelectDevice
@@ -147,9 +148,8 @@
             this.labelSelectDevice.AutoSize = true;
             this.labelSelectDevice.Location = new System.Drawing.Point(12, 98);
             this.labelSelectDevice.Name = "labelSelectDevice";
-            this.labelSelectDevice.Size = new System.Drawing.Size(109, 13);
+            this.labelSelectDevice.Size = new System.Drawing.Size(101, 13);
             this.labelSelectDevice.TabIndex = 11;
-            this.labelSelectDevice.Hide();
             this.labelSelectDevice.Text = "Select Input Device";
             // 
             // outputDeviceCombo
@@ -159,19 +159,22 @@
             this.outputDeviceCombo.Name = "outputDeviceCombo";
             this.outputDeviceCombo.Size = new System.Drawing.Size(182, 21);
             this.outputDeviceCombo.TabIndex = 12;
-            this.outputDeviceCombo.Hide();
             this.outputDeviceCombo.SelectedIndexChanged += new System.EventHandler(this.outputDeviceCombo_SelectedIndexChanged);
             // 
-            // label1
+            // labelWarningTestAudio
             // 
             this.labelWarningTestAudio.AutoSize = true;
+            this.labelWarningTestAudio.ForeColor = System.Drawing.Color.Red;
             this.labelWarningTestAudio.Location = new System.Drawing.Point(265, 141);
             this.labelWarningTestAudio.Name = "labelWarningTestAudio";
-            this.labelWarningTestAudio.Size = new System.Drawing.Size(35, 13);
+            this.labelWarningTestAudio.Size = new System.Drawing.Size(104, 13);
             this.labelWarningTestAudio.TabIndex = 13;
-            this.labelWarningTestAudio.Hide();
-            this.labelWarningTestAudio.ForeColor = System.Drawing.Color.Red;
             this.labelWarningTestAudio.Text = "Warning: Test Audio";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MainHubForm
             // 
@@ -211,6 +214,7 @@
         private System.Windows.Forms.Label labelSelectDevice;
         private System.Windows.Forms.ComboBox outputDeviceCombo;
         private System.Windows.Forms.Label labelWarningTestAudio;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

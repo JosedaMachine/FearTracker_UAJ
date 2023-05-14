@@ -10,24 +10,27 @@ namespace AudioTracking
         private MMDeviceEnumerator en; //La variable que lleva los devices
 
         private MMDevice selectedDevice; //El microfono del usuario
-        //Todos estos numeritos estaría bien poder tocarlos de alguna manera
-        private WaveIn recorder;
+
+        private WaveIn recorder; // Grabadora de micro
 
         //Quizás a esto haya que ponerle estático, no lo se
-        private float defaultspakingVolume = 4000.0f;   //Basado en las pruebas que hemos hecho, esto da más o menos si hablas a un tono normal (Por si mi colegui no quiere hacer los test)
-        private float voiceMult = 100000.0f; //Para que el volumen sean números mayores que cero
+        private float defaultSpeakingVolume = 4000.0f;   //Basado en las pruebas que hemos hecho, esto da más o menos si hablas a un tono normal (Por si mi colegui no quiere hacer los test)
+        private const float voiceMult = 100000.0f; //Para que el volumen sean números mayores que cero
 
-        private int voiceTests = 3; //El número de veces que tiene que hablar el usuario
+        
+        private int speakingCont = 0;               //Las veces que ha hablado
+        private const int voiceTests = 3;         //El número de veces que tiene que hablar el usuario
+        private float acumVoice = 0.0f;     //La suma de todas las muestras para hacer la media
+        private bool speaking = false;
 
-        private float backgroundNoise = 15.0f; //Basado en el ruido monstruoso que hace mi pc
-
+        private float backgroundNoise = 15.0f; 
         //TODO : Cambiarlo a tiempo
-        private int backgroundTimer = 25000;    //Iteraciones que nos pasamos grabando, si queremos ponerlo como tiempo pues hay que ver cuantas iteraciones hace por segundo
+        private const int backgroundTimer = 100;    //s que nos pasamos grabando
+        private int backgroundTimeRecording = 0;    //s actuales
+        private float backgroundAcum = 0;
 
-        private int screamMultiplicator = 17;   //Tienes que gritar 17 veces más alto de lo que hablas para que cuente como grito
-
-        private int speakingMultiplicator = 15; //Tienes que hablar 15 veces más alto de lo que suena el sonido de fondo para que lo pille
-
+        private const int screamMultiplicator = 17;   //Gritar X veces más alto de lo que hablas para que cuente como grito
+        private const int speakingMultiplicator = 15; //Hablar X veces más alto de lo que suena el sonido de fondo para que lo pille
         private bool screaming = false;
 
         //Hay que seleccionar el micro dentro de los devices
@@ -66,105 +69,119 @@ namespace AudioTracking
 
         public AudioTracker()
         {
-            initvoiceDetection();
+            InitvoiceDetection();
         }
 
-        public void initvoiceDetection()
+        public void InitvoiceDetection()
         {
             en = new MMDeviceEnumerator();
         }
 
-        //Método para saber a que volumen habla de normal el usuario, para poder tenerlo como referenica
-        //ASí si habla sin más no lo cuenta como grito.
-
-        public void voiceTest()
+        public bool IsVoiceTestOver()
         {
-            float voice = 0.0f;
-            int speakingCont = 0;               //Las veces que ha hablado
-            bool speaking = false;              //Para que no te pille las tres de golpe
-            float[] samples = new float[voiceTests];    //Seguramente este array no sea necesario, pero así tenemos cada muestra de sonido, por si acaso
-            float acumVoice = 0.0f;     //La suma de todas las muestras para hacer la media
-            
-            Console.WriteLine("Habla");
-
-            while (speakingCont < voiceTests)
-            {
-                voice = selectedDevice.AudioMeterInformation.MasterPeakValue;
-                Console.WriteLine(voice);
-                //Representa que ya esta hablando
-                if ((voice * voiceMult) > backgroundNoise * speakingMultiplicator && !speaking)
-                {
-                    samples[speakingCont] = voice * voiceMult;
-                    acumVoice += voice;
-                    speakingCont++;
-
-                    speaking = true;
-                }
-                else if (voice * voiceMult <= backgroundNoise && speaking)
-                {
-                    speaking = false;        //Cuando se calle
-                    Console.WriteLine("Habla de nuevo");
-                }
-            }
-
-            defaultspakingVolume = (acumVoice / voiceTests) * voiceMult;
-            Console.WriteLine(defaultspakingVolume);
-
+            return speakingCont >= voiceTests;
         }
 
-        public void getBackgroundNoise()
+        public bool VoiceTest()
         {
-            recorder = new WaveIn();
-            recorder.StartRecording();
+            float voice;
+            
+            voice = selectedDevice.AudioMeterInformation.MasterPeakValue;
+            Console.WriteLine(voice);
 
-            int timeRecording = 0;
-            float backgroundAcum = 0.0f;
+            //Representa que ya esta hablando
+            if ((voice * voiceMult) > backgroundNoise * speakingMultiplicator && !speaking)
+            {
+                acumVoice += voice;
+                speakingCont++;
+
+                speaking = true;
+            }
+
+            if (voice * voiceMult <= backgroundNoise && speaking)
+            {
+                speaking = false;        // Cuando se calle
+            }
+
+            if (IsVoiceTestOver())
+            {
+                defaultSpeakingVolume = (acumVoice / voiceTests) * voiceMult;
+                Console.WriteLine(defaultSpeakingVolume);
+            }
+
+            return speaking;
+        }
+
+        public void ResetMicTesting()
+        {
+            speakingCont = 0;
+            acumVoice = 0;
+            speaking = false;
+
+            backgroundNoise = 0;
+            backgroundTimeRecording = 0;
+            backgroundAcum = 0;
+        }
+
+        public bool IsBackgroundNoiseRecordingFinished()
+        {
+            return backgroundTimeRecording >= backgroundTimer;
+        }
+
+        //Método para saber a que volumen habla de normal el usuario, para poder tenerlo como referenica
+        //Así si habla sin más no lo cuenta como grito.
+        public void GetBackgroundNoise()
+        {
+            if(recorder == null)
+            {
+                recorder = new WaveIn();
+                recorder.StartRecording();
+            }
 
             Console.WriteLine("Tomando audio de fondo");
 
-            while (timeRecording < backgroundTimer)
+            backgroundAcum += selectedDevice.AudioMeterInformation.MasterPeakValue;
+
+            backgroundTimeRecording++;
+
+            if (IsBackgroundNoiseRecordingFinished())
             {
-                backgroundAcum += selectedDevice.AudioMeterInformation.MasterPeakValue;
-
-                timeRecording++;
+                backgroundNoise = (backgroundAcum / backgroundTimer) * voiceMult;
+                Console.WriteLine(backgroundNoise);
             }
-
-            backgroundNoise = (backgroundAcum / backgroundTimer) * voiceMult;
-
-            Console.WriteLine(backgroundNoise);
         }
 
-        public void measureVoice()
+        public void MeasureVoice()
         {
             float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * voiceMult;
 
-            if (!screaming && (voice > defaultspakingVolume * screamMultiplicator))
+            if (!screaming && (voice > defaultSpeakingVolume * screamMultiplicator))
                 screaming = true;
-            else if (screaming && voice < defaultspakingVolume) 
+            else if (screaming && voice < defaultSpeakingVolume) 
                 screaming = false;
         }
 
-        public MMDeviceCollection getDevices()
+        public MMDeviceCollection GetDevices()
         {
             return en.EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
         }
 
-        public void setSelectedDevice(object device)
+        public void SetSelectedDevice(object device)
         {
             selectedDevice = (MMDevice)device;
         }
 
-        public float getVoiceMult() { return voiceMult; }
+        public float GetVoiceMult() { return voiceMult; }
 
-        public float getDefaultSpakingVolume() { return defaultspakingVolume; }
+        public float GetDefaultSpakingVolume() { return defaultSpeakingVolume; }
 
-        public int getScreamMult() { return screamMultiplicator; }
+        public int GetScreamMult() { return screamMultiplicator; }
 
-        public void readInput()
+        public void ReadInput()
         {
-            float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * getVoiceMult();
+            float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
 
-            if (!screaming && (voice > getDefaultSpakingVolume() * getScreamMult()))
+            if (!screaming && (voice > GetDefaultSpakingVolume() * GetScreamMult()))
             {
                 TrackerSystem ts = TrackerSystem.GetInstance();
                 MicrophoneScareEvent susto = ts.CreateEvent<MicrophoneScareEvent>();
@@ -172,7 +189,7 @@ namespace AudioTracking
 
                 Console.WriteLine("Susto grito");
             }
-            else if (screaming && voice < getDefaultSpakingVolume()) screaming = false;
+            else if (screaming && voice < GetDefaultSpakingVolume()) screaming = false;
         }
 
     }

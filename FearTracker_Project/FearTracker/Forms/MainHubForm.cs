@@ -17,6 +17,7 @@ namespace FT
     public partial class MainHubForm : Form
     {
         private bool micTested = false;
+        private bool micInTesting = false;
         private bool devicesLoaded = false;
 
         SharedObject shared_;
@@ -25,6 +26,12 @@ namespace FT
         {   
             InitializeComponent();
             shared_ = shared;
+
+            // Componentes escondidos de inicio
+            labelWarningTestAudio.Hide();
+            labelSelectDevice.Hide();
+            outputDeviceCombo.Hide();
+            buttonAudioTest.Hide();
         }
 
         // Busca y añade al ComboBox los posibles dispositivos
@@ -34,7 +41,7 @@ namespace FT
                 return;
 
             AudioTracker tracker = shared_.trackerParams.audioTracker;
-            var devices = tracker.getDevices();
+            var devices = tracker.GetDevices();
 
             if (devices == null)
                 return;
@@ -94,7 +101,7 @@ namespace FT
         {
             if (shared_.trackerParams.MicTracking && !micTested)
             {
-                labelWarningTestAudio.Show();
+                ShowAudioLabel("Warning: Test Audio", Color.Red);
                 return;
             }
 
@@ -137,17 +144,16 @@ namespace FT
 
         private void buttonAudioClick(object sender, EventArgs e)
         {
-            // Esconde warning en caso de estar visible
-            labelWarningTestAudio.Hide();
+            // Prepara e inicia el testeo de micro
+            micInTesting = true;
 
-            // Coge el tracker e inicia el voicetest
             AudioTracker tracker = shared_.trackerParams.audioTracker;
-            tracker.setSelectedDevice(outputDeviceCombo.SelectedItem);
-            tracker.getBackgroundNoise();
-            tracker.voiceTest();
-            micTested = true;
+            
+            timer1.Enabled = true;
+            tracker.ResetMicTesting();
+            tracker.SetSelectedDevice(outputDeviceCombo.SelectedItem);
         }
-        
+
 
         private void MainHubForm_Load(object sender, EventArgs e)
         {
@@ -165,8 +171,42 @@ namespace FT
         private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e) 
         {
             AudioTracker tracker = shared_.trackerParams.audioTracker;
-            tracker.setSelectedDevice(outputDeviceCombo.SelectedItem);
+            tracker.SetSelectedDevice(outputDeviceCombo.SelectedItem);
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!micInTesting)
+                return;
+
+            AudioTracker tracker = shared_.trackerParams.audioTracker;
+
+            if (!tracker.IsBackgroundNoiseRecordingFinished())
+            {
+                ShowAudioLabel("Recording background noise...", Color.Yellow);
+                tracker.GetBackgroundNoise();
+                return;
+            }
+
+            ShowAudioLabel("Habla", Color.Green);
+
+            if (tracker.VoiceTest()) { 
+                ShowAudioLabel("Calla", Color.Red);
+            };
+
+            if (tracker.IsVoiceTestOver())
+            {
+                micTested = true;
+                micInTesting = false;
+                labelWarningTestAudio.Hide();
+            }
+        }
+
+        private void ShowAudioLabel(string text, Color color)
+        {
+            labelWarningTestAudio.ForeColor = color;
+            labelWarningTestAudio.Text = text;
+            labelWarningTestAudio.Show();
+        }
     }
 }
