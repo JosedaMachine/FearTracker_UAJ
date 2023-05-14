@@ -17,13 +17,13 @@ namespace AudioTracking
         private float defaultSpeakingVolume = 4000.0f;   //Basado en las pruebas que hemos hecho, esto da más o menos si hablas a un tono normal (Por si mi colegui no quiere hacer los test)
         private const float voiceMult = 100000.0f; //Para que el volumen sean números mayores que cero
 
-        
+
         private int speakingCont = 0;               //Las veces que ha hablado
         private const int voiceTests = 3;         //El número de veces que tiene que hablar el usuario
         private float acumVoice = 0.0f;     //La suma de todas las muestras para hacer la media
         private bool speaking = false;
 
-        private float backgroundNoise = 15.0f; 
+        private float backgroundNoise = 15.0f;
         //TODO : Cambiarlo a tiempo
         private const int backgroundTimer = 100;    //s que nos pasamos grabando
         private int backgroundTimeRecording = 0;    //s actuales
@@ -85,7 +85,7 @@ namespace AudioTracking
         public bool VoiceTest(out float voiceValue)
         {
             float voice;
-            
+
             voice = selectedDevice.AudioMeterInformation.MasterPeakValue;
             Console.WriteLine(voice);
 
@@ -134,7 +134,7 @@ namespace AudioTracking
         //Así si habla sin más no lo cuenta como grito.
         public void GetBackgroundNoise()
         {
-            if(recorder == null)
+            if (recorder == null)
             {
                 recorder = new WaveIn();
                 recorder.StartRecording();
@@ -159,7 +159,7 @@ namespace AudioTracking
 
             if (!screaming && (voice > defaultSpeakingVolume * screamMultiplicator))
                 screaming = true;
-            else if (screaming && voice < defaultSpeakingVolume) 
+            else if (screaming && voice < defaultSpeakingVolume)
                 screaming = false;
         }
 
@@ -183,15 +183,13 @@ namespace AudioTracking
         {
             float voice = selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
 
-            if (!screaming && (voice > GetDefaultSpakingVolume() * GetScreamMult()))
-            {
-                TrackerSystem ts = TrackerSystem.GetInstance();
-                MicrophoneScareEvent susto = ts.CreateEvent<MicrophoneScareEvent>();
-                ts.trackEvent(susto);
+            TrackerSystem ts = TrackerSystem.GetInstance();
+            MicrophoneScareEvent susto = ts.CreateEvent<MicrophoneScareEvent>();
+            susto.setDecibels(voice);
+            ts.trackEvent(susto);
 
-                Console.WriteLine("Susto grito");
-            }
-            else if (screaming && voice < GetDefaultSpakingVolume()) screaming = false;
+            Console.WriteLine("Susto grito");
+
         }
 
     }
