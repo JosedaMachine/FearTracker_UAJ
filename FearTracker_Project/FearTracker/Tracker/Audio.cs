@@ -187,6 +187,8 @@ namespace AudioTracking
             MicrophoneEvent microphone = ts.CreateEvent<MicrophoneEvent>();
             microphone.setDecibels(acumlatedVoice);
             ts.trackEvent(microphone);
+
+            acumlatedVoice = 0;
         }
 
         public void ReadInput()
