@@ -92,17 +92,15 @@ namespace FT
 
                 if (parameters.mouseTracking)
                     mouseTracker.readInput();
-
+                if (parameters.KeyboardTracking)
+                    inputTracker.readInput();
+                if (parameters.MicTracking)
+                    audioTracker.ReadInput();
 
                 if (currTime - timeSinceLastRecord > recordingTime)
                 {
-                    if (parameters.mouseTracking)
-                        mouseTracker.sendEventAndRecord();
-                    
-                    if (parameters.KeyboardTracking)
-                        inputTracker.readInput();
-                    if (parameters.MicTracking)
-                        audioTracker.ReadInput();
+                    mouseTracker.sendEventAndRecord();
+                    audioTracker.sendEventAndRecord();
 
                     timeSinceLastRecord = currTime;
                 }
