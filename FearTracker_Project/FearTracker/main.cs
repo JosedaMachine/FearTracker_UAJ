@@ -101,6 +101,7 @@ namespace FT
                 {
                     mouseTracker.sendEventAndRecord();
                     audioTracker.sendEventAndRecord();
+                    inputTracker.sendEventAndRecord();
 
                     timeSinceLastRecord = currTime;
                 }
