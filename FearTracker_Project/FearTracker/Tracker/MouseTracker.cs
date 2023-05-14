@@ -37,7 +37,7 @@ namespace FT
             mouseScareTimeOffset = 1;
         }
 
-        public void readInput(DateTime currentTime)
+        public void readInput()
         {
             Point currentMousePosition = Cursor.Position;
 
@@ -46,30 +46,35 @@ namespace FT
             int mouseDifferenceY = Math.Abs(oldMousePosition.Y - currentMousePosition.Y);
             mousePositionDifference = mouseDifferenceX + mouseDifferenceY;
 
+            TrackerSystem ts = TrackerSystem.GetInstance();
+            MouseEvent mouse = ts.CreateEvent<MouseEvent>();
+            mouse.setMouseDisplacement(mousePositionDifference);
+            ts.trackEvent(mouse);
+
             //We only determine the average and register the input if the difference surpasses the offset
-            if (mousePositionDifference >= offsetMouseDifference)
-            {
-                //We avoid getting various mouseScareEvents if one has already ocurred recently
-                if ((currentTime - lastMouseScareTime).Seconds > mouseScareTimeOffset)
-                {
-                    //Determining if the user was scared or not
-                    if (mousePositionDifference > averageDifference * scaredMouseMultiplier)
-                    {
-                        TrackerSystem ts = TrackerSystem.GetInstance();
-                        MouseScareEvent susto = ts.CreateEvent<MouseScareEvent>();
-                        ts.trackEvent(susto);
+            //if (mousePositionDifference >= offsetMouseDifference)
+            //{
+            //    //We avoid getting various mouseScareEvents if one has already ocurred recently
+            //    if ((currentTime - lastMouseScareTime).Seconds > mouseScareTimeOffset)
+            //    {
+            //        //Determining if the user was scared or not
+            //        if (mousePositionDifference > averageDifference * scaredMouseMultiplier)
+            //        {
+            //            TrackerSystem ts = TrackerSystem.GetInstance();
+            //            MouseScareEvent susto = ts.CreateEvent<MouseScareEvent>();
+            //            ts.trackEvent(susto);
 
-                        lastMouseScareTime = DateTime.Now;
-                        Console.WriteLine("SUSTO RATON");
-                    }
-                }
+            //            lastMouseScareTime = DateTime.Now;
+            //            Console.WriteLine("SUSTO RATON");
+            //        }
+            //    }
 
-                //We determine the new average
-                numberOfMovements++;
-                averageDifference = (double)((averageDifference * (numberOfMovements - 1) + mousePositionDifference)) / (double)numberOfMovements;
-                oldMousePosition = currentMousePosition;
+            //    //We determine the new average
+            //    numberOfMovements++;
+            //    averageDifference = (double)((averageDifference * (numberOfMovements - 1) + mousePositionDifference)) / (double)numberOfMovements;
+            //    oldMousePosition = currentMousePosition;
                 //Console.WriteLine("Diferencia de movimiento: X={0}", mousePositionDifference);
-            }
+            
         }
 
 

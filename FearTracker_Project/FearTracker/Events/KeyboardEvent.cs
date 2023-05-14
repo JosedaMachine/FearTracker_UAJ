@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace GameTracker
 {
-    internal class MouseScareEvent : TrackerEvent
+    internal class KeyboardEvent : TrackerEvent
     {
-        float mouseVelocity;
-        public MouseScareEvent(CommonContent common) : base(common)
+        int numInputs;
+        public KeyboardEvent(CommonContent common) : base(common)
         {
-            eventType_ = "MouseScare";
+            eventType_ = "3Keyboard";
         }
+
         public override string toCSV()
         {
             //Base information
@@ -27,7 +29,7 @@ namespace GameTracker
             var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(format);
 
             //Add data
-            data["y"] = mouseVelocity;
+            data["y"] = numInputs;
 
             // Serialize collection with new data
             string newCollection = JsonConvert.SerializeObject(data, new JsonSerializerSettings { Formatting = Formatting.Indented });
@@ -37,9 +39,9 @@ namespace GameTracker
             return newCollection;
         }
 
-        public void setMouseVelocity(float mv)
+        public void setNumInputs(short ni)
         {
-            mouseVelocity = mv;
+            numInputs = ni;
         }
     }
 }

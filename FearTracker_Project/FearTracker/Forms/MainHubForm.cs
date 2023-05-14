@@ -171,13 +171,7 @@ namespace FT
         private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e) 
         {
             AudioTracker tracker = shared_.trackerParams.audioTracker;
-            tracker.ResetMicTesting();
             tracker.SetSelectedDevice(outputDeviceCombo.SelectedItem);
-
-
-            micInTesting = true;
-
-            timer1.Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

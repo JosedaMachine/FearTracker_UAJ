@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace GameTracker
 {
-    internal class MicrophoneScareEvent : TrackerEvent
+    internal class MouseEvent : TrackerEvent
     {
-        float decibels;
-        public MicrophoneScareEvent(CommonContent common) : base(common)
+        float mouseDisplacement;
+        public MouseEvent(CommonContent common) : base(common)
         {
-            eventType_ = "MicrophoneScare";
+            eventType_ = "1Mouse";
         }
         public override string toCSV()
         {
@@ -27,7 +27,7 @@ namespace GameTracker
             var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(format);
 
             //Add data
-            data["y"] = decibels;
+            data["y"] = mouseDisplacement;
 
             // Serialize collection with new data
             string newCollection = JsonConvert.SerializeObject(data, new JsonSerializerSettings { Formatting = Formatting.Indented });
@@ -37,9 +37,9 @@ namespace GameTracker
             return newCollection;
         }
 
-        public void setDecibels(float db)
+        public void setMouseDisplacement(float mv)
         {
-            decibels = db;
+            mouseDisplacement = mv;
         }
     }
 }
