@@ -42,6 +42,7 @@
             this.outputDeviceCombo = new System.Windows.Forms.ComboBox();
             this.labelWarningTestAudio = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.progressBarAudio = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // labelChoose
@@ -176,11 +177,22 @@
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // progressBarAudio
+            // 
+            this.progressBarAudio.Location = new System.Drawing.Point(242, 166);
+            this.progressBarAudio.MarqueeAnimationSpeed = 50;
+            this.progressBarAudio.Name = "progressBarAudio";
+            this.progressBarAudio.Size = new System.Drawing.Size(100, 10);
+            this.progressBarAudio.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarAudio.TabIndex = 14;
+            this.progressBarAudio.Value = 60;
+            // 
             // MainHubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.progressBarAudio);
             this.Controls.Add(this.labelWarningTestAudio);
             this.Controls.Add(this.outputDeviceCombo);
             this.Controls.Add(this.labelSelectDevice);
@@ -215,6 +227,7 @@
         private System.Windows.Forms.ComboBox outputDeviceCombo;
         private System.Windows.Forms.Label labelWarningTestAudio;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ProgressBar progressBarAudio;
     }
 }
 

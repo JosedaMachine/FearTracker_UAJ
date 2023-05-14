@@ -32,6 +32,7 @@ namespace FT
             labelSelectDevice.Hide();
             outputDeviceCombo.Hide();
             buttonAudioTest.Hide();
+            progressBarAudio.Hide();
         }
 
         // Busca y añade al ComboBox los posibles dispositivos
@@ -152,6 +153,7 @@ namespace FT
             timer1.Enabled = true;
             tracker.ResetMicTesting();
             tracker.SetSelectedDevice(outputDeviceCombo.SelectedItem);
+            progressBarAudio.Show();
         }
 
 
@@ -183,22 +185,27 @@ namespace FT
 
             if (!tracker.IsBackgroundNoiseRecordingFinished())
             {
-                ShowAudioLabel("Recording background noise...", Color.Yellow);
+                ShowAudioLabel("Recording background noise...", Color.Blue);
                 tracker.GetBackgroundNoise();
                 return;
             }
 
             ShowAudioLabel("Habla", Color.Green);
 
-            if (tracker.VoiceTest()) { 
+            float progressValue;
+
+            if (tracker.VoiceTest(out progressValue)) { 
                 ShowAudioLabel("Calla", Color.Red);
             };
+
+            progressBarAudio.Value = (int)(progressValue * 100);
 
             if (tracker.IsVoiceTestOver())
             {
                 micTested = true;
                 micInTesting = false;
                 labelWarningTestAudio.Hide();
+                progressBarAudio.Hide();
             }
         }
 

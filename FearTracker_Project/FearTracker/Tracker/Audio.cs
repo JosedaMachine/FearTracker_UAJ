@@ -82,7 +82,7 @@ namespace AudioTracking
             return speakingCont >= voiceTests;
         }
 
-        public bool VoiceTest()
+        public bool VoiceTest(out float voiceValue)
         {
             float voice;
             
@@ -108,6 +108,8 @@ namespace AudioTracking
                 defaultSpeakingVolume = (acumVoice / voiceTests) * voiceMult;
                 Console.WriteLine(defaultSpeakingVolume);
             }
+
+            voiceValue = voice;
 
             return speaking;
         }
