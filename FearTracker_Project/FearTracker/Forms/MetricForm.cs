@@ -26,12 +26,10 @@ namespace FT
         private void MetricForm_Load(object sender, EventArgs e)
         {
             // Leer el archivo JSON
-            string json = File.ReadAllText("datos.json");
+            string json = File.ReadAllText("data.json");
             List<jsonData> datos = JsonConvert.DeserializeObject<List<jsonData>>(json);
 
             Series[] series = new Series[3];
-
-            Console.WriteLine();
 
             // Crear la serie de los gráficos
             if (shared_.trackerParams.MicTracking)
@@ -47,21 +45,21 @@ namespace FT
                 //mouse
                 series[1] = createSeries(ref mouseChart);
                 series[1].Color = Color.Tomato;
-                configureAxis(ref mouseChart, "Velocidad (m/s)");
+                configureAxis(ref mouseChart, "Desplazamiento (point)");
             }
 
             if (shared_.trackerParams.KeyboardTracking)
             {
                 //keyboard
                 series[2] = createSeries(ref keyboardChart);
-                configureAxis(ref keyboardChart, "Num inputs?");
+                configureAxis(ref keyboardChart, "Número de inputs");
             }
             
             // Agregar los puntos de datos a las series
             foreach (jsonData dato in datos)
             {
-                DataPoint punto = new DataPoint(dato.time, dato.y);
-                series[dato.typeId].Points.Add(punto);
+                DataPoint punto = new DataPoint(dato.TimeStamp, dato.y);
+                series[(int)dato.EventType[0]].Points.Add(punto);
             }
         }
         private void configureAxis(ref Chart chart, string y)
