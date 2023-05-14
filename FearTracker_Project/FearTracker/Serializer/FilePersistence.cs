@@ -11,6 +11,8 @@ namespace GameTracker
 
         private string fileData_;
 
+        StreamWriter outputFile;
+
         public FilePersistence(ref ISerializer serializer)
         {
             fileData_ = "";
@@ -25,28 +27,45 @@ namespace GameTracker
            fileData_ += serializer_.serialize(e);
         }
 
-        public void flush()
+        public void InitPersistance()
         {
-            //Console.WriteLine("Flushing");
             try
             {
                 // Abrir el archivo en modo append
-                StreamWriter outputFile = new StreamWriter(path_ + serializer_.getName(), true);
-
-                //Escribir contenido
-                outputFile.Write(fileData_);
-
-                Console.WriteLine("Fichero escrito");
-
-                outputFile.Close();
-
-                //Reestablecer cadena que guarda los eventos
-                fileData_ = "";
+                outputFile = new StreamWriter(path_ + serializer_.getName(), false);
             }
             catch (System.IO.IOException e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        public void flush()
+        {
+            //Console.WriteLine("Flushing");
+            try
+            {
+                //Escribir contenido
+                outputFile.Write(fileData_);
+
+                Console.WriteLine("Fichero escrito");
+
+                fileData_ = "";
+
+                
+            }
+            catch (System.IO.IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void close()
+        {
+            outputFile.Close();
+
+            //Reestablecer cadena que guarda los eventos
+            //fileData_ = "";
         }
     }
 }

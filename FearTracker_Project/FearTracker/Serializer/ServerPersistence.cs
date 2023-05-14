@@ -13,7 +13,18 @@ namespace GameTracker
 
             serializer_ = serializer;
         }
+
+        public void InitPersistance()
+        {
+            throw new NotImplementedException();
+        }
+
         public void flush()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void close()
         {
             throw new NotImplementedException();
         }

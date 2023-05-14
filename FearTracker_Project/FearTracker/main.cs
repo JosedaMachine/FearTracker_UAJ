@@ -135,6 +135,9 @@ namespace FT
             ISerializer serializerJSON = new JsonSerializer();
             IPersistence filePersistenceCopy = new FilePersistence(ref serializerJSON);
 
+            filePersistence.InitPersistance();
+            filePersistenceCopy.InitPersistance();
+
             tracker.AddPersistence(ref filePersistenceCopy);
 
             tracker.setFrecuencyPersistanceTimeSeconds(3);
@@ -159,6 +162,8 @@ namespace FT
             tracker.Stop();
 
             tracker.Persist();
+
+            tracker.CloseFiles();
         }
 
         #endregion

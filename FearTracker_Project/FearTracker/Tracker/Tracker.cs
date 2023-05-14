@@ -122,13 +122,16 @@ namespace GameTracker
             FinishSessionEvent FSE = CreateEvent<FinishSessionEvent>();
             
             if(FSE != null)
+            {
                 trackEvent(FSE);
+                
+            }
 
             stop_ = true;
-            SerializeEvents();
-            Persist();
 
             dequeueEvents_thread.Join();
+
+            Persist();
 
             queue_ = null;
 
@@ -167,6 +170,15 @@ namespace GameTracker
             }
         }
 
+        public void CloseFiles()
+        {
+            foreach (IPersistence persistence in persistencesList)
+            {
+                
+                persistence.close();
+            }
+        }
+
         /// <summary>
         /// Adds a new persistance method that coexist simultaneously with others. 
         /// </summary>
@@ -180,7 +192,7 @@ namespace GameTracker
         {
             long lastTime = getCurrTime();
 
-            while (queue_.Count > 0 || !stop_)
+            while (!queue_.IsEmpty || !stop_)
             {
                 long currTime = getCurrTime();
                 if (frecuencyPersistanceTimeSec_ > 0 && currTime - lastTime > frecuencyPersistanceTimeSec_){
