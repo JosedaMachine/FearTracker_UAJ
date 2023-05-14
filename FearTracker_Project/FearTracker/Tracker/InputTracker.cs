@@ -18,6 +18,8 @@ namespace FT
 
         private List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
 
+        private int inputRepetitions, numInputs;
+
         //---Asignar valores---
         private int msKeyTimer = 1000; //Tiempo en ms que tiene una tecla para ver su nº de repeticiones
         private int minRepetitions = 3;
@@ -121,14 +123,21 @@ namespace FT
             }
         }
 
-        public void eventInputHandler(string keyName, int repetitions)
+        private void eventInputHandler(string keyName, int repetitions)
+        {
+            inputRepetitions += repetitions;
+            Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
+        }
+
+        public void sendEventAndRecord()
         {
             TrackerSystem ts = TrackerSystem.GetInstance();
             KeyboardEvent scare = ts.CreateEvent<KeyboardEvent>();
-            scare.setNumInputs((short)repetitions);
+            scare.setNumInputs((short)inputRepetitions);
             ts.trackEvent(scare);
 
-            Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
+            //Reset
+            inputRepetitions = numInputs = 0;
         }
 
     }
