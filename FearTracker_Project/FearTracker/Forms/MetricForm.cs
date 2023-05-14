@@ -63,7 +63,8 @@ namespace FT
 
                 if (evType >= 0 && evType < 3)
                 {
-                    DataPoint punto = new DataPoint(dato.TimeStamp - shared_.trackerParams.startTime, dato.y);
+                    float elapsedTime = (dato.TimeStamp - shared_.trackerParams.startTime)/1000.0f;
+                    DataPoint punto = new DataPoint(elapsedTime, dato.y);
                     series[evType].Points.Add(punto);
 
                     Console.WriteLine(evType + " " + (dato.TimeStamp - shared_.trackerParams.startTime) + " " + dato.y);

@@ -216,6 +216,8 @@ namespace FT
         private void numericUpDownTimeTracker_ValueChange(object sender, EventArgs e)
         {
             float val = (float)numericUpDownTimeTracker.Value;
+
+            //recordingTime = val;
         }
     }
 }

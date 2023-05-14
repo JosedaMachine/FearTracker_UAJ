@@ -216,7 +216,7 @@
             this.numericUpDownTimeTracker.Name = "numericUpDownTimeTracker";
             this.numericUpDownTimeTracker.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownTimeTracker.TabIndex = 15;
-            this.numericUpDownTimeTracker.Value = new decimal(2.0);
+            this.numericUpDownTimeTracker.Value = new decimal(1.0);
             this.numericUpDownTimeTracker.ValueChanged += new System.EventHandler(this.numericUpDownTimeTracker_ValueChange);
             // 
             // labelTimeTracker
