@@ -190,13 +190,13 @@ namespace AudioTracking
             ts.trackEvent(microphone);
 
             timesCalled = 0;
+            acumlatedVoice = 0;
         }
 
         public void ReadInput()
         {
             acumlatedVoice += selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
             timesCalled++;
-            acumlatedVoice = 0;
         }
 
     }
