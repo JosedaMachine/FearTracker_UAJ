@@ -15,26 +15,26 @@ namespace FT
         #region MouseVariables
         Point oldMousePosition;   //Position of the mouse in the previous iteration
         int mousePositionDifference;    //Difference in position between previous iteration and current one
-        int offsetMouseDifference;  //Offset
-        double averageDifference;  //Average movement, this variable changes during execution and decides if a movement is sporadic or not
-        long numberOfMovements;     //Number of times the average has been determined
-        float scaredMouseMultiplier; //Multiplier applied to the average to determine if the movement of the mouse was sporadic or not
-                                            //Decrease to increase sensitivity
+        //int offsetMouseDifference;  //Offset
+        //double averageDifference;  //Average movement, this variable changes during execution and decides if a movement is sporadic or not
+        //long numberOfMovements;     //Number of times the average has been determined
+        //float scaredMouseMultiplier; //Multiplier applied to the average to determine if the movement of the mouse was sporadic or not
+        //                                    //Decrease to increase sensitivity
 
-        DateTime lastMouseScareTime; //Saves when was the last mouse scare to avoid repeating the same input
-        int mouseScareTimeOffset;   //Minimum offset between scares in seconds
+        //DateTime lastMouseScareTime; //Saves when was the last mouse scare to avoid repeating the same input
+        //int mouseScareTimeOffset;   //Minimum offset between scares in seconds
         #endregion
 
         public MouseTracker()
         {
             oldMousePosition = Cursor.Position;
-            offsetMouseDifference = 20;
-            averageDifference = 0;
-            numberOfMovements = 0;
-            scaredMouseMultiplier = 1.7f;
+            //offsetMouseDifference = 20;
+            //averageDifference = 0;
+            //numberOfMovements = 0;
+            //scaredMouseMultiplier = 1.7f;
 
-            lastMouseScareTime = DateTime.Now;
-            mouseScareTimeOffset = 1;
+            //lastMouseScareTime = DateTime.Now;
+            //mouseScareTimeOffset = 1;
         }
 
         public void readInput()
