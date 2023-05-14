@@ -23,7 +23,7 @@ namespace FT
 
         //---Asignar valores---
         private int msKeyTimer = 1000; //Tiempo en ms que tiene una tecla para ver su nº de repeticiones
-        private int minRepetitions = 3;
+        private int minRepetitions = 1;
         //------------
 
 
