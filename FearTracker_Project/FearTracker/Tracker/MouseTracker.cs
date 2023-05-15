@@ -115,5 +115,10 @@ namespace FT
         {
             return averageDifference * scaredMouseMultiplier;
         }
+
+        public void SetScareMultiplyer(decimal value)
+        {
+            scaredMouseMultiplier = (float)value;
+        }
     }
 }

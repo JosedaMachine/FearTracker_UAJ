@@ -170,5 +170,10 @@ namespace FT
             return minRepetitions;
         }
 
+        public void SetScareMultiplyer(decimal value)
+        {
+            minRepetitions = (int)value;
+        }
+
     }
 }

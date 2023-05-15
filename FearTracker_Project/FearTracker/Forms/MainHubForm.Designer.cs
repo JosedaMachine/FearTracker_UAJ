@@ -45,7 +45,13 @@
             this.progressBarAudio = new System.Windows.Forms.ProgressBar();
             this.numericUpDownTimeTracker = new System.Windows.Forms.NumericUpDown();
             this.labelTimeTracker = new System.Windows.Forms.Label();
+            this.numericUpDownMicThreshold = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownKeyboardThreshold = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMouseThreshold = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeTracker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMicThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKeyboardThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMouseThreshold)).BeginInit();
             this.SuspendLayout();
             // 
             // labelChoose
@@ -164,7 +170,7 @@
             this.outputDeviceCombo.FormattingEnabled = true;
             this.outputDeviceCombo.Location = new System.Drawing.Point(13, 124);
             this.outputDeviceCombo.Name = "outputDeviceCombo";
-            this.outputDeviceCombo.Size = new System.Drawing.Size(182, 21);
+            this.outputDeviceCombo.Size = new System.Drawing.Size(156, 21);
             this.outputDeviceCombo.TabIndex = 12;
             this.outputDeviceCombo.SelectedIndexChanged += new System.EventHandler(this.outputDeviceCombo_SelectedIndexChanged);
             // 
@@ -216,7 +222,11 @@
             this.numericUpDownTimeTracker.Name = "numericUpDownTimeTracker";
             this.numericUpDownTimeTracker.Size = new System.Drawing.Size(41, 20);
             this.numericUpDownTimeTracker.TabIndex = 15;
-            this.numericUpDownTimeTracker.Value = new decimal(1.0);
+            this.numericUpDownTimeTracker.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownTimeTracker.ValueChanged += new System.EventHandler(this.numericUpDownTimeTracker_ValueChange);
             // 
             // labelTimeTracker
@@ -228,11 +238,79 @@
             this.labelTimeTracker.TabIndex = 16;
             this.labelTimeTracker.Text = "Select time between samples (in seconds)";
             // 
+            // numericUpDownMicThreshold
+            // 
+            this.numericUpDownMicThreshold.Location = new System.Drawing.Point(180, 124);
+            this.numericUpDownMicThreshold.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMicThreshold.Name = "numericUpDownMicThreshold";
+            this.numericUpDownMicThreshold.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownMicThreshold.TabIndex = 17;
+            this.numericUpDownMicThreshold.Value = new decimal(new int[] {
+            17,
+            0,
+            0,
+            0});
+            this.numericUpDownMicThreshold.ValueChanged += new System.EventHandler(this.numericUpDownMicThreshold_ValueChanged);
+            // 
+            // numericUpDownKeyboardThreshold
+            // 
+            this.numericUpDownKeyboardThreshold.Location = new System.Drawing.Point(548, 123);
+            this.numericUpDownKeyboardThreshold.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownKeyboardThreshold.Name = "numericUpDownKeyboardThreshold";
+            this.numericUpDownKeyboardThreshold.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownKeyboardThreshold.TabIndex = 18;
+            this.numericUpDownKeyboardThreshold.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDownKeyboardThreshold.ValueChanged += new System.EventHandler(this.numericUpDownKeyboardThreshold_ValueChanged);
+            // 
+            // numericUpDownMouseThreshold
+            // 
+            this.numericUpDownMouseThreshold.DecimalPlaces = 1;
+            this.numericUpDownMouseThreshold.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDownMouseThreshold.Location = new System.Drawing.Point(364, 123);
+            this.numericUpDownMouseThreshold.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numericUpDownMouseThreshold.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMouseThreshold.Name = "numericUpDownMouseThreshold";
+            this.numericUpDownMouseThreshold.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownMouseThreshold.TabIndex = 19;
+            this.numericUpDownMouseThreshold.Value = new decimal(new int[] {
+            17,
+            0,
+            0,
+            65536});
+            this.numericUpDownMouseThreshold.ValueChanged += new System.EventHandler(this.numericUpDownMouseThreshold_ValueChanged);
+            // 
             // MainHubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.numericUpDownMouseThreshold);
+            this.Controls.Add(this.numericUpDownKeyboardThreshold);
+            this.Controls.Add(this.numericUpDownMicThreshold);
             this.Controls.Add(this.labelTimeTracker);
             this.Controls.Add(this.numericUpDownTimeTracker);
             this.Controls.Add(this.progressBarAudio);
@@ -251,6 +329,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainHubForm_FormClosing);
             this.Load += new System.EventHandler(this.MainHubForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeTracker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMicThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKeyboardThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMouseThreshold)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,6 +355,9 @@
         private System.Windows.Forms.ProgressBar progressBarAudio;
         private System.Windows.Forms.NumericUpDown numericUpDownTimeTracker;
         private System.Windows.Forms.Label labelTimeTracker;
+        private System.Windows.Forms.NumericUpDown numericUpDownMicThreshold;
+        private System.Windows.Forms.NumericUpDown numericUpDownKeyboardThreshold;
+        private System.Windows.Forms.NumericUpDown numericUpDownMouseThreshold;
     }
 }
 

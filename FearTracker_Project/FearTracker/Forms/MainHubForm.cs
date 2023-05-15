@@ -41,7 +41,7 @@ namespace FT
             if (devicesLoaded)
                 return;
 
-            AudioTracker tracker = shared_.trackerParams.audioTracker;
+            AudioTracker tracker = AudioTracker.GetInstance();
             var devices = tracker.GetDevices();
 
             if (devices == null)
@@ -146,7 +146,7 @@ namespace FT
             // Prepara e inicia el testeo de micro
             micInTesting = true;
 
-            AudioTracker tracker = shared_.trackerParams.audioTracker;
+            AudioTracker tracker = AudioTracker.GetInstance();
             
             timer1.Enabled = true;
             tracker.ResetMicTesting();
@@ -170,7 +170,7 @@ namespace FT
 
         private void outputDeviceCombo_SelectedIndexChanged(object sender, EventArgs e) 
         {
-            AudioTracker tracker = shared_.trackerParams.audioTracker;
+            AudioTracker tracker = AudioTracker.GetInstance();
             tracker.SetSelectedDevice(outputDeviceCombo.SelectedItem);
         }
 
@@ -179,7 +179,7 @@ namespace FT
             if (!micInTesting)
                 return;
 
-            AudioTracker tracker = shared_.trackerParams.audioTracker;
+            AudioTracker tracker = AudioTracker.GetInstance();
 
             if (!tracker.IsBackgroundNoiseRecordingFinished())
             {
@@ -218,6 +218,21 @@ namespace FT
             float val = (float)numericUpDownTimeTracker.Value;
 
             //recordingTime = val;
+        }
+
+        private void numericUpDownMicThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            AudioTracker.GetInstance().SetScareMultiplyer(numericUpDownMicThreshold.Value);
+        }
+
+        private void numericUpDownKeyboardThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            InputTracker.GetInstance().SetScareMultiplyer(numericUpDownKeyboardThreshold.Value);
+        }
+
+        private void numericUpDownMouseThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            MouseTracker.GetInstance().SetScareMultiplyer(numericUpDownMouseThreshold.Value);
         }
     }
 }

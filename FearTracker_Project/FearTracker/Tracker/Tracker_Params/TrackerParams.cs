@@ -13,8 +13,6 @@ namespace FT
         public bool mouseTracking { get; set; }
         public bool MicTracking { get; set; }
         public bool KeyboardTracking { get; set; }
-
-        public AudioTracker audioTracker { get; set; }
         
         public int trackingCount { get; set; } = 1;
 

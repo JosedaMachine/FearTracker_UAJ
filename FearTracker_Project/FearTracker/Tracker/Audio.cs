@@ -29,7 +29,7 @@ namespace AudioTracking
         private int backgroundTimeRecording = 0;    //s actuales
         private float backgroundAcum = 0;
 
-        private const int screamMultiplicator = 17;   //Gritar X veces más alto de lo que hablas para que cuente como grito
+        private int screamMultiplicator = 17;   //Gritar X veces más alto de lo que hablas para que cuente como grito
         private const int speakingMultiplicator = 15; //Hablar X veces más alto de lo que suena el sonido de fondo para que lo pille
         private bool screaming = false;
 
@@ -201,6 +201,11 @@ namespace AudioTracking
 
             timesCalled = 0;
             acumlatedVoice = 0;
+        }
+
+        public void SetScareMultiplyer(decimal value)
+        {
+            screamMultiplicator = (int)value;
         }
 
         public void ReadInput()
