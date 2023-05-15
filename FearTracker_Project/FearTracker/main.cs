@@ -32,7 +32,7 @@ namespace FT
         static InputTracker inputTracker;
         static AudioTracker audioTracker;
 
-        public static int recordingTimeMilliseconds = 500;   //Cada cuanto quiero grabar
+        //public static int recordingTimeMilliseconds = 500;   //Cada cuanto quiero grabar
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -59,7 +59,7 @@ namespace FT
 
             //Esperar a que acabe el hilo
             trackerThread.Join();
-            Application.Run(new MetricForm(ref shared, recordingTimeMilliseconds));
+            Application.Run(new MetricForm(ref shared));
         }
 
         static void StartTracker(object arg)
@@ -97,7 +97,7 @@ namespace FT
                 if (parameters.MicTracking)
                     audioTracker.ReadInput();
 
-                if (currTime - timeSinceLastRecord > recordingTimeMilliseconds)
+                if (currTime - timeSinceLastRecord > shared.trackerParams.recordingTimeMilliseconds)
                 {
                     if (parameters.MicTracking)
                         audioTracker.sendEventAndRecord();
@@ -127,7 +127,7 @@ namespace FT
 
             string nameApp = trackerParams.process.ProcessName;
 
-            TrackerSystem.Init(nameApp, "2", Environment.UserName, ref filePersistence);
+            TrackerSystem.Init(nameApp, "1", Environment.UserName, ref filePersistence);
 
             TrackerSystem tracker = TrackerSystem.GetInstance();
 

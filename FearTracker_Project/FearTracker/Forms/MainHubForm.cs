@@ -224,9 +224,7 @@ namespace FT
 
         private void numericUpDownTimeTracker_ValueChange(object sender, EventArgs e)
         {
-            float val = (float)numericUpDownTimeTracker.Value;
-
-            //recordingTime = val;
+            shared_.trackerParams.recordingTimeMilliseconds = (long)(numericUpDownTimeTracker.Value*1000);
         }
 
         private void numericUpDownMicThreshold_ValueChanged(object sender, EventArgs e)

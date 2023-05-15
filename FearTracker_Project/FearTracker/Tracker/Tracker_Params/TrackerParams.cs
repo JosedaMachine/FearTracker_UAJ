@@ -13,7 +13,7 @@ namespace FT
         public bool mouseTracking { get; set; }
         public bool MicTracking { get; set; }
         public bool KeyboardTracking { get; set; }
-        
+
         public int trackingCount { get; set; } = 1;
 
         public Process process { get; set; }
@@ -21,5 +21,7 @@ namespace FT
         public bool canStop { get; set; }
 
         public long startTime { get; set; }
+
+        public long recordingTimeMilliseconds { get; set; } = 500;
     }
 }

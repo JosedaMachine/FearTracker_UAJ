@@ -17,12 +17,10 @@ namespace FT
     public partial class MetricForm : Form
     {
         SharedObject shared_;
-        int recordIntervalMs;
-        public MetricForm(ref SharedObject shared, int recordingTimeMilliseconds)
+        public MetricForm(ref SharedObject shared)
         {
             shared_ = shared;
             InitializeComponent();
-            recordIntervalMs = recordingTimeMilliseconds;
         }
 
         private void MetricForm_Load(object sender, EventArgs e)
@@ -108,7 +106,7 @@ namespace FT
                     DataPoint scarePoint = new DataPoint(elapsedTime, y);//Es binario la coordenada y
                     series[3].Points.Add(scarePoint);
                     //Reset
-                    lastIntervalRecorded = elapsedTime + (float)(recordIntervalMs/1000);
+                    lastIntervalRecorded = elapsedTime + (float)(shared_.trackerParams.recordingTimeMilliseconds/1000);
                     userScared = false;
                 }
             }
