@@ -116,7 +116,11 @@ namespace FT
         #region Tracker
         static void Init(ref TrackerParams trackerParams)
         {
-            
+            //Get Trackers
+            inputTracker = InputTracker.GetInstance();
+            mouseTracker = MouseTracker.GetInstance();
+            audioTracker = AudioTracker.GetInstance();
+
             //Main tracker events
             ISerializer serializerCSV = new CSVSerializer();
             IPersistence filePersistence = new FilePersistence(ref serializerCSV);
