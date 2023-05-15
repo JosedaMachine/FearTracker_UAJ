@@ -48,10 +48,10 @@ namespace FT
             offsetMouseDifference = 20;
             averageDifference = 0;
             numberOfMovements = 0;
-            scaredMouseMultiplier = 1.7f;
+            scaredMouseMultiplier = 6.0f;
 
             lastMouseScareTime = DateTime.Now;
-            mouseScareTimeOffset = 4;
+            mouseScareTimeOffset = 8;
 
             userScared = false;
         }
@@ -111,9 +111,14 @@ namespace FT
         /// Determines if the user is scared, which happens if the mouse was moved faster than before
         /// </summary>
         /// <returns></returns>
-        public double scareThreshold()
+        public double ScareThreshold()
         {
             return averageDifference * scaredMouseMultiplier;
+        }
+
+        public float GetScareMultiplyer()
+        {
+            return scaredMouseMultiplier;
         }
 
         public void SetScareMultiplyer(decimal value)
