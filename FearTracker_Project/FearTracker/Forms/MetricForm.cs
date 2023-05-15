@@ -39,7 +39,7 @@ namespace FT
                 //Mic
                 series[0] = createSeries(ref MicChart);
                 series[0].Color = Color.Violet;
-                configureAxis(ref MicChart, "Sound (db)");
+                configureAxis(ref MicChart, "Sound (micrpohone audio level %)");
             }
 
             if (shared_.trackerParams.mouseTracking)

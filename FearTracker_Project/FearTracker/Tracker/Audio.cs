@@ -15,7 +15,7 @@ namespace AudioTracking
 
         //Quizás a esto haya que ponerle estático, no lo se
         private float defaultSpeakingVolume = 4000.0f;   //Basado en las pruebas que hemos hecho, esto da más o menos si hablas a un tono normal (Por si mi colegui no quiere hacer los test)
-        private const float voiceMult = 100000.0f; //Para que el volumen sean números mayores que cero
+        private const float voiceMult = 100.0f; //Para que el volumen sean números mayores que cero
 
 
         private int speakingCont = 0;               //Las veces que ha hablado
