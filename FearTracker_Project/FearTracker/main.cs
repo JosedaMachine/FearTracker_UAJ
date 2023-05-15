@@ -59,7 +59,7 @@ namespace FT
 
             //Esperar a que acabe el hilo
             trackerThread.Join();
-            Application.Run(new MetricForm(ref shared));
+            Application.Run(new MetricForm(ref shared, recordingTimeMilliseconds));
         }
 
         static void StartTracker(object arg)

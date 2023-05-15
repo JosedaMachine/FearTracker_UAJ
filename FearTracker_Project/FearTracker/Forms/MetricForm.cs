@@ -17,11 +17,12 @@ namespace FT
     public partial class MetricForm : Form
     {
         SharedObject shared_;
-        public MetricForm(ref SharedObject shared)
+        int recordIntervalMs;
+        public MetricForm(ref SharedObject shared, int recordingTimeMilliseconds)
         {
             shared_ = shared;
             InitializeComponent();
-
+            recordIntervalMs = recordingTimeMilliseconds;
         }
 
         private void MetricForm_Load(object sender, EventArgs e)
@@ -65,42 +66,50 @@ namespace FT
             double mouseThreshold = MouseTracker.GetInstance().scareThreshold();
             int inputThreshold = InputTracker.GetInstance().scareThreshold();
 
-            bool userScared = false,unsavedPoint = true;//Se ha asustado ª
+            bool userScared = false;//Se ha asustado ª
+
+            //Ultimo intervalo de grbacion de seguimiento
+            float lastIntervalRecorded = 0;
 
             // Agregar los puntos de datos a las series
             foreach (jsonData dato in datos)
             {
                 int evType = (int)(dato.EventType[0]) - (int)'0';
+                float elapsedTime = (dato.TimeStamp - shared_.trackerParams.startTime) / 1000.0f;
 
                 if (evType >= 0 && evType < 3)
                 {
                     // Escribir puntos en graficas
-                    float elapsedTime = (dato.TimeStamp - shared_.trackerParams.startTime)/1000.0f;
                     DataPoint punto = new DataPoint(elapsedTime, dato.y);
                     series[evType].Points.Add(punto);
-                    if (!userScared)//Comprobar si el usuario ha superado algun umbral
+                }
+                //Comprobar si ha habido algun susto
+                if (!userScared)//Comprobar si el usuario ha superado algun umbral
+                {
+                    switch (evType)
                     {
-                        switch (evType)
-                        {
-                            case 0://umbral mic
-                                userScared = (dato.y > audioThreshold)? true: false;
-                                break;
-                            case 1://Umbral mouse
-                                userScared = (dato.y > mouseThreshold)? true: false;
-                                break;
-                            case 2://umbral input
-                                userScared = (dato.y > inputThreshold)? true: false;
-                                break;
-                            default:
-                                break;
-                        }
+                        case 0://umbral mic
+                            userScared = (dato.y > audioThreshold) ? true : false;
+                            break;
+                        case 1://Umbral mouse
+                            userScared = (dato.y > mouseThreshold) ? true : false;
+                            break;
+                        case 2://umbral input
+                            userScared = (dato.y > inputThreshold) ? true : false;
+                            break;
+                        default:
+                            break;
                     }
+                }
 
-                    if(userScared && unsavedPoint){
-                        DataPoint scarePoint = new DataPoint(elapsedTime, 1);//Es binario la coordenada y
-                        series[3].Points.Add(scarePoint);
-                        unsavedPoint = false;
-                    }
+                if (lastIntervalRecorded < elapsedTime)//Si ha pasado el intervalo de tiempo gestiona sustos
+                {
+                    int y = (userScared) ? 1 : 0;
+                    DataPoint scarePoint = new DataPoint(elapsedTime, y);//Es binario la coordenada y
+                    series[3].Points.Add(scarePoint);
+                    //Reset
+                    lastIntervalRecorded = elapsedTime + (float)(recordIntervalMs/1000);
+                    userScared = false;
                 }
             }
         }
