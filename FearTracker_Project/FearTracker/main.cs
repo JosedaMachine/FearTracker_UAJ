@@ -68,7 +68,7 @@ namespace FT
             TrackerParams parameters = shared.trackerParams;
 
             //Lo he movido aquí para que exista el AudioTracker en el menu
-            parameters.audioTracker = new AudioTracker();
+            parameters.audioTracker = AudioTracker.GetInstance();
             audioTracker = parameters.audioTracker;
 
             //Esperar a que la aplicación permita iniciarse.
@@ -120,8 +120,8 @@ namespace FT
         static void Init(ref TrackerParams trackerParams)
         {
             //Input Trackers
-            inputTracker = new InputTracker();
-            mouseTracker = new MouseTracker();
+            inputTracker = InputTracker.GetInstance();
+            mouseTracker = MouseTracker.GetInstance();
 
             //trackerParams.audioTracker = new AudioTracker();
             //audioTracker = trackerParams.audioTracker;

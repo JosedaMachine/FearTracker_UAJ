@@ -271,7 +271,7 @@ namespace GameTracker
             // Verificamos si el tipo T tiene un constructor que coincida con la cantidad de par·metros recibidos
             ConstructorInfo constructor = tipo.GetConstructor(tiposParametros);
             if (constructor == null)
-                //No se encontrÛ un constructor adecuado para los par·metros proporcionados
+                //No se encontrÅEun constructor adecuado para los par·metros proporcionados
                 return default(T); 
 
             // Crea una nueva instancia del objeto T con los par·metros proporcionados

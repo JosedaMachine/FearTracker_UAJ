@@ -69,6 +69,16 @@ namespace AudioTracking
         //    }
 
         //}
+        private static AudioTracker instance = null;
+        public static AudioTracker GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new AudioTracker();
+            }
+
+            return instance;
+        }
 
         public AudioTracker()
         {
@@ -198,6 +208,9 @@ namespace AudioTracking
             acumlatedVoice += selectedDevice.AudioMeterInformation.MasterPeakValue * GetVoiceMult();
             timesCalled++;
         }
-
+        public float scareThreshold()
+        {
+            return defaultSpeakingVolume * screamMultiplicator;
+        }
     }
 }

@@ -30,6 +30,17 @@ namespace FT
         bool userScared;
         #endregion
 
+        private static MouseTracker instance = null;
+        public static MouseTracker GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new MouseTracker();
+            }
+
+            return instance;
+        }
+
         public MouseTracker()
         {
             oldMousePosition = Cursor.Position;
@@ -100,9 +111,9 @@ namespace FT
         /// Determines if the user is scared, which happens if the mouse was moved faster than before
         /// </summary>
         /// <returns></returns>
-        public bool getScared()
+        public double scareThreshold()
         {
-            return userScared;
+            return averageDifference * scaredMouseMultiplier;
         }
     }
 }

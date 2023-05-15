@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using AudioTracking;
 
 namespace FT
 {
@@ -59,11 +60,17 @@ namespace FT
             series[3] = createSeries(ref scareChart);
             configureAxis(ref scareChart, "Scare");
 
+            //Umbrales de susto
+            float audioThreshold = AudioTracker.GetInstance().scareThreshold();
+            double mouseThreshold = MouseTracker.GetInstance().scareThreshold();
+            int inputThreshold = InputTracker.GetInstance().scareThreshold();
+
+            bool userScared = false,unsavedPoint = true;//Se ha asustado ª
+
             // Agregar los puntos de datos a las series
             foreach (jsonData dato in datos)
             {
                 int evType = (int)(dato.EventType[0]) - (int)'0';
-
 
                 if (evType >= 0 && evType < 3)
                 {
@@ -71,10 +78,29 @@ namespace FT
                     float elapsedTime = (dato.TimeStamp - shared_.trackerParams.startTime)/1000.0f;
                     DataPoint punto = new DataPoint(elapsedTime, dato.y);
                     series[evType].Points.Add(punto);
+                    if (!userScared)//Comprobar si el usuario ha superado algun umbral
+                    {
+                        switch (evType)
+                        {
+                            case 0://umbral mic
+                                userScared = (dato.y > audioThreshold)? true: false;
+                                break;
+                            case 1://Umbral mouse
+                                userScared = (dato.y > mouseThreshold)? true: false;
+                                break;
+                            case 2://umbral input
+                                userScared = (dato.y > inputThreshold)? true: false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
 
-
-                    //DataPoint scarePoint = new DataPoint(elapsedTime, dato.y);
-                    //series[evType].Points.Add(scarePoint);
+                    if(userScared && unsavedPoint){
+                        DataPoint scarePoint = new DataPoint(elapsedTime, 1);//Es binario la coordenada y
+                        series[3].Points.Add(scarePoint);
+                        unsavedPoint = false;
+                    }
                 }
             }
         }

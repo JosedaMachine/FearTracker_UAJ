@@ -19,17 +19,29 @@ namespace FT
 
         private List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
 
-        private int inputRepetitions, numInputs;
+        private int inputRepetitions;
 
         //---Asignar valores---
         private int msKeyTimer = 1000; //Tiempo en ms que tiene una tecla para ver su nº de repeticiones
-        private int minRepetitions = 1;
+        private int minRepetitions = 4;
         //------------
 
 
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern short GetAsyncKeyState(System.Int32 vKey);
+
+
+
+        private static InputTracker instance = null;
+        public static InputTracker GetInstance() {
+            if (instance == null)
+            {
+                instance = new InputTracker();
+            }
+
+            return instance;
+        }
 
         public void readInput()
         {
@@ -127,7 +139,7 @@ namespace FT
             if (i.Value < keyRepetitions.Count)
             {
                 //Enviar evento si cumple los requisitos
-                if (keyRepetitions[i.Value].Item2 > minRepetitions)
+                if (keyRepetitions[i.Value].Item2 > 1)
                 {
                     eventInputHandler(keyRepetitions[i.Value].Item1, keyRepetitions[i.Value].Item2); //Mandar evento de teclado
                 }
@@ -150,7 +162,12 @@ namespace FT
             ts.trackEvent(scare);
 
             //Reset
-            inputRepetitions = numInputs = 0;
+            inputRepetitions = 0;
+        }
+
+        public int scareThreshold()
+        {
+            return minRepetitions;
         }
 
     }
