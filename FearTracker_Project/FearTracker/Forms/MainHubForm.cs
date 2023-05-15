@@ -33,6 +33,11 @@ namespace FT
             outputDeviceCombo.Hide();
             buttonAudioTest.Hide();
             progressBarAudio.Hide();
+
+            //Cogemos las variables de susto
+            numericUpDownMicThreshold.Value = AudioTracker.GetInstance().GetScreamMult();
+            numericUpDownKeyboardThreshold.Value = InputTracker.GetInstance().GetScareThreshold();
+            numericUpDownMouseThreshold.Value = new decimal(MouseTracker.GetInstance().GetScareMultiplyer());
         }
 
         // Busca y añade al ComboBox los posibles dispositivos

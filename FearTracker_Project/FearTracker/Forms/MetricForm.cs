@@ -63,8 +63,8 @@ namespace FT
 
             //Umbrales de susto
             float audioThreshold = AudioTracker.GetInstance().scareThreshold();
-            double mouseThreshold = MouseTracker.GetInstance().scareThreshold();
-            int inputThreshold = InputTracker.GetInstance().scareThreshold();
+            double mouseThreshold = MouseTracker.GetInstance().ScareThreshold();
+            int inputThreshold = InputTracker.GetInstance().GetScareThreshold();
 
             bool userScared = false;//Se ha asustado ª
 

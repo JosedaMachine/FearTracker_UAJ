@@ -111,9 +111,14 @@ namespace FT
         /// Determines if the user is scared, which happens if the mouse was moved faster than before
         /// </summary>
         /// <returns></returns>
-        public double scareThreshold()
+        public double ScareThreshold()
         {
             return averageDifference * scaredMouseMultiplier;
+        }
+
+        public float GetScareMultiplyer()
+        {
+            return scaredMouseMultiplier;
         }
 
         public void SetScareMultiplyer(decimal value)

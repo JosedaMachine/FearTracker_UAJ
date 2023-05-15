@@ -165,7 +165,7 @@ namespace FT
             inputRepetitions = 0;
         }
 
-        public int scareThreshold()
+        public int GetScareThreshold()
         {
             return minRepetitions;
         }
