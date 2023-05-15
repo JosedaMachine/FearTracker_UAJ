@@ -82,6 +82,9 @@ namespace FT
 
             shared.trackerParams.startTime = timeSinceLastRecord;
 
+            if (parameters.mouseTracking)
+                mouseTracker.initialize();
+
             DateTime currentTime = DateTime.Now;
 
             while (!parameters.canStop)
@@ -91,7 +94,7 @@ namespace FT
                 long currTime = TrackerSystem.GetInstance().getCurrTimeMilliseconds();
 
                 if (parameters.mouseTracking)
-                    mouseTracker.readInput(currentTime);
+                    mouseTracker.readInput();
                 if (parameters.KeyboardTracking)
                     inputTracker.readInput();
                 if (parameters.MicTracking)
@@ -102,7 +105,7 @@ namespace FT
                     if (parameters.MicTracking)
                         audioTracker.sendEventAndRecord();
                     if (parameters.mouseTracking)
-                        mouseTracker.sendEventAndRecord();
+                        mouseTracker.sendEventAndRecord(currentTime);
                     if (parameters.KeyboardTracking)
                         inputTracker.sendEventAndRecord();
 

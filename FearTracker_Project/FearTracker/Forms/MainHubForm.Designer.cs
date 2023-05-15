@@ -277,31 +277,21 @@
             // 
             // numericUpDownMouseThreshold
             // 
-            this.numericUpDownMouseThreshold.DecimalPlaces = 1;
+            this.numericUpDownMouseThreshold.DecimalPlaces = 2;
             this.numericUpDownMouseThreshold.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            65536});
+            131072});
             this.numericUpDownMouseThreshold.Location = new System.Drawing.Point(364, 123);
-            this.numericUpDownMouseThreshold.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.numericUpDownMouseThreshold.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownMouseThreshold.Name = "numericUpDownMouseThreshold";
             this.numericUpDownMouseThreshold.Size = new System.Drawing.Size(82, 20);
             this.numericUpDownMouseThreshold.TabIndex = 19;
             this.numericUpDownMouseThreshold.Value = new decimal(new int[] {
-            17,
+            30,
             0,
             0,
-            65536});
+            0});
             this.numericUpDownMouseThreshold.ValueChanged += new System.EventHandler(this.numericUpDownMouseThreshold_ValueChanged);
             // 
             // MainHubForm
