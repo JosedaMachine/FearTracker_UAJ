@@ -52,6 +52,7 @@ namespace FT
             {
                 //keyboard
                 series[2] = createSeries(ref keyboardChart);
+                series[2].Color = Color.YellowGreen;
                 configureAxis(ref keyboardChart, "Number of inputs");
             }
 
