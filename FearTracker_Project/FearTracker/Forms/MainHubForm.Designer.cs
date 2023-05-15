@@ -48,6 +48,7 @@
             this.numericUpDownMicThreshold = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownKeyboardThreshold = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMouseThreshold = new System.Windows.Forms.NumericUpDown();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeTracker)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMicThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKeyboardThreshold)).BeginInit();
@@ -358,6 +359,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMicThreshold;
         private System.Windows.Forms.NumericUpDown numericUpDownKeyboardThreshold;
         private System.Windows.Forms.NumericUpDown numericUpDownMouseThreshold;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

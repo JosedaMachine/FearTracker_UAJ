@@ -38,6 +38,10 @@ namespace FT
             numericUpDownMicThreshold.Value = AudioTracker.GetInstance().GetScreamMult();
             numericUpDownKeyboardThreshold.Value = InputTracker.GetInstance().GetScareThreshold();
             numericUpDownMouseThreshold.Value = new decimal(MouseTracker.GetInstance().GetScareMultiplyer());
+
+            toolTip1.SetToolTip(numericUpDownMouseThreshold, "Mouse Threshold");
+            toolTip1.SetToolTip(numericUpDownKeyboardThreshold, "Keyboard Threshold");
+            toolTip1.SetToolTip(numericUpDownMicThreshold, "Microphone Threshold");
         }
 
         // Busca y añade al ComboBox los posibles dispositivos
