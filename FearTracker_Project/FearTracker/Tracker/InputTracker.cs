@@ -17,8 +17,6 @@ namespace FT
         private List<Tuple<string, System.Timers.Timer>> keyTimers = new List<Tuple<string, System.Timers.Timer>>();
         private Dictionary<int, bool> previousKeyStates = new Dictionary<int, bool>();
 
-        private List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
-
         private int inputRepetitions;
 
         //---Asignar valores---
@@ -150,8 +148,9 @@ namespace FT
 
         private void eventInputHandler(string keyName, int repetitions)
         {
-            inputRepetitions += repetitions;
-            Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
+            if(inputRepetitions <= repetitions)//Si la repeticion de una tecla es mayor que la otra, se guarda como la maxima
+                inputRepetitions = repetitions;
+            //Console.WriteLine("Key {0} was pressed {1} times", keyName, repetitions);
         }
 
         public void sendEventAndRecord()
