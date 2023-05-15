@@ -48,10 +48,10 @@ namespace FT
             offsetMouseDifference = 20;
             averageDifference = 0;
             numberOfMovements = 0;
-            scaredMouseMultiplier = 1.7f;
+            scaredMouseMultiplier = 6.0f;
 
             lastMouseScareTime = DateTime.Now;
-            mouseScareTimeOffset = 4;
+            mouseScareTimeOffset = 8;
 
             userScared = false;
         }
