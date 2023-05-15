@@ -124,7 +124,7 @@ namespace FT
                 if (extension == ".exe" || extension == ".mp4")
                 {
 
-                    MessageBox.Show("Your applications is going to be tracked. This window will be closed.");
+                    MessageBox.Show("Your applications is going to be tracked in background.\nTo stop tracking press Stop");
 
                     shared_.trackerParams.process.StartInfo.FileName = filePath;
 
