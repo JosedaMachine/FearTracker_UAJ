@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DA79BA22-4ADB-4F08-B027-15650B70CBBC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Gravedad</RootNamespace>
-    <AssemblyName>Gravedad</AssemblyName>
+    <RootNamespace>FearTracker</RootNamespace>
+    <AssemblyName>FearTracker</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -132,6 +132,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
