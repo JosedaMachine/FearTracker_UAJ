@@ -39,9 +39,9 @@ namespace FT
             numericUpDownKeyboardThreshold.Value = InputTracker.GetInstance().GetScareThreshold();
             numericUpDownMouseThreshold.Value = new decimal(MouseTracker.GetInstance().GetScareMultiplyer());
 
-            toolTip1.SetToolTip(numericUpDownMouseThreshold, "Mouse Threshold");
-            toolTip1.SetToolTip(numericUpDownKeyboardThreshold, "Keyboard Threshold");
-            toolTip1.SetToolTip(numericUpDownMicThreshold, "Microphone Threshold");
+            toolTip1.SetToolTip(numericUpDownMouseThreshold, "Mouse threshold for screen percentage per iteration");
+            toolTip1.SetToolTip(numericUpDownKeyboardThreshold, "Keyboard threshold for number of keys pressed per iteration");
+            toolTip1.SetToolTip(numericUpDownMicThreshold, "Microphone threshold for scream multiplier per iteration");
         }
 
         // Busca y añade al ComboBox los posibles dispositivos
