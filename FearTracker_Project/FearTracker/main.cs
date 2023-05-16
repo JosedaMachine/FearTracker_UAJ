@@ -22,17 +22,10 @@ namespace FT
     }
     internal static class main
     {
-        //public static DateTime initDateTime, endDateTime;   //Para los timers 
-        //public static float currentTime;
-        //static Stopwatch stopwatch;
-        //static bool quit = false;   //Para salir de la aplicación
-
         //Los distintos trackers
         static MouseTracker mouseTracker;
         static InputTracker inputTracker;
         static AudioTracker audioTracker;
-
-        //public static int recordingTimeMilliseconds = 500;   //Cada cuanto quiero grabar
 
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -117,6 +110,11 @@ namespace FT
         }
 
         #region Tracker
+
+        /// <summary>
+        /// Initializes all trackers and persistencies
+        /// </summary>
+        /// <param name="trackerParams"></param>
         static void Init(ref TrackerParams trackerParams)
         {
             //Get Trackers
@@ -145,11 +143,18 @@ namespace FT
             tracker.setFrecuencyPersistanceTimeSeconds(3); 
         }
 
+        /// <summary>
+        /// Starts tracking.
+        /// </summary>
         static void Start()
         {
             //Iniciar el tracker
             TrackerSystem.GetInstance().Start();
         }
+
+        /// <summary>
+        /// Stops all trackers.
+        /// </summary>
         static void Stop()
         {
             TrackerSystem tracker = TrackerSystem.GetInstance();

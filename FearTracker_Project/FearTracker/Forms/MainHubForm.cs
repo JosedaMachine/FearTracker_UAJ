@@ -95,6 +95,7 @@ namespace FT
                 outputDeviceCombo.Hide();
             }
         }
+
         //Keyboard
         private void checkKeyboardClick(object sender, EventArgs e)
         {
@@ -107,6 +108,11 @@ namespace FT
                 shared_.trackerParams.trackingCount -= 1;
         }
 
+        /// <summary>
+        /// Callback to start tracking an application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonStartClick(object sender, EventArgs e)
         {
             if (shared_.trackerParams.MicTracking && !micTested)
@@ -135,7 +141,7 @@ namespace FT
                 }
                 else
                 {
-                    MessageBox.Show("Men ?");
+                    MessageBox.Show("This type of file it's not supported. Must be .exe of .mp4");
                 }
             }
 

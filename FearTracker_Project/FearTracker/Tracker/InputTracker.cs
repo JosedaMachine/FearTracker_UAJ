@@ -24,8 +24,6 @@ namespace FT
         private int minRepetitions = 4;
         //------------
 
-
-
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern short GetAsyncKeyState(System.Int32 vKey);
 

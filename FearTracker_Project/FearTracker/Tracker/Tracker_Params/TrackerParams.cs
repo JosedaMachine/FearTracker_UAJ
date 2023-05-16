@@ -8,6 +8,9 @@ using AudioTracking;
 
 namespace FT
 {
+    /// <summary>
+    /// Collection to store data which will use multiple threads along the project.
+    /// </summary>
     public class TrackerParams
     {
         public bool mouseTracking { get; set; }
