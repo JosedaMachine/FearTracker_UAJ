@@ -66,6 +66,7 @@
 
             this.SuspendLayout();
 
+            // Tamaño de las graficas
             int chartWidth = shared_.trackerParams.trackingCount < 3 ? (width - (offset * 2)) : ((width / 2) - (offset * 3));
             int chartHeight = shared_.trackerParams.trackingCount < 2 ? (height - (offset * 2)) : ((height / 2) - (offset * 3));
 
@@ -182,7 +183,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart keyboardChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart scareChart;
 
-        //private int[] positionsY = new int[] { offset, (height / 2) + (int)(offset * 1.5f), (height / 2) - ((height / 2) - (offset * 3))/2 };
+        // Posicion de las graficas
         private int[] positionsY = new int[] { offset, (height / 2) + (int)(offset * 1.5f), offset, (height / 2) + (int)(offset * 1.5f) };
         private int[] positionsX = new int[] { offset, offset, (width / 2) + (int)(offset * 1.5f), (width / 2) + (int)(offset * 1.5f) };
     }

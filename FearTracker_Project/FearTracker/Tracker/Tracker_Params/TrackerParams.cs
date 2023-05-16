@@ -14,14 +14,14 @@ namespace FT
         public bool MicTracking { get; set; }
         public bool KeyboardTracking { get; set; }
 
-        public int trackingCount { get; set; } = 1;
+        public int trackingCount { get; set; } = 1; // Conteo de herramientas de seguimiento activas.
 
         public Process process { get; set; }
         public bool canStart { get; set; }
         public bool canStop { get; set; }
 
-        public long startTime { get; set; }
+        public long startTime { get; set; } // Tiempo de inicio del tracker
 
-        public long recordingTimeMilliseconds { get; set; } = 500;
+        public long recordingTimeMilliseconds { get; set; } = 500; // Intervalo de tiempo en el que se recogen los eventos
     }
 }

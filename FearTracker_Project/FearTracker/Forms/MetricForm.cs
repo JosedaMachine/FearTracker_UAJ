@@ -31,13 +31,13 @@ namespace FT
 
             Series[] series = new Series[4];
 
-            // Crear la serie de los gráficos
+            // Crear la serie de los graficos
             if (shared_.trackerParams.MicTracking)
             {
                 //Mic
                 series[0] = createSeries(ref MicChart);
                 series[0].Color = Color.Violet;
-                configureAxis(ref MicChart, "Sound (micrpohone audio level %)");
+                configureAxis(ref MicChart, "Sound (micrpohone audio level percentage)");
             }
 
             if (shared_.trackerParams.mouseTracking)
@@ -45,7 +45,7 @@ namespace FT
                 //mouse
                 series[1] = createSeries(ref mouseChart);
                 series[1].Color = Color.Tomato;
-                configureAxis(ref mouseChart, "Movement (points)");
+                configureAxis(ref mouseChart, "Movement (pixels per iteration)");
             }
 
             if (shared_.trackerParams.KeyboardTracking)
